@@ -1,1 +1,148 @@
-<p>login works!</p>
+<nz-content>
+    <nz-card class="borders-container" nzHoverable >
+        <nz-row [nzGutter]="[8,8]" nzAlign="middle" nzJustify="center">
+            <nz-col>
+                <b style="font-size: 23px;">FORMULARIO DE BÚSQUEDA DE OFICIALES DE POLICÍA</b>
+            </nz-col>
+            <nz-col>
+                <img class="image-policeman" src="assets/promotions/police-man.png" alt="" />
+            </nz-col>
+            <nz-col nzMd="24" nzXs="24">
+                <nz-input-group [nzSuffix]="suffixIconSearch">
+                    <input type="text" nz-input placeholder="Escribir identificación" [(ngModel)]="searchText" />
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                    <span nz-icon nzType="search"></span>
+                </ng-template>
+            </nz-col>
+            <nz-col nzMd="24" nzXs="24" style="text-align: end;">
+                <button nz-button nzType="primary" (click)="searchPoliceman()">
+                    <span nz-icon nzType="search"></span>
+                    Buscar
+                </button>
+            </nz-col>
+            <nz-spin [nzSpinning]="isLoading"></nz-spin>
+            <nz-col nzMd="24" nzXs="24" *ngIf="view">
+                <ng-container *ngIf="dataSearch; else tempdarasearch">
+                    <nz-row [nzGutter]="[8,8]">
+                        <nz-col nzMd="24" nzXs="24">
+                            <nz-alert nzType="success" [nzMessage]="messageAlert"></nz-alert>
+                        </nz-col>
+                        <ng-template #messageAlert>
+                            <strong>La cédula consultada es beneficiaria de las promociones vigentes de la CEE</strong>
+                        </ng-template>
+                        <nz-col nzMd="24" nzXs="24">
+                            <nz-descriptions nzBordered nzSize="small" nzLayout="vertical">
+                                <nz-descriptions-item nzTitle="Identificación" >{{dataSearch.pol_identifier}}
+                                </nz-descriptions-item>
+                                <nz-descriptions-item nzTitle="Nombres" style="font: bold;">
+                                    {{dataSearch.pol_first_name}}
+                                </nz-descriptions-item>
+                                <nz-descriptions-item nzTitle="Apellidos" style="font: bold;">
+                                    {{dataSearch.pol_last_name}}
+                                </nz-descriptions-item>
+                                <nz-descriptions-item nzTitle="Celular" style="font: bold;">
+                                    {{dataSearch.pol_phone}}
+                                </nz-descriptions-item>
+                                <nz-descriptions-item nzTitle="Correo" style="font: bold;">
+                                    {{dataSearch.pol_email}}
+                                </nz-descriptions-item>
+                            </nz-descriptions>
+                        </nz-col>
+                        <nz-col nzMd="24" nzXs="24">
+                            <b style="width: auto;">Registrar compras</b>
+                        </nz-col>
+                        <nz-col nzMd="24" nzXs="24">
+                            <form nz-form [formGroup]="validateForm" (submit)="saveInvoice()">
+                                <nz-row [nzGutter]="[8,8]">
+                                    <nz-col class="gutter-row" nzMd="8" nzXs="24">
+                                        <nz-form-label class="nz-text-box-label label-align" nzMd="24" nzRequired>
+                                            Número de factura
+                                        </nz-form-label>
+                                        <input nz-input placeholder="Escribir el numero de factura"
+                                            formControlName="pip_num_invoice" autocomplete="off" />
+                                    </nz-col>
+                                    <nz-col class="gutter-row" nzMd="8" nzXs="24">
+                                        <nz-form-label class="nz-text-box-label label-align" nzMd="24" nzRequired>
+                                            Monto
+                                        </nz-form-label>
+                                        <nz-input-number formControlName="pip_amount"
+                                            style="width: 100%;"></nz-input-number>
+                                    </nz-col>
+                                    <nz-col class="gutter-row" nzMd="8" nzXs="24">
+                                        <nz-form-label class="nz-text-box-label label-align" nzMd="24" nzRequired>
+                                            Descuento
+                                        </nz-form-label>
+                                        <nz-input-number formControlName="pip_discount"
+                                            style="width: 100%;"></nz-input-number>
+                                    </nz-col>
+                                    <nz-col class="gutter-row" nzMd="24" nzXs="24" style="text-align: right;">
+                                        <button nz-button nzType="primary">
+                                            <span nz-icon nzType="save"></span>
+                                            Guardar
+                                        </button>
+                                    </nz-col>
+                                </nz-row>
+                            </form>
+                            <nz-col nzMd="24" nzXs="24">
+                                <b style="width: auto;">Lista de compras</b>
+                            </nz-col>
+
+                            <nz-table #sortTable [nzData]="dataInvoice" nzTableLayout="fixed">
+                                <thead>
+                                    <tr>
+                                        <th *ngFor="let column of table.columns" [nzSortFn]="column.compare"
+                                            [nzSortPriority]="column.priority">
+                                            {{ column.title | uppercase}}
+                                        </th>
+                                        <th>ACCIONES</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr *ngFor="let data of sortTable.data">
+                                        <td>{{ data.pip_num_invoice }}</td>
+                                        <td>{{ data.pip_amount }}</td>
+                                        <td>{{ data.pip_discount }}</td>
+                                        <td style="text-align: center;">
+                                            <button nz-button nzType="primary" nz-dropdown [nzDropdownMenu]="menu"
+                                                style="border-radius: 8px;">
+                                                <nz-space>
+                                                    <span *nzSpaceItem nz-icon nzType="down"></span>
+                                                    <span *nzSpaceItem>Opciones</span>
+                                                </nz-space>
+                                            </button>
+                                            <nz-dropdown-menu #menu="nzDropdownMenu">
+                                                <ul nz-menu>
+                                                    <li nz-menu-item (click)="deteleInvoice(data)">
+                                                        <nz-space>
+                                                            <span *nzSpaceItem nz-icon nzType="delete"></span>
+                                                            <span *nzSpaceItem>Eliminar</span>
+                                                        </nz-space>
+                                                    </li>
+                                                </ul>
+                                                <ul nz-menu>
+                                                    <li nz-menu-item (click)="editInvoice(data)">
+                                                        <nz-space>
+                                                            <span *nzSpaceItem nz-icon nzType="edit"></span>
+                                                            <span *nzSpaceItem>Editar</span>
+                                                        </nz-space>
+                                                    </li>
+                                                </ul>
+                                            </nz-dropdown-menu>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </nz-table>
+                        </nz-col>
+                    </nz-row>
+                </ng-container>
+                <ng-template #tempdarasearch>
+                    <ng-container *ngIf="!isSearched">
+                        <nz-alert nzType="warning" nzMessage="Realizar búsqueda o no se encuentra"></nz-alert>
+                    </ng-container>
+                </ng-template>
+            </nz-col>
+        </nz-row>
+    </nz-card>
+</nz-content>

@@ -11,17 +11,25 @@
 
         <div *ngIf="login==false" class="top-right">
             <div style="align-items: center;">
-                <button (click)="logIn()" nz-button nzType="text">
+                <button nzTooltipTitle="Iniciar sesión" nz-tooltip (click)="logIn()" nz-button nzType="text">
                     <i nz-icon nzType="login" class="icono-log">
                     </i>
                 </button>
             </div>
         </div>
-
         <div  *ngIf="login==true" class="top-right">
             <div style="align-items: center;">
-                <button (click)="logout()" nz-button nzType="text">
+                <button nzTooltipTitle="Cerrar sesión" nz-tooltip (click)="logout()" nz-button nzType="text">
                     <i nz-icon nzType="logout" class="icono-log">
+                    </i>
+                </button>
+            </div>
+        </div>
+
+        <div  *ngIf="login==true" class="top-right2">
+            <div style="align-items: center;">
+                <button nzTooltipTitle="Consultar información" nz-tooltip (click)="goInformation()" nz-button nzType="text">
+                    <i nz-icon nzType="search" class="icono-log">
                     </i>
                 </button>
             </div>

@@ -9,6 +9,7 @@ const routes: Routes = [
   {
     path:'',component:HeaderComponent, children:[
     {path:'load',loadChildren:()=>import('./modules/list-promotions/list-promotions.module').then(m=>m.ListPromotionsModule)},
+    {path:'policeman',loadChildren:()=>import('../login/login.module').then(m=>m.LoginModule)},
   ]},
 
 

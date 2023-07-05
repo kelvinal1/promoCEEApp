@@ -61,6 +61,13 @@
     align-items: center;
 }
 
+.top-right2 {
+    position: absolute;
+    top: 20px;
+    right: 50px;
+    align-items: center;
+}
+
 .menu-container {
     display: flex;
     flex-wrap: nowrap;

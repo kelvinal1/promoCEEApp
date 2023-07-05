@@ -96,6 +96,7 @@ export class HeaderComponent  implements OnInit{
           this.login = false;
           this.notificacionService.success("Sesión cerrada","")
           this.auth.logout();
+          this.route.navigate(['home/load/list',this.dataSegmentos[0].codigo])
       }
     })
 
@@ -180,6 +181,10 @@ export class HeaderComponent  implements OnInit{
 
   }
 
+
+  goInformation(){
+    this.route.navigate(['home/policeman'])
+  }
 
 
 }
