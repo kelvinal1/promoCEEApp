@@ -1,0 +1,83 @@
+<nz-page-header nzBackIcon class="site-page-header" nzTitle="Promoción"    [nzSubtitle]="dataPromotion?.prm_title">
+</nz-page-header>
+<nz-spin [nzSpinning]="isLoading"></nz-spin>
+<nz-content *ngIf="!isLoading" nz-row [nzGutter]="12" class="container-1">
+    <div nz-col [nzSpan]="12" class="card">
+        <nz-card nzHoverable class="card-content"    nzTitle="{{dataPromotion?.prm_title}}">
+            <div nz-row [nzGutter]="8">
+                <div>
+                    <b>Descripción:</b>
+                    <h4 style="text-align: justify;"> {{dataPromotion?.prm_description}} </h4>
+                </div>
+            </div>
+            <nz-divider></nz-divider>
+            <div nz-row [nzGutter]="8">
+                <div>
+                    <b>Empresa:</b>
+                    <h4> {{dataPromotion?.prm_company_name}} </h4>
+                </div>
+            </div>
+            <nz-divider></nz-divider>
+            <div nz-row [nzGutter]="8">
+                <div nz-col [nzSpan]="8">
+                    <div
+                        *ngIf="dataPromotion?.prm_effective_start_date!=null || dataPromotion?.prm_always_current==false">
+                        <b>Vigencia:</b> <br>
+                        <nz-tag [nzColor]="'green'"> <h4> <b><span nz-icon style="color: #5878c3;" nzType="calendar" nzTheme="outline"></span> Desde:</b> {{dataPromotion?.prm_effective_start_date | date: 'shortDate'}} </h4> </nz-tag>
+                        <nz-tag [nzColor]="'red'"> <h4> <b><span nz-icon style="color: #5878c3;" nzType="calendar" nzTheme="outline"></span> Hasta:</b> {{dataPromotion?.prm_effective_end_date | date: 'shortDate'}} </h4> </nz-tag>
+                    </div>
+                    <div *ngIf="dataPromotion?.prm_always_current==null || dataPromotion?.prm_always_current==true">
+                        <b>Vigencia:</b> <br>
+                        <nz-tag [nzColor]="'green'"> <h4>VIGENTE AHORA</h4> </nz-tag>
+                    </div>
+                </div>
+                <div nz-col [nzSpan]="8">
+                    <b>País:</b> <br>
+                    <nz-tag [nzColor]="'cyan'"><h4> {{dataPromotion?.prm_country_name}}</h4></nz-tag>
+                </div>
+            </div>
+            <!--
+            <nz-divider
+                *ngIf="dataPromotion?.prm_effective_start_date!=null || dataPromotion?.prm_always_current==false"></nz-divider>
+            <div nz-row [nzGutter]="8">
+                <div *ngIf="dataPromotion?.prm_effective_start_date!=null || dataPromotion?.prm_always_current==false">
+                    <b><span style="color: #5878c3;" nz-icon nzType="calendar" nzTheme="outline"></span> Calendario:</b>
+                    <nz-calendar  [ngModel]="dataPromotion?.prm_effective_start_date" [nzFullscreen]="false">
+                    </nz-calendar>
+                </div>
+            </div>
+            -->
+            <nz-divider></nz-divider>
+            <b>Contacto:</b> <br>
+            <div nz-row [nzGutter]="8">
+                <div  nz-col [nzSpan]="8">
+                    <h4>
+                        Nombre:
+                    </h4>
+                    <h4> 
+                        <span nz-icon nzType="user" nzTheme="outline" style="color: #5878c3;" nzTheme="outline"></span>
+                        {{dataPromotion?.prm_contact_name}} 
+                    </h4>                      
+                </div>
+                <div  nz-col [nzSpan]="8">
+                    <h4> Telefono:</h4>
+                    <a [href]="cadenaWpp" target="_blank"> 
+                       
+                        <span nz-icon nzType="whats-app" style="color: #0FC044;" nzTheme="outline"></span>
+                        {{dataPromotion?.prm_phone}} </a>                      
+                </div>
+            </div>
+        </nz-card>
+        <ng-template #coverTemplate>
+
+        </ng-template>
+    </div>
+    <div nz-col [nzSpan]="12">
+        <b>Galería de imagenes: </b>
+        <nz-image-group class="images-container">
+            <div *ngFor="let item of dataPromotion.prm_imagenes">
+                <img nz-image width="200px" height="200px" [nzSrc]="item?.epi_url" class="image-item" />
+            </div>
+        </nz-image-group>
+    </div>
+</nz-content>
