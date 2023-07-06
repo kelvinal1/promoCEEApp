@@ -76,7 +76,9 @@
         <b>Galería de imagenes: </b>
         <nz-image-group class="images-container">
             <div *ngFor="let item of dataPromotion.prm_imagenes">
-                <img nz-image width="200px" height="200px" [nzSrc]="item?.epi_url" class="image-item" />
+                <div  style="width: 200px; height: 200px;">
+                    <img nz-image  [nzSrc]="item?.epi_url" class="image-item" />
+                </div>
             </div>
         </nz-image-group>
     </div>

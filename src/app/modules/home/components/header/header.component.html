@@ -2,11 +2,11 @@
     <nz-breadcrumb nz-page-header-breadcrumb>
         <div class="top-left">
             <div style="align-items: center;">
-                <img class="icono-eljuri" src="assets/icons/corporacion-eljuri2.png">
+                <img class="icono-eljuri" src="assets/icons/corporacion-eljuri.png">
             </div>
         </div>
         <div class="top-center">
-            <h1 style="color: white">BENEFICIOS CEE</h1>
+            <h1 class="text-title-header" style="color: #0a1c47"><b> CORPORACION EMPRESARIAL ELJURI</b></h1>
         </div>
 
         <div *ngIf="login==false" class="top-right">
@@ -37,53 +37,64 @@
     </nz-breadcrumb>
 </nz-page-header>
 
-<nz-content class="fondo" style="text-align: center;">
-    <nz-card nzHoverable
-        style="margin-top: 10px;margin-right: auto; margin-left: auto; width: auto; border-radius: 40px;">
-        <div style="text-align: center; margin-top: 10px;">
-            <div nz-row [nzGutter]="7" style="margin-left: auto; margin-right: auto;">
-                <div nz-col [nzSpan]="7" class="filtros">
-                    <div>
-                        <b>Cluster: </b>
-                        <nz-select  class="filtro-cluster" [(ngModel)]="cluster" nzShowSearch nzAllowClear
-                            nzPlaceHolder="Seleccione cluster" (ngModelChange)="onChange()">
-                            <nz-option *ngFor="let item of dataSegmentos" [nzLabel]="item.nombre"
-                                [nzValue]="item.codigo"></nz-option>
-                        </nz-select>
+<div class="cont-card">
+    <nz-content style="text-align: center;">
+        <nz-card nzHoverable
+           class="card-filtros">
+            <div style="text-align: center;">
+                <div nz-row [nzGutter]="8" style="margin-left: auto; margin-right: auto; text-align: center;">
+                    <div nz-col [nzSpan]="8" class="filtros">
+                        <div>
+                            <b>Cluster: </b>
+                            <nz-select  class="filtro-cluster" [(ngModel)]="cluster" nzShowSearch 
+                                nzPlaceHolder="Seleccione cluster" (ngModelChange)="onChange()">
+                                <nz-option *ngFor="let item of dataSegmentos" [nzLabel]="item.nombre"
+                                    [nzValue]="item.codigo"></nz-option>
+                            </nz-select>
+                        </div>
                     </div>
-                </div>
-                <div nz-col [nzSpan]="7" class="filtros">
-                    <div>
-                        <b>Empresa: </b>
-                        <nz-select class="filtro-empresa" [(ngModel)]="empresa" nzShowSearch nzAllowClear
-                            nzPlaceHolder="Seleccione empresa" (ngModelChange)="onChange()">
-                            <nz-option *ngFor="let item of dataEmpresas" [nzLabel]="item.razonSocial"
-                                [nzValue]="item.codigo"></nz-option>
-                        </nz-select>
+                    <div nz-col [nzSpan]="8" class="filtros">
+                        <div>
+                            <b>Empresa: </b>
+                            <nz-select class="filtro-empresa" [(ngModel)]="empresa" nzShowSearch nzAllowClear
+                                nzPlaceHolder="Seleccione empresa" (ngModelChange)="onChange()">
+                                <nz-option *ngFor="let item of dataEmpresas" [nzLabel]="item.razonSocial"
+                                    [nzValue]="item.codigo"></nz-option>
+                            </nz-select>
+                        </div>
                     </div>
-                </div>
-                <div nz-col [nzSpan]="7" class="filtros">
-                    <div>
-                        <b>País: </b>
-                        <nz-select class="filtro-pais" [(ngModel)]="pais" nzShowSearch nzAllowClear
-                            nzPlaceHolder="Seleccione país" (ngModelChange)="onChange()">
-                            <nz-option *ngFor="let item of dataLugares" [nzLabel]="item.descripcion"
-                                [nzValue]="item.codigo"></nz-option>
-                        </nz-select>
+                    <div nz-col [nzSpan]="8" class="filtros">
+                        <div>
+                            <b>País: </b>
+                            <nz-select class="filtro-pais" [(ngModel)]="pais" nzShowSearch nzAllowClear
+                                nzPlaceHolder="Seleccione país" (ngModelChange)="onChange()">
+                                <nz-option *ngFor="let item of dataLugares" [nzLabel]="item.descripcion"
+                                    [nzValue]="item.codigo"></nz-option>
+                            </nz-select>
+                        
+                            <span  nz-icon style=" color: #0a1c47;
+                            font: icon;
+                            text-align: center;
+                            border-radius: 50%;
+                            font-size: 20px; margin-left: 10px; " nzType="search" nzTheme="outline"></span>
+                            
+                        </div>    
                     </div>
+                   
                 </div>
             </div>
-        </div>
-    </nz-card>
-</nz-content>
-<nz-tabset nzCentered [nzLinkRouter]>
+        </nz-card>
+    </nz-content>
+</div>
+
+<nz-tabset nzCentered [nzLinkRouter] style="margin-top: 10px;">
     <nz-tab (nzClick)="goCluster(item)" *ngFor="let item of dataSegmentos" [nzTitle]="titleTemplate"
         (ngModel)="opSelected">
         <ng-template #titleTemplate [nzLinkExact]>
-            <div style="width: auto; height: 38px; text-align: center;">
-                <div style="text-align: center;"><span><img style="width: 25px;" src="assets/segmentos/{{item.icono}}"
+            <div class="container-clusters">
+                <div style="text-align: center;"><span><img class="logo-cluster" src="assets/segmentos/{{item.icono}}"
                             alt="ejemplo.jpg"></span></div>
-                <div style="text-align: center;">{{ item.nombre }}</div>
+                <div style="text-align: center; font-size: 12px;">{{ item.nombre }}</div>
             </div>
         </ng-template>
     </nz-tab>

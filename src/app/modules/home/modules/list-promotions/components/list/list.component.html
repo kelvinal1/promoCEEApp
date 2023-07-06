@@ -1,61 +1,56 @@
-<nz-content>
-    <nz-spin  [nzSpinning]="isLoading"></nz-spin>
+<nz-content class="content-promo">
+    <nz-spin [nzSpinning]="isLoading"></nz-spin>
     <div nz-row [nzGutter]="8" class="aling-card" *ngIf="!isLoading">
         <div class="container-1" *ngFor="let item of dataPromotions">
-            <nz-card  class="menu-item" nzHoverable (click)="goPromo(item)" >
+            <div class="menu-item"  (click)="goPromo(item)">  
                 <div>
-                    <nz-carousel class="carousel" nzAutoPlay [nzAutoPlay]="true" [nzDotPosition]="'top'">
+                    <nz-carousel class="carousel" nzAutoPlay [nzAutoPlay]="true" [nzDotPosition]="'bottom'">
                         <div nz-carousel-content *ngFor="let imag of item.prm_imagenes">
-                            <img class="carousel" [src]="imag.epi_url">
+                            <img class="image-container" [src]="imag.epi_url">
                         </div>
                     </nz-carousel>
                 </div>
-                <div class="item-text-title">
-                    <h5>
+                <div nz-tooltip nzTooltipTitle="{{item.prm_title}}" class="item-text-title">
+                    <h5 class="point">
                         <b>{{item.prm_title}} </b>
                     </h5>
                 </div>
-                <div class="item-text-descrip">
-                    <h5>{{item.prm_description}}</h5>
+                <div class="item-text-company">
+                    <h5> <b> Empresa: </b>{{item.prm_company_name}}</h5>
                 </div>
-                <div style="padding-top: 5px; height: auto;">
-                    <div nz-row [nzGutter]="8" style="justify-content: space-between">
-                        <div style="text-align: left;"
-                            *ngIf="item.prm_effective_start_date==null && item.prm_effective_end_date==null" nz-col
-                            [nzSpan]="8">
-                            <nz-tag [nzColor]="'green'">
-                                <b style="font-size: 11px;">VIGENTE AHORA</b>
-                            </nz-tag>
-                        </div>
-                        <div style="font-size: 10px; text-align: left;"
-                            *ngIf="item.prm_effective_start_date!=null && item.prm_effective_end_date!=null" nz-col
-                            [nzSpan]="8">
-                            <b>Vigencia:</b>
-                            <br>
-                            <nz-tag [nzColor]="'green'">
-                                <b>Desde: {{item.prm_effective_start_date | date: 'shortDate' }}</b>
-                            </nz-tag>
-                            <br>
-                            <nz-tag [nzColor]="'red'">
-                                <b>Hasta: {{item.prm_effective_end_date | date: 'shortDate'}}</b>
-                            </nz-tag>
-                        </div>
-                        <div style="text-align: right;" nz-col [nzSpan]="8">
-                            <nz-tag [nzColor]="'cyan'"><b>{{item.prm_country_name}}</b> </nz-tag>
-                        </div>
+                <div class="container-vigencia">
+                    <div style="text-align: left;"
+                        *ngIf="item.prm_effective_start_date==null && item.prm_effective_end_date==null">
+                        <nz-tag [nzColor]="'green'">
+                            <b style="font-size: 11px;">VIGENTE AHORA</b>
+                        </nz-tag>
+                    </div>
+                    <div style="font-size: 10px; text-align: left;"
+                        *ngIf="item.prm_effective_start_date!=null && item.prm_effective_end_date!=null">
+                        <nz-tag [nzColor]="'green'">
+                            <b>Desde: {{item.prm_effective_start_date | date: 'shortDate' }}</b>
+                        </nz-tag>
+                        <br>
+                        <nz-tag [nzColor]="'red'">
+                            <b>Hasta: {{item.prm_effective_end_date | date: 'shortDate'}}</b>
+                        </nz-tag>
+                    </div>
+                    <br>
+                    <div style="text-align: right;  margin-left: auto">
+                        <nz-tag [nzColor]="'cyan'"><b>{{item.prm_country_name}}</b> </nz-tag>
                     </div>
                 </div>
                 <div class="section-whatsapp">
-                    <div nz-row [nzGutter]="10" style="justify-content: space-between    ">
-                        <div nz-col [nzSpan]="13">
-                            <div style="font: icon; font-size: 12px;">
+                    <div style="display: flex; flex-wrap: wrap;">
+                        <div>
+                            <div style="font: icon; font-size: 11px;">
                                 <span nz-icon nzType="user" style="color: #5878c3;"></span>
                                 <b style="font-size: 12px;"> {{item.prm_contact_name}} </b>
 
                             </div>
                         </div>
-                        <div nz-col [nzSpan]="11" style="text-align: right;">
-                            <div style="font: icon; font-size: 12px;">
+                        <div style="text-align: right;">
+                            <div style="font: icon; font-size: 11px; margin-left: 43px;">
                                 <span nz-icon nzType="whats-app" style="color: #0FC044;"></span>
                                 <a target="_blank"
                                     [href]="'https://wa.me/'+item.prm_phone+'?text='+item.prm_message_whatsapp">
@@ -65,11 +60,11 @@
                         </div>
                     </div>
                 </div>
-            </nz-card>
+            </div>
         </div>
     </div>
 </nz-content>
-<div *ngIf="!isLoading">
+<div style="background-color: #f5f7fa;" *ngIf="!isLoading">
     <nz-content *ngIf="dataPromotions.length == 0">
         <nz-result [nzIcon]="'frown'" [nzTitle]="'NO HAY PROMOCIONES DISPONIBLES EN ESTE MOMENTO'">
             <div nz-result-extra>

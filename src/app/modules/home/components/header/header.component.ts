@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth.service';
 import { NotificacionService } from 'src/app/core/notificacion.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -8,6 +8,7 @@ import { SegmentoService } from '../../services/segmento.service';
 import { EmpresaService } from '../../services/empresa.service';
 import { DivisionPoliticaService } from '../../services/divisionPolitica.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { filter } from 'd3';
 
 
 @Component({
@@ -15,30 +16,29 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent  implements OnInit{
-  
+export class HeaderComponent implements OnInit {
+
   validateForm!: UntypedFormGroup;
   isLoadingOne?: boolean;
   passwordVisible = false;
   password?: string;
-  deviceInfo?: string ;
+  deviceInfo?: string;
   infoLogin: any;
   deviceDetector: any;
   login = false;
   isVisibleLogin: boolean = false;
 
-  prm_cluster_id: any= null; 
-  dataSegmentos: any[]=[];
-  dataEmpresas: any[]=[];
-  dataLugares:any[]=[];
-  cluster: any=null ;
-  empresa: any=null;
-  pais: any=null;
-  opSelected: any= null;
-  buscador: any={
-    cluster:this.cluster,
-    empresa:this.empresa,
-    pais:this.pais
+  dataSegmentos: any[] = [];
+  dataEmpresas: any[] = [];
+  dataLugares: any[] = [];
+  cluster: any = null;
+  empresa: any = null;
+  pais: any = null;
+  opSelected: any = null;
+  buscador: any = {
+    cluster: this.cluster,
+    empresa: this.empresa,
+    pais: this.pais
   };
 
 
@@ -54,7 +54,8 @@ export class HeaderComponent  implements OnInit{
     private empresasService: EmpresaService,
     private divisionPolService: DivisionPoliticaService,
     private msjService: NzMessageService,
-    private route : Router
+    private route: Router,
+    private activvatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -70,12 +71,12 @@ export class HeaderComponent  implements OnInit{
     });
 
     this.isLoadingOne = false;
-    this.deviceInfo =this.deviceDetector?.getDeviceInfo().os_version || this.deviceDetector?.os;
+    this.deviceInfo = this.deviceDetector?.getDeviceInfo().os_version || this.deviceDetector?.os;
     this.auth.getInfoLogin().subscribe(data => {
       this.infoLogin = data;
     })
 
-    
+
   }
 
 
@@ -93,10 +94,10 @@ export class HeaderComponent  implements OnInit{
     this.msgService.confirm({
       nzTitle: `<i>¿Está seguro/a de cerrar sesión?</i>`,
       nzOnOk: () => {
-          this.login = false;
-          this.notificacionService.success("Sesión cerrada","")
-          this.auth.logout();
-          this.route.navigate(['home/load/list',this.dataSegmentos[0].codigo])
+        this.login = false;
+        this.notificacionService.success("Sesión cerrada", "")
+        this.auth.logout();
+        this.route.navigate(['home/load/list', this.dataSegmentos[0].codigo])
       }
     })
 
@@ -117,7 +118,7 @@ export class HeaderComponent  implements OnInit{
 
     this.auth.login(username, password, this.deviceInfo).subscribe(
       (res) => {
-        this.notificacionService.success('Bienvenido a Beneficios CEE','');
+        this.notificacionService.success('Bienvenido a Beneficios CEE', '');
         console.log(res)
         this.auth.setCredentials(res);
         this.isLoadingOne = false;
@@ -128,7 +129,7 @@ export class HeaderComponent  implements OnInit{
       }, (error) => {
         this.isLoadingOne = false;
         console.log(error);
-        
+
       }
     )
   }
@@ -136,53 +137,60 @@ export class HeaderComponent  implements OnInit{
 
   getSegmentos() {
     this.segmentoService.getSegmentosByUsuario().subscribe(value => {
-      console.log(value)
-      this.dataSegmentos=value
+      this.dataSegmentos = value
       this.cluster = this.dataSegmentos[0].codigo
-      this.route.navigate(['home/load/list',this.dataSegmentos[0].codigo])
-      //this.prm_cluster_id= this.dataSegmentos[0].codigo
-      //this.cluster = this.dataSegmentos[0].codigo
+      console.log(this.cluster)
+      let filtro:any= {
+        cluster: this.cluster,
+        empresa: this.empresa,
+        pais: this.pais,
+      }
+      if(this.route.url=='/home'){
+        this.router.navigate(['home/load/list/',this.cluster])
+      }
     })
   }
 
-  getEmpresas(){
-    this.empresasService.getEmpresas().subscribe(value=>{
+  getEmpresas() {
+    this.empresasService.getEmpresas().subscribe(value => {
       this.dataEmpresas = value;
     })
   }
 
-  getDivisionPolitica(){
-    this.divisionPolService.getPaises().subscribe(value=>{
+  getDivisionPolitica() {
+    this.divisionPolService.getPaises().subscribe(value => {
       this.dataLugares = value;
     })
   }
 
-  goCluster(item: any){
-    //this.prm_cluster_id= item.codigo;
+
+  goCluster(item: any) {
     this.cluster = item.codigo
-    this.route.navigate(['home/load/list',item.codigo])
+    let filtro: any ={
+      cluster: this.cluster,
+      empresa: this.empresa,
+      pais: this.pais
+    }
+    this.route.navigate(['home/load/list', this.cluster])
   }
 
-  
 
-  onChange(){
 
-    this.opSelected = this.cluster
-    if(!this.cluster){
-      this.getSegmentos()
-    }else{
-      this.prm_cluster_id= this.cluster;
-      this.buscador={
-        cluster:this.cluster,
-        empresa: this.empresa,
-        pais: this.pais,
-      }
+  onChange() {
+    let filtro:any= {
+      cluster: this.cluster,
+      empresa: this.empresa,
+      pais: this.pais,
+    }
+    if(this.empresa!=null || this.pais!=null){
+      this.route.navigate(['home/load/list',this.cluster]);
     }
 
+   
   }
 
 
-  goInformation(){
+  goInformation() {
     this.route.navigate(['home/policeman'])
   }
 
