@@ -202,9 +202,6 @@ export class HeaderComponent implements OnInit {
     }
     this.setMark(this.cluster);
     this.route.navigate(['home/load/list', this.cluster]);
-    
-
-
   }
 
 
