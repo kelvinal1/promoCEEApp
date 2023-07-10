@@ -43,7 +43,6 @@ export class PromotionComponent {
   getInformation() {
     this.promotionService.getOnlyProtionAndImages(this.cod).subscribe(value => {
       this.dataPromotion = value.data
-      console.log(this.dataPromotion)
       this.dataImagenes = this.dataPromotion.prm_imagenes;
       this.cadenaWpp = "https://wa.me/" + this.dataPromotion.prm_phone + "?text=" + this.dataPromotion.prm_message_whatsapp;
       document.getElementById("cadenaWpp")?.setAttribute('href', this.cadenaWpp);

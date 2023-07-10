@@ -9,6 +9,8 @@ import { EmpresaService } from '../../services/empresa.service';
 import { DivisionPoliticaService } from '../../services/divisionPolitica.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { filter } from 'd3';
+import { delay, finalize } from 'rxjs';
+import { state } from '@angular/animations';
 
 
 @Component({
@@ -41,6 +43,8 @@ export class HeaderComponent implements OnInit {
     pais: this.pais
   };
 
+  filtro: any = null;
+
 
 
 
@@ -60,9 +64,9 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getSegmentos()
-    this.getEmpresas()
-    this.getDivisionPolitica()
+
+    this.getSegmentos();
+
 
     this.login = this.auth.isLogin();
     this.validateForm = this.fb.group({
@@ -76,13 +80,20 @@ export class HeaderComponent implements OnInit {
       this.infoLogin = data;
     })
 
+    this.getEmpresas();
+
+
+
+
+
+
+
+
+
+
 
   }
 
-
-
-  ngAfterViewInit(): void {
-  }
 
 
   logIn() {
@@ -119,35 +130,33 @@ export class HeaderComponent implements OnInit {
     this.auth.login(username, password, this.deviceInfo).subscribe(
       (res) => {
         this.notificacionService.success('Bienvenido a Beneficios CEE', '');
-        console.log(res)
         this.auth.setCredentials(res);
         this.isLoadingOne = false;
         this.isVisibleLogin = false
         this.validateForm.reset()
         this.login = true
+        this.route.navigate(['home/policeman'])
+
         //this.router.navigate(['home/policeman'])
       }, (error) => {
         this.isLoadingOne = false;
         console.log(error);
-
       }
     )
   }
 
 
   getSegmentos() {
-    this.segmentoService.getSegmentosByUsuario().subscribe(value => {
+    this.segmentoService.getSegmentosByUsuario().subscribe((value) => {
       this.dataSegmentos = value
       this.cluster = this.dataSegmentos[0].codigo
-      console.log(this.cluster)
-      let filtro:any= {
-        cluster: this.cluster,
-        empresa: this.empresa,
-        pais: this.pais,
-      }
+      this.opSelected= this.cluster
+      console.log(this.opSelected)
       if(this.route.url=='/home'){
-        this.router.navigate(['home/load/list/',this.cluster])
+        this.router.navigate(['home/load/list/',this.cluster] )
+    
       }
+
     })
   }
 
@@ -165,8 +174,11 @@ export class HeaderComponent implements OnInit {
 
 
   goCluster(item: any) {
+   
     this.cluster = item.codigo
-    let filtro: any ={
+    this.opSelected= item.codigo
+    console.log(this.opSelected)
+    let filtro: any = {
       cluster: this.cluster,
       empresa: this.empresa,
       pais: this.pais
@@ -177,16 +189,16 @@ export class HeaderComponent implements OnInit {
 
 
   onChange() {
-    let filtro:any= {
+    let filtro: any = {
       cluster: this.cluster,
       empresa: this.empresa,
       pais: this.pais,
     }
-    if(this.empresa!=null || this.pais!=null){
-      this.route.navigate(['home/load/list',this.cluster]);
-    }
+    this.opSelected=this.cluster
+    this.route.navigate(['home/load/list', this.cluster]);
+    
 
-   
+
   }
 
 

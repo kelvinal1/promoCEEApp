@@ -17,7 +17,7 @@
                 </button>
             </div>
         </div>
-        <div  *ngIf="login==true" class="top-right">
+        <div *ngIf="login==true" class="top-right">
             <div style="align-items: center;">
                 <button nzTooltipTitle="Cerrar sesión" nz-tooltip (click)="logout()" nz-button nzType="text">
                     <i nz-icon nzType="logout" class="icono-log">
@@ -26,9 +26,10 @@
             </div>
         </div>
 
-        <div  *ngIf="login==true" class="top-right2">
+        <div *ngIf="login==true" class="top-right2">
             <div style="align-items: center;">
-                <button nzTooltipTitle="Consultar información" nz-tooltip (click)="goInformation()" nz-button nzType="text">
+                <button nzTooltipTitle="Consultar información" nz-tooltip (click)="goInformation()" nz-button
+                    nzType="text">
                     <i nz-icon nzType="user" class="icono-log">
                     </i>
                 </button>
@@ -39,14 +40,13 @@
 
 <div class="cont-card">
     <nz-content style="text-align: center;">
-        <nz-card nzHoverable
-           class="card-filtros">
+        <nz-card nzHoverable class="card-filtros">
             <div style="text-align: center;">
                 <div nz-row [nzGutter]="8" style="margin-left: auto; margin-right: auto; text-align: center;">
                     <div nz-col [nzSpan]="8" class="filtros">
                         <div>
                             <b>Cluster: </b>
-                            <nz-select  class="filtro-cluster" [(ngModel)]="cluster" nzShowSearch 
+                            <nz-select class="filtro-cluster" [(ngModel)]="cluster" nzShowSearch
                                 nzPlaceHolder="Seleccione cluster" (ngModelChange)="onChange()">
                                 <nz-option *ngFor="let item of dataSegmentos" [nzLabel]="item.nombre"
                                     [nzValue]="item.codigo"></nz-option>
@@ -57,7 +57,7 @@
                         <div>
                             <b>Empresa: </b>
                             <nz-select class="filtro-empresa" [(ngModel)]="empresa" nzShowSearch nzAllowClear
-                                nzPlaceHolder="Seleccione empresa" (ngModelChange)="onChange()">
+                                nzPlaceHolder="Seleccione empresa">
                                 <nz-option *ngFor="let item of dataEmpresas" [nzLabel]="item.razonSocial"
                                     [nzValue]="item.codigo"></nz-option>
                             </nz-select>
@@ -67,20 +67,20 @@
                         <div>
                             <b>País: </b>
                             <nz-select class="filtro-pais" [(ngModel)]="pais" nzShowSearch nzAllowClear
-                                nzPlaceHolder="Seleccione país" (ngModelChange)="onChange()">
+                                nzPlaceHolder="Seleccione país">
                                 <nz-option *ngFor="let item of dataLugares" [nzLabel]="item.descripcion"
                                     [nzValue]="item.codigo"></nz-option>
                             </nz-select>
-                        
-                            <span  nz-icon style=" color: #0a1c47;
+
+                            <span nz-icon style=" color: #0a1c47;
                             font: icon;
                             text-align: center;
                             border-radius: 50%;
                             font-size: 20px; margin-left: 10px; " nzType="search" nzTheme="outline"></span>
-                            
-                        </div>    
+
+                        </div>
                     </div>
-                   
+
                 </div>
             </div>
         </nz-card>
@@ -88,12 +88,14 @@
 </div>
 
 <nz-tabset nzCentered [nzLinkRouter] style="margin-top: 10px;">
-    <nz-tab (nzClick)="goCluster(item)" *ngFor="let item of dataSegmentos" [nzTitle]="titleTemplate"
-        (ngModel)="opSelected">
+    <nz-tab (nzClick)="goCluster(item)" *ngFor="let item of dataSegmentos" [nzTitle]="titleTemplate" (nzSelect)="opSelected">
         <ng-template #titleTemplate [nzLinkExact]>
-            <div class="container-clusters">
-                <div style="text-align: center;"><span><img class="logo-cluster" src="assets/segmentos/{{item.icono}}"
-                            alt="ejemplo.jpg"></span></div>
+            <div class="container-clusters" >
+                <div style="text-align: center;" >
+                    <span>
+                        <img class="logo-cluster" src="assets/segmentos/{{item.icono}}" alt="ejemplo.jpg">
+                    </span>
+                </div>
                 <div style="text-align: center; font-size: 12px;">{{ item.nombre }}</div>
             </div>
         </ng-template>
@@ -108,7 +110,8 @@
             <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()" style="width: 100%;"
                 [nzLayout]="'vertical'">
                 <div class="logo-item">
-                    <img src="assets/icons/corporacion-eljuri.png" style="width: 100%; align-items: center;" alt="exampl.jpg">
+                    <img src="assets/icons/corporacion-eljuri.png" style="width: 100%; align-items: center;"
+                        alt="exampl.jpg">
                 </div>
                 <nz-form-item style="padding-top: 10px;">
                     <nz-form-label [nzSm]="24" [nzXs]="24" nzRequired nzFor="email">Nombre de usuario</nz-form-label>
@@ -133,7 +136,7 @@
                 </nz-form-item>
                 <div style="text-align: center;">
                     <button [nzLoading]="isLoadingOne" nz-button class="login-form-button login-form-margin"
-                    [nzType]="'primary'">Iniciar Sesión</button><br>
+                        [nzType]="'primary'">Iniciar Sesión</button><br>
                 </div>
             </form>
         </nz-card>

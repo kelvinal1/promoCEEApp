@@ -8,10 +8,10 @@ import { PromotionService } from 'src/app/modules/home/services/promotion.servic
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
-export class ListComponent implements OnInit{
+export class ListComponent implements OnInit {
 
 
-  
+
 
   isLoading?: boolean;
   dataPromotions: any[] = [];
@@ -20,42 +20,43 @@ export class ListComponent implements OnInit{
   images?: any[];
   promClusterSelect: any = null;
   id: any;
-  data: any;
+  data: any = null;
 
 
   constructor(private activadedRoute: ActivatedRoute,
     private promotionService: PromotionService,
-    private msgService: NzMessageService) { 
+    private msgService: NzMessageService,
+    private router: Router) {
 
-    
-    }
+
+  }
 
 
 
   ngOnInit(): void {
-    this.activadedRoute.params.subscribe(roueteParams => {
-        this.data = roueteParams['cod'];
-        console.log(this.data)
-        this.getAllPromotionsCluster()
-      
-    })
 
+    this.activadedRoute.params.subscribe(roueteParams => {
+      this.data = roueteParams['cod'];
+      this.getAllPromotionsCluster()
+
+    
+  })
   }
 
   getAllPromotionsCluster() {
-    this.isLoading=true
+    this.isLoading = true
     this.promotionService.getPromotionsByCluster(this.data).subscribe(res => {
       this.dataPromotions = res.data;
-      this.isLoading=false
+      this.isLoading = false
     })
+
+
   }
 
 
-  goPromo(item: any){
-    console.log(item)
-    console.log(item.prm_id)
-    window.open('home/load/promotion/'+item.prm_id)
-   //(this.router.navigate(['home/load/promotion/',item.prm_id])
+  goPromo(item: any) {
+    window.open('home/load/promotion/' + item.prm_id)
+    //(this.router.navigate(['home/load/promotion/',item.prm_id])
   }
 
 }

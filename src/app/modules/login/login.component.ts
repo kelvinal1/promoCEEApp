@@ -21,7 +21,8 @@ export class LoginComponent {
   mode: number = 1;
   itemSelected: any;
   isLoading = false;
-  view= false
+  view = false
+  cargarInfo= false;
 
   table: any = {
     columns: [
@@ -77,17 +78,34 @@ export class LoginComponent {
 
 
   searchPoliceman() {
-    this.isLoading=true
-    this.view=false
-    this.policemanService.getPoliceman(this.searchText).subscribe(value => {
-      if(value.data!=null){
-        this.dataSearch = value.data;
-        this.findAllInvoicePoliceman(this.dataSearch.pol_id);
-      }else{
-        this.isSearched=true
-        this.isLoading=false
-      }
-    })
+
+    if (!this.searchText) {
+      this.msgService.error("No ha ingresado una identificación, Verificar por favor!")
+      this.cargarInfo=false
+      this.isSearched = false
+      this.isLoading = false
+      return;
+    } else {
+      this.isLoading = true
+      this.view = false
+      this.policemanService.getPoliceman(this.searchText).subscribe(value => {
+        if (value.data != null) {
+          this.cargarInfo=true;
+          this.msgService.success("¡Busqueda exitosa!")
+          this.isSearched = true
+          this.dataSearch = value.data;
+          this.findAllInvoicePoliceman(this.dataSearch.pol_id);
+        } else {
+          this.cargarInfo=false;
+          this.isSearched = false
+          this.isLoading = false
+          this.msgService.warning("El número de identificación no fue encontrado, Verificar por favor!")
+        }
+      }, err => {
+        this.msgService.warning("El número de identificación no fue encontrado, Verificar por favor!")
+      })
+    }
+
 
   }
 
@@ -95,12 +113,12 @@ export class LoginComponent {
   findAllInvoicePoliceman(pol_id: any) {
     this.invoiceService.getAllPoliceman(pol_id).subscribe(value => {
       if (value.data != null) {
-        this.isLoading=false
-        this.view=true
+        this.isLoading = false
+        this.view = true
         this.dataInvoice = value.data
       } else {
-        this.isLoading=false
-        this.isSearched=true
+        this.isLoading = false
+        this.isSearched = true
       }
     })
   }
@@ -115,7 +133,6 @@ export class LoginComponent {
     let dataForm = this.validateForm.value;
     dataForm.pip_policeman = this.dataSearch.pol_id;
 
-    console.log(dataForm)
     if (this.mode == 1) {
       this.invoiceService.addInvoice(dataForm).subscribe(value => {
         this.validateForm.reset();
@@ -143,7 +160,6 @@ export class LoginComponent {
 
   editInvoice(item: any) {
     this.mode = 2;
-    console.log(this.mode);
     this.validateForm.patchValue(item);
     this.itemSelected = item;
   }
