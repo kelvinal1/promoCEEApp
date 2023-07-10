@@ -3,6 +3,19 @@
     background-color: white;
 }
 
+
+.card-header {
+    height: 35px;
+    width: auto;
+    position: absolute;
+    top: 20px;
+    right: 60px;
+    align-items: center;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 4px 8px 0 rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
 .filtro-cluster {
     width: 50%;
 }
@@ -60,6 +73,7 @@
     width: 750px;
     border-radius: 50px;
     text-align: center;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 4px 8px 0 rgba(0, 0, 0, 0.08);
 }
 
 .container-2 {
@@ -172,7 +186,7 @@
 
     .card-filtros {
         margin-top: 65px;
-        width:350px;
+        width: 350px;
         border-radius: 50px;
         margin-left: -150px;
     }
@@ -224,19 +238,19 @@
         position: relative;
         margin-top: -40px;
     }
-    
+
     .card-content {
         padding: 10px 0px;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
     }
-    
+
     .content-page {
         width: 100%;
         padding: 15px 25px 0px 25px;
     }
-    
+
     .card {
         padding: 25px;
         height: 226px;
