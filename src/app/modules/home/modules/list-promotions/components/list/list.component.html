@@ -16,7 +16,7 @@
                     </h5>
                 </div>
                 <div class="item-text-company">
-                    <h5> <b> Empresa: </b>{{item.prm_company_name}}</h5>
+                    <h5><span nz-icon nzType="bank" style="color: #002554;"  nzTheme="outline"></span> {{item.prm_company_name}}</h5>
                 </div>
                 <div class="container-vigencia">
                     <div style="text-align: left;"
@@ -27,12 +27,12 @@
                     </div>
                     <div style="font-size: 10px; text-align: left;"
                         *ngIf="item.prm_effective_start_date!=null && item.prm_effective_end_date!=null">
-                        <nz-tag [nzColor]="'green'">
-                            <b>Desde: {{item.prm_effective_start_date | date: 'shortDate' }}</b>
+                        <nz-tag [nzColor]="'green'" style="width: 125px;">
+                            <b>Desde: {{item.prm_effective_start_date | date: 'mediumDate' }}</b>
                         </nz-tag>
                         <br>
-                        <nz-tag [nzColor]="'red'">
-                            <b>Hasta: {{item.prm_effective_end_date | date: 'shortDate'}}</b>
+                        <nz-tag [nzColor]="'red'" style="width: 125px;">
+                            <b>Hasta: {{item.prm_effective_end_date | date: 'mediumDate'}}</b>
                         </nz-tag>
                     </div>
                     <br>
@@ -44,7 +44,7 @@
                     <div style="display: flex; flex-wrap: wrap;">
                         <div>
                             <div style="font: icon; font-size: 11px;">
-                                <span nz-icon nzType="user" style="color: #5878c3;"></span>
+                                <span nz-icon nzType="user" style="color: #002554;"></span>
                                 <b style="font-size: 12px;"> {{item.prm_contact_name}} </b>
 
                             </div>
@@ -64,9 +64,9 @@
         </div>
     </div>
 </nz-content>
-<div style="background-color: #f5f7fa;" *ngIf="!isLoading">
+<div *ngIf="!isLoading">
     <nz-content *ngIf="dataPromotions.length == 0">
-        <nz-result [nzIcon]="'frown'" [nzTitle]="'NO HAY PROMOCIONES DISPONIBLES EN ESTE MOMENTO'">
+        <nz-result [nzIcon]="'frown'"  style="font-weight: bold;" [nzTitle]="'NO HAY PROMOCIONES DISPONIBLES EN ESTE MOMENTO'">
             <div nz-result-extra>
             </div>
         </nz-result>

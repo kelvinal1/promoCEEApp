@@ -103,6 +103,21 @@ nz-layout {
 
 
 
+
+:host ::ng-deep  .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    padding: 12px 16px;
+    color: rgb(255 255 255 / 85%);
+    line-height: 1.5715;
+    cursor: pointer;
+    transition: all 0.3s, visibility 0s;
+    font-weight: bold;
+}
+
+
 .color-number {
     background-color: #f1f2f4;
 }

@@ -67,6 +67,8 @@ export class HeaderComponent implements OnInit {
 
 
     this.getSegmentos();
+    this.getEmpresas();
+    this.getDivisionPolitica();
 
 
     this.login = this.auth.isLogin();
@@ -80,19 +82,6 @@ export class HeaderComponent implements OnInit {
     this.auth.getInfoLogin().subscribe(data => {
       this.infoLogin = data;
     })
-
-    this.getEmpresas();
-
-
-
-
-
-
-
-
-
-
-
   }
 
 
@@ -112,9 +101,6 @@ export class HeaderComponent implements OnInit {
         this.route.navigate(['home/load/list', this.dataSegmentos[0].codigo])
       }
     })
-
-
-
   }
 
   submitForm() {
@@ -151,8 +137,8 @@ export class HeaderComponent implements OnInit {
     this.segmentoService.getSegmentosByUsuario().subscribe((value) => {
       this.dataSegmentos = value
       this.cluster = this.dataSegmentos[0].codigo
-      if(this.route.url=='/home'){
-        this.router.navigate(['home/load/list/',this.cluster] )
+      if (this.route.url == '/home') {
+        this.router.navigate(['home/load/list/', this.cluster])
         this.setMark(this.cluster)
       }
     })
@@ -172,18 +158,18 @@ export class HeaderComponent implements OnInit {
 
 
 
-  setMark(codigo: any){
+  setMark(codigo: any) {
     for (let index = 0; index < this.dataSegmentos.length; index++) {
-      if(this.dataSegmentos[index].codigo == codigo){
-        this.opSelected=index
-      } 
+      if (this.dataSegmentos[index].codigo == codigo) {
+        this.opSelected = index
+      }
     }
   }
 
   goCluster(item: any) {
-   
+
     this.cluster = item.codigo
-    this.setMark( item.codigo)
+    this.setMark(item.codigo)
     let filtro: any = {
       cluster: this.cluster,
       empresa: this.empresa,
@@ -194,7 +180,7 @@ export class HeaderComponent implements OnInit {
 
 
 
-  onChange() {
+  onChangeCluster() {
     let filtro: any = {
       cluster: this.cluster,
       empresa: this.empresa,
@@ -203,6 +189,12 @@ export class HeaderComponent implements OnInit {
     this.setMark(this.cluster);
     this.route.navigate(['home/load/list', this.cluster]);
   }
+
+
+  onChangeCompany(){
+
+  }
+
 
 
   goInformation() {
