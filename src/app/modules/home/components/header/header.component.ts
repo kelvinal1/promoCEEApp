@@ -36,6 +36,7 @@ export class HeaderComponent implements OnInit {
   cluster: any = null;
   empresa: any = null;
   pais: any = null;
+  nOptions: any = null;
   opSelected: any = null;
   buscador: any = {
     cluster: this.cluster,
@@ -150,13 +151,10 @@ export class HeaderComponent implements OnInit {
     this.segmentoService.getSegmentosByUsuario().subscribe((value) => {
       this.dataSegmentos = value
       this.cluster = this.dataSegmentos[0].codigo
-      this.opSelected= this.cluster
-      console.log(this.opSelected)
       if(this.route.url=='/home'){
         this.router.navigate(['home/load/list/',this.cluster] )
-    
+        this.setMark(this.cluster)
       }
-
     })
   }
 
@@ -173,11 +171,19 @@ export class HeaderComponent implements OnInit {
   }
 
 
+
+  setMark(codigo: any){
+    for (let index = 0; index < this.dataSegmentos.length; index++) {
+      if(this.dataSegmentos[index].codigo == codigo){
+        this.opSelected=index
+      } 
+    }
+  }
+
   goCluster(item: any) {
    
     this.cluster = item.codigo
-    this.opSelected= item.codigo
-    console.log(this.opSelected)
+    this.setMark( item.codigo)
     let filtro: any = {
       cluster: this.cluster,
       empresa: this.empresa,
@@ -194,7 +200,7 @@ export class HeaderComponent implements OnInit {
       empresa: this.empresa,
       pais: this.pais,
     }
-    this.opSelected=this.cluster
+    this.setMark(this.cluster);
     this.route.navigate(['home/load/list', this.cluster]);
     
 
