@@ -1,72 +1,85 @@
 <nz-content class="content-promo">
     <nz-spin [nzSpinning]="isLoading"></nz-spin>
     <div nz-row [nzGutter]="8" class="aling-card" *ngIf="!isLoading">
-        <div class="container-1" *ngFor="let item of dataPromotions">
-            <div class="menu-item"  (click)="goPromo(item)">  
-                <div>
-                    <nz-carousel class="carousel" nzAutoPlay [nzAutoPlay]="true" [nzDotPosition]="'bottom'">
-                        <div nz-carousel-content *ngFor="let imag of item.prm_imagenes">
-                            <img class="image-container" [src]="imag.epi_url">
-                        </div>
-                    </nz-carousel>
+        <div class="container-1" *ngFor="let promo of dataPromotions">
+            <div class="menu-item">
+                <div class="carousel">
+                    <p-galleria  [value]="promo.prm_imagenes" [showItemNavigators]="true" [showIndicators]="true"
+                        [showIndicatorsOnItem]="true" [autoPlay]="true" [showThumbnails]="false"
+                        [showThumbnailNavigators]="false"
+                        [changeItemOnIndicatorHover]="true"
+                        [circular]="true">
+                        <ng-template pTemplate="item" let-item   >
+                            <img [src]="item.epi_url" class="carousel2" (click)="goPromo(promo)"/>
+                        </ng-template>
+                    </p-galleria>
                 </div>
-                <div nz-tooltip nzTooltipTitle="{{item.prm_title}}" class="item-text-title">
-                    <h5 class="point">
-                        <b>{{item.prm_title}} </b>
-                    </h5>
-                </div>
-                <div class="item-text-company">
-                    <h5><span nz-icon nzType="bank" style="color: #002554;"  nzTheme="outline"></span> {{item.prm_company_name}}</h5>
-                </div>
-                <div class="container-vigencia">
-                    <div style="text-align: left;"
-                        *ngIf="item.prm_effective_start_date==null && item.prm_effective_end_date==null">
-                        <nz-tag [nzColor]="'green'">
-                            <b style="font-size: 11px;">VIGENTE AHORA</b>
-                        </nz-tag>
-                    </div>
-                    <div style="font-size: 10px; text-align: left;"
-                        *ngIf="item.prm_effective_start_date!=null && item.prm_effective_end_date!=null">
-                        <nz-tag [nzColor]="'green'" style="width: 125px;">
-                            <b>Desde: {{item.prm_effective_start_date | date: 'mediumDate' }}</b>
-                        </nz-tag>
-                        <br>
-                        <nz-tag [nzColor]="'red'" style="width: 125px;">
-                            <b>Hasta: {{item.prm_effective_end_date | date: 'mediumDate'}}</b>
-                        </nz-tag>
-                    </div>
-                    <br>
-                    <div style="text-align: right;  margin-left: auto">
-                        <nz-tag [nzColor]="'cyan'"><b>{{item.prm_country_name}}</b> </nz-tag>
-                    </div>
-                </div>
-                <div class="section-whatsapp">
-                    <div style="display: flex; flex-wrap: wrap;">
-                        <div>
-                            <div style="font: icon; font-size: 11px;">
-                                <span nz-icon nzType="user" style="color: #002554;"></span>
-                                <b style="font-size: 12px;"> {{item.prm_contact_name}} </b>
 
-                            </div>
+
+                <div class="menu-item" (click)="goPromo(promo)">
+                    <div nz-tooltip nzTooltipTitle="{{promo.prm_title}}" class="item-text-title">
+                        <h5 class="point">
+                            <b>{{promo.prm_title}} </b>
+                        </h5>
+                    </div>
+                    <div class="item-text-company">
+                        <h5><span nz-icon nzType="bank" style="color: #002554;" nzTheme="outline"></span>
+                            {{promo.prm_company_name}}</h5>
+                    </div>
+                    <div class="container-vigencia">
+                        <div style="text-align: left;"
+                            *ngIf="promo.prm_effective_start_date==null && promo.prm_effective_end_date==null">
+                            <nz-tag [nzColor]="'green'">
+                                <b style="font-size: 11px;">VIGENTE AHORA</b>
+                            </nz-tag>
                         </div>
-                        <div style="text-align: right;">
-                            <div style="font: icon; font-size: 11px; margin-left: 43px;">
-                                <span nz-icon nzType="whats-app" style="color: #0FC044;"></span>
-                                <a target="_blank"
-                                    [href]="'https://wa.me/'+item.prm_phone+'?text='+item.prm_message_whatsapp">
-                                    <b style="font-size: 12px;"> {{item.prm_phone}} </b>
-                                </a>
+                        <div style="font-size: 10px; text-align: left;"
+                            *ngIf="promo.prm_effective_start_date!=null && promo.prm_effective_end_date!=null">
+                            <nz-tag [nzColor]="'green'" style="width: 125px;">
+                                <b>Desde: {{promo.prm_effective_start_date | date: 'mediumDate' }}</b>
+                            </nz-tag>
+                            <br>
+                            <nz-tag [nzColor]="'red'" style="width: 125px;">
+                                <b>Hasta: {{promo.prm_effective_end_date | date: 'mediumDate'}}</b>
+                            </nz-tag>
+                        </div>
+                        <br>
+                        <div style="text-align: right;  margin-left: auto">
+                            <nz-tag [nzColor]="'cyan'"><b>{{promo.prm_country_name}}</b> </nz-tag>
+                        </div>
+                    </div>
+                    <div class="section-whatsapp">
+                        <div style="display: flex; flex-wrap: wrap;">
+                            <div>
+                                <div style="font: icon; font-size: 11px;">
+                                    <span nz-icon nzType="user" style="color: #002554;"></span>
+                                    <b style="font-size: 12px;"> {{promo.prm_contact_name}} </b>
+    
+                                </div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font: icon; font-size: 11px; margin-left: 43px;">
+                                    <span nz-icon nzType="whats-app" style="color: #0FC044;"></span>
+                                    <a target="_blank"
+                                        [href]="'https://wa.me/'+promo.prm_phone+'?text='+promo.prm_message_whatsapp">
+                                        <b style="font-size: 12px;"> {{promo.prm_phone}} </b>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+
                 </div>
+                
             </div>
         </div>
     </div>
 </nz-content>
 <div *ngIf="!isLoading">
     <nz-content *ngIf="dataPromotions.length == 0">
-        <nz-result [nzIcon]="'frown'"  style="font-weight: bold;" [nzTitle]="'NO HAY PROMOCIONES DISPONIBLES EN ESTE MOMENTO'">
+        <nz-result [nzIcon]="'frown'" style="font-weight: bold;"
+            [nzTitle]="'NO HAY PROMOCIONES DISPONIBLES EN ESTE MOMENTO'">
             <div nz-result-extra>
             </div>
         </nz-result>

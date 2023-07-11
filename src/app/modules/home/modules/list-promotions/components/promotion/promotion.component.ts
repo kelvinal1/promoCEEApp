@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzImageService } from 'ng-zorro-antd/image';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { PromotionService } from 'src/app/modules/home/services/promotion.service';
+import { Galleria } from 'primeng/galleria';
+
 
 @Component({
   selector: 'app-promotion',
@@ -11,7 +13,7 @@ import { PromotionService } from 'src/app/modules/home/services/promotion.servic
 })
 export class PromotionComponent {
 
-  
+
 
   dataPromotion: any;
   cadenaWpp: string = "";
@@ -21,6 +23,30 @@ export class PromotionComponent {
   cadena: any = "cadena";
 
   cod?: any;
+
+
+
+  // animation gallery images promotion
+
+  fullscreen: boolean = false;
+  responsiveOptions: any[] = [
+    {
+      breakpoint: '1024px',
+      numVisible: 5
+    },
+    {
+      breakpoint: '768px',
+      numVisible: 3
+    },
+    {
+      breakpoint: '560px',
+      numVisible: 1
+    }
+  ];
+
+
+  @ViewChild('galleria') galleria: Galleria | undefined;
+
 
   constructor(private router: Router,
     private nzImageService: NzImageService,
@@ -33,10 +59,10 @@ export class PromotionComponent {
 
   ngOnInit(): void {
     this.cod = this.activadedRoute.snapshot.paramMap.get("cod")
-   /* this.activadedRoute.params.subscribe(roueteParams => {
-      this.cod = roueteParams;
-      this.getInformation();
-    })*/
+    /* this.activadedRoute.params.subscribe(roueteParams => {
+       this.cod = roueteParams;
+       this.getInformation();
+     })*/
     this.getInformation();
   }
 
@@ -51,14 +77,22 @@ export class PromotionComponent {
   }
 
 
-  onClick(image: any){
+  onClick(image: any) {
     this.nzImageService.preview(image.epi_url, { nzZoom: 1.5, nzRotate: 0 });
   }
-  
 
-  return(){
+
+  return() {
     this.msgService.info("SALIR DE PROMOCION")
     return "";
   }
+
+
+
+  // for changes in gallery
+
+
+
+
 
 }

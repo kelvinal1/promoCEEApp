@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgZorroAntdModule } from './ng-zorro.module';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { InterceptorService } from './core/interceptor.service';
+import { NgPrimeAntdModule } from './ng-prime.module';
 
 registerLocaleData(es);
 const ngZorroConfig: NzConfig = {
@@ -28,8 +29,9 @@ const ngZorroConfig: NzConfig = {
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NgZorroAntdModule
-    
+    NgZorroAntdModule,
+    NgPrimeAntdModule,
+
 
   ],
   providers: [

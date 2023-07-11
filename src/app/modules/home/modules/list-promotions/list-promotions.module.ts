@@ -6,6 +6,7 @@ import { NgZorroAntdModule } from 'src/app/ng-zorro.module';
 import { ListComponent } from './components/list/list.component';
 import { PromotionComponent } from './components/promotion/promotion.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgPrimeAntdModule } from 'src/app/ng-prime.module';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     ListPromotionsRoutingModule,
-    NgZorroAntdModule
+    NgZorroAntdModule,
+    NgPrimeAntdModule
   ]
 })
 export class ListPromotionsModule { }

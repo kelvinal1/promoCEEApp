@@ -12,6 +12,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgZorroAntdModule } from 'src/app/ng-zorro.module';
+import { NgPrimeAntdModule } from 'src/app/ng-prime.module';
 
 
 
@@ -19,7 +20,7 @@ import { NgZorroAntdModule } from 'src/app/ng-zorro.module';
   declarations: [
     HomeComponent,
     HeaderComponent,
-    
+
   ],
   imports: [
     CommonModule,
@@ -27,6 +28,7 @@ import { NgZorroAntdModule } from 'src/app/ng-zorro.module';
     ReactiveFormsModule,
     HomeRoutingModule,
     NgZorroAntdModule,
+    NgPrimeAntdModule
   ]
 })
 export class HomeModule { }

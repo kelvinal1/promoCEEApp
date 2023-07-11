@@ -4,6 +4,16 @@
     src: url("assets/fonts/DMSans-Regular.ttf") format("opentype");
     font-display: swap;
 }
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
 .font-dm-sans{
     font-family: DM Sans;
 }
+
+body {
+    font-family: var(--font-family);
+}
+
+
+

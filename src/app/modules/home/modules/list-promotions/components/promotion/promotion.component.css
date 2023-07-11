@@ -11,6 +11,18 @@
     align-items: normal;
     margin-left: auto;
     margin-right: auto;
+
+}
+
+
+.carousel-image {
+    width: 650px;
+    max-width: 650px;
+    min-width: 650px;
+    border-radius: 10px;
+    max-height: 450px;
+    min-height: 450px;
+    height: 450px;
 }
 
 .container-2 {
@@ -28,10 +40,62 @@
     width: 360px;
 }
 
+
+
+.container-gallery {
+    width: 650px;
+    height: 439px;
+}
+
+
+:host ::ng-deep .p-image-preview-container>img {
+    cursor: pointer;
+    width: 650px;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+:host ::ng-deep .p-galleria-indicator-onitem.p-galleria-indicators-right .p-galleria-indicators {
+    right: 0;
+    top: 0;
+    height: 100%;
+    align-items: flex-end;
+    border-radius: 20px;
+}
+
+:host ::ng-deep .p-image-preview-indicator {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity .3s;
+    border-radius: 20px;
+}
+
+
+
+.images {
+    width: 650px;
+    height: 439px;
+    object-fit: cover;
+}
+
 .images-container {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+}
+
+
+.image-container {
+    width: 100%;
+    object-fit: cover;
 }
 
 
@@ -46,6 +110,7 @@
 }
 
 .card-content {
+    width: 850px;
     border-radius: 12px;
 }
 
@@ -91,9 +156,6 @@
         padding-left: 35%;
     }
 
-    .card {
-        width: auto;
-    }
 
     .image-item {
         width: 250px;
