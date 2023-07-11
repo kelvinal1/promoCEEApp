@@ -6,94 +6,98 @@
     style="justify-content: center;max-width: max-content;text-align: center;display: flex;align-items: center;flex-wrap: wrap;margin-left: auto;margin-right: auto;padding-left: 60px;margin-right: 60px;">
     <div style="padding-left: auto;padding-right: auto;text-align: center;">
 
-        <div class="container-gallery" >
-            <p-galleria [value]="dataPromotion.prm_imagenes" [showItemNavigators]="false" [showIndicators]="true"
-                [showIndicatorsOnItem]="true" [autoPlay]="true" [showThumbnails]="false"
-                indicatorsPosition="right"
-                
-                [showThumbnailNavigators]="false">
+        <div class="container-gallery">
+            <p-galleria [value]="dataImagenes" [showItemNavigators]="false" [showIndicators]="true"
+                [showIndicatorsOnItem]="true" [showThumbnails]="false" indicatorsPosition="right"
+                [changeItemOnIndicatorHover]="true" >
                 <ng-template pTemplate="item" let-item>
-                    <div >
-                        <p-image [src]="item.epi_url" [preview]="true"   class="images" >
-                            </p-image>
+                    <div>
+                        <p-image [src]="item.epi_url" [preview]="true" class="images"></p-image>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="thumbnail" let-item>
+                    <div class="grid grid-nogutter justify-content-center">
+                        <img [src]="item.epi_url" class="images" />
                     </div>
                 </ng-template>
             </p-galleria>
         </div>
     </div>
+
     <div style="text-align: center; padding-top: 35px;">
         <nz-card nzHoverable class="card-content" nzTitle="{{dataPromotion?.prm_title}}">
-            <div nz-row [nzGutter]="8">
-                <div>
-                    <b>Descripción:</b>
-                    <h4 style="text-align: justify;"> {{dataPromotion?.prm_description}} </h4>
-                </div>
+
+            <div style="text-align: left;">
+                <b> <span nz-icon nzType="info-circle" style="color: #0a1c47;" nzTheme="outline"></span>  Descripción:</b>
+            </div>
+            <div style="width: auto; text-align: justify;">
+                <h4> {{dataPromotion?.prm_description}} </h4>
             </div>
             <nz-divider></nz-divider>
-            <div nz-row [nzGutter]="8">
-                <div>
-                    <b>Empresa:</b>
-                    <h4> {{dataPromotion?.prm_company_name}} </h4>
-                </div>
-            </div>
-            <nz-divider></nz-divider>
-            <div nz-row [nzGutter]="8">
-                <div nz-col [nzSpan]="8">
-                    <div
-                        *ngIf="dataPromotion?.prm_effective_start_date!=null || dataPromotion?.prm_always_current==false">
-                        <b>Vigencia:</b> <br>
-                        <nz-tag [nzColor]="'green'">
-                            <h4> <b><span nz-icon style="color: #5878c3;" nzType="calendar" nzTheme="outline"></span>
-                                    Desde:</b> {{dataPromotion?.prm_effective_start_date | date: 'shortDate'}} </h4>
-                        </nz-tag>
-                        <nz-tag [nzColor]="'red'">
-                            <h4> <b><span nz-icon style="color: #5878c3;" nzType="calendar" nzTheme="outline"></span>
-                                    Hasta:</b> {{dataPromotion?.prm_effective_end_date | date: 'shortDate'}} </h4>
-                        </nz-tag>
+            <div nz-row >
+                <div nz-col nzSpan="12">
+                    <div style="text-align: left;">
+                        <b><span nz-icon nzType="bank"  style="color: #0a1c47;" nzTheme="outline"></span>  Empresa:</b>
                     </div>
-                    <div *ngIf="dataPromotion?.prm_always_current==null || dataPromotion?.prm_always_current==true">
-                        <b>Vigencia:</b> <br>
-                        <nz-tag [nzColor]="'green'">
-                            <h4>VIGENTE AHORA</h4>
-                        </nz-tag>
+                    <div style="width: auto; text-align: justify;">
+                        <h4>  {{dataPromotion?.prm_company_name}} </h4>
                     </div>
                 </div>
-                <div nz-col [nzSpan]="8">
-                    <b>País:</b> <br>
-                    <nz-tag [nzColor]="'cyan'">
-                        <h4> {{dataPromotion?.prm_country_name}}</h4>
-                    </nz-tag>
-                </div>
-            </div>
+                <div nz-col nzSpan="12">
+                    <div style="text-align: left;">
+                        <b><span nz-icon nzType="global"  style="color: #0a1c47;" nzTheme="outline"></span>  País:</b>
+                    </div>
+                    <div style="width: auto; text-align: justify;">
+                        <h4>  {{dataPromotion?.prm_country_name}} </h4>
+                    </div>
 
-            <nz-divider
-                *ngIf="dataPromotion?.prm_effective_start_date!=null || dataPromotion?.prm_always_current==false"></nz-divider>
-            <div nz-row [nzGutter]="8">
-                <div *ngIf="dataPromotion?.prm_effective_start_date!=null || dataPromotion?.prm_always_current==false">
-                    <b><span style="color: #5878c3;" nz-icon nzType="calendar" nzTheme="outline"></span> Calendario:</b>
-                    <nz-calendar [ngModel]="dataPromotion?.prm_effective_start_date" [nzFullscreen]="false">
-                    </nz-calendar>
                 </div>
             </div>
+           
             <nz-divider></nz-divider>
-            <b>Contacto:</b> <br>
-            <div nz-row [nzGutter]="8">
-                <div nz-col [nzSpan]="8">
-                    <h4>
-                        Nombre:
-                    </h4>
-                    <h4>
-                        <span nz-icon nzType="user" nzTheme="outline" style="color: #5878c3;" nzTheme="outline"></span>
-                        {{dataPromotion?.prm_contact_name}}
-                    </h4>
+            <div nz-row>
+                <div nz-col nzSpan="12">
+                    <div style="text-align: left;">
+                        <b><span nz-icon nzType="contacts"  style="color: #0a1c47;" nzTheme="outline"></span>  Contacto:</b>
+                    </div>
+                    <div style="width: auto; text-align: justify; margin-top: 8px;" >
+                        <div >
+                            <h4>  <span nz-icon nzType="user" style="color: #0a1c47;" nzTheme="outline"></span> {{dataPromotion?.prm_contact_name}} </h4>
+                            <h4>  <span nz-icon nzType="whats-app" style="color: #0FC044;" nzTheme="outline"></span> <a [href]="cadenaWpp" target="_blank">
+                                {{dataPromotion?.prm_phone}} </a> </h4>
+                        </div>
+                    </div>
                 </div>
-                <div nz-col [nzSpan]="8">
-                    <h4> Telefono:</h4>
-                    <a [href]="cadenaWpp" target="_blank">
+                <div  nz-col nzSpan="12">
+                    <div style="text-align: left;">
+                        <b><span nz-icon nzType="calendar"  style="color: #0a1c47;" nzTheme="outline"></span>  Vigencia:</b>
+                    </div>
+                    <div>
+                        <nz-tag style="text-align: left;" [nzColor]="'green'" *ngIf="dataPromotion?.prm_always_current==null || dataPromotion?.prm_always_current==true" >
+                            <b> VIGENTE AHORA </b>
+                        </nz-tag>
+                        <nz-tag style="text-align: left;" [nzColor]="'red'"  *ngIf="dataPromotion?.prm_effective_start_date!=null || dataPromotion?.prm_always_current==false" >
+                            <b> Desde: {{dataPromotion?.prm_effective_start_date | date: 'mediumDate'}} </b>
+                        </nz-tag>
+                        <br>
+                        <nz-tag style="text-align: left;" [nzColor]="'green'"  *ngIf="dataPromotion?.prm_effective_start_date!=null || dataPromotion?.prm_always_current==false" >
+                            <b> Hasta: {{dataPromotion?.prm_effective_end_date | date: 'mediumDate'}} </b>
+                        </nz-tag>
+                    </div>
 
-                        <span nz-icon nzType="whats-app" style="color: #0FC044;" nzTheme="outline"></span>
-                        {{dataPromotion?.prm_phone}} </a>
                 </div>
+            </div>
+            
+            <nz-divider></nz-divider>
+            <div style="text-align: left;">
+                <b><span nz-icon nzType="aim" style="color: #0a1c47;" nzTheme="outline"></span>  Ubicaciones:</b>
+            </div>
+            <div style="margin-top: 10px;">
+                <google-map width="auto" [zoom]="zoom" [center]="center" [options]="options">
+                    <map-marker #marker="mapMarker" *ngFor="let item of positions" [position]="item.pos"
+                        [options]="item.options" [label]="item.label" (mapClick)="openInfoWindow(marker, item.info)">
+                    </map-marker>
+                </google-map>
             </div>
         </nz-card>
     </div>

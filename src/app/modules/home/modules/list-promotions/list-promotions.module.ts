@@ -7,6 +7,7 @@ import { ListComponent } from './components/list/list.component';
 import { PromotionComponent } from './components/promotion/promotion.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgPrimeAntdModule } from 'src/app/ng-prime.module';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { NgPrimeAntdModule } from 'src/app/ng-prime.module';
     ReactiveFormsModule,
     ListPromotionsRoutingModule,
     NgZorroAntdModule,
-    NgPrimeAntdModule
+    NgPrimeAntdModule,
+    GoogleMapsModule
   ]
 })
 export class ListPromotionsModule { }

@@ -49,8 +49,6 @@ export class ListComponent implements OnInit {
       this.dataPromotions = res.data;
       this.isLoading = false
     })
-
-
   }
 
 

@@ -48,6 +48,9 @@
 }
 
 
+
+
+
 :host ::ng-deep .p-image-preview-container>img {
     cursor: pointer;
     width: 650px;
