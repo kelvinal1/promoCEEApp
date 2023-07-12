@@ -48,15 +48,31 @@
 }
 
 
+:host ::ng-deep .ant-card-head {
+    min-height: 48px;
+    margin-bottom: -1px;
+    padding: 0 24px;
+    color: #0a1c47;
+    font-weight: 500;
+    font-size: 18px;
+    background: transparent;
+    border-bottom: 1px solid #f0f0f0;
+    border-radius: 2px 2px 0 0;
+    font-weight: bolder;
+}
 
-
+:host ::ng-deep .p-galleria .p-galleria-thumbnail-container {
+    background: rgba(0, 0, 0, 0.9);
+    padding: 1rem 0.25rem;
+    border-radius: 0px 20px 20px 0px;
+}
 
 :host ::ng-deep .p-image-preview-container>img {
     cursor: pointer;
     width: 650px;
     height: 450px;
     object-fit: cover;
-    border-radius: 20px;
+    border-radius: 20px 0px 0px 20px;
 }
 
 :host ::ng-deep .p-galleria-indicator-onitem.p-galleria-indicators-right .p-galleria-indicators {
@@ -64,7 +80,6 @@
     top: 0;
     height: 100%;
     align-items: flex-end;
-    border-radius: 20px;
 }
 
 :host ::ng-deep .p-image-preview-indicator {
@@ -78,14 +93,21 @@
     justify-content: center;
     opacity: 0;
     transition: opacity .3s;
-    border-radius: 20px;
+    border-radius: 20px 0px 0px 20px;
 }
+
+
 
 
 
 .images {
     width: 650px;
     height: 439px;
+    object-fit: cover;
+}
+
+.images-thumbails {
+    width: 60px;
     object-fit: cover;
 }
 
@@ -142,6 +164,55 @@
     .image-banner {
         width: auto;
     }
+
+    .container-gallery {
+        width: 250px;
+        height: 155px;
+    }
+
+    .images-thumbails {
+        width: 30px;
+        object-fit: cover;
+    }
+
+    :host ::ng-deep .p-galleria .p-galleria-thumbnail-container {
+        background: rgba(0, 0, 0, 0.9);
+        padding: 1rem 0.25rem;
+        height: 155px;
+        border-radius: 0px 20px 20px 0px;
+    }
+
+    :host ::ng-deep .p-image-preview-container>img {
+        cursor: pointer;
+        margin-left: -25px;
+        width: 250px;
+        height: 155px;
+        object-fit: cover;
+        border-radius: 20px 0px 0px 20px;
+    }
+
+    :host ::ng-deep .p-galleria-indicator-onitem.p-galleria-indicators-right .p-galleria-indicators {
+        right: 0;
+        top: 0;
+        height: 100%;
+        align-items: flex-end;
+    }
+
+    :host ::ng-deep .p-image-preview-indicator {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity .3s;
+        border-radius: 20px 0px 0px 20px;
+    }
+
+
 
     .calendar {
         align-items: center;

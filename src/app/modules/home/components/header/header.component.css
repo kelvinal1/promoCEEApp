@@ -48,6 +48,30 @@
     color: white;
 }
 
+
+:host ::ng-deep .ant-result-info .ant-result-icon > .anticon {
+    color: #f34336;
+}
+
+
+:host ::ng-deep .ant-tabs > .ant-tabs-nav, .ant-tabs > div > .ant-tabs-nav {
+    position: relative;
+    display: flex;
+    flex: none;
+    align-items: center;
+    margin-top: -18px;
+    margin-bottom: 40px;
+}
+
+:host ::ng-deep .ant-tabs-top > .ant-tabs-nav::before, .ant-tabs-bottom > .ant-tabs-nav::before, .ant-tabs-top > div > .ant-tabs-nav::before, .ant-tabs-bottom > div > .ant-tabs-nav::before {
+    position: absolute;
+    right: 0;
+    left: 0;
+    border-bottom: 1px solid #f0f0f0;
+    content: '';
+    border-color: transparent;
+}
+
 :host ::ng-deep .ant-select-show-search.ant-select:not(.ant-select-customize-input) .ant-select-selector {
     border-radius: 30px;
     height: 24px;
@@ -163,10 +187,33 @@
 @media (max-width: 576px) {
 
     .cont-card {
+        margin-top: -60px;
         text-align: center;
         align-items: center;
-        margin-left: 43%;
     }
+
+    .card-header {
+        height: 34px;
+        width: auto;
+        position: absolute;
+        top: 80px;
+        right: 60px;
+        align-items: center;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 4px 8px 0 rgba(0, 0, 0, 0.08);
+        text-align: center;
+    }
+
+    .card-filtros {
+        margin-left: -43%;
+        margin-top: -30px;
+        width: auto;
+        height: 60px;
+        margin-bottom: 60px;
+        border-radius: 50px;
+    }
+
+    
 
     .top-center {
         position: sticky;
@@ -184,11 +231,10 @@
         font-size: auto;
     }
 
-    .card-filtros {
-        margin-top: 65px;
-        width: 350px;
-        border-radius: 50px;
-        margin-left: -150px;
+    
+
+    .filtros{
+        margin-top: -25px;
     }
 
     .filtro-cluster {

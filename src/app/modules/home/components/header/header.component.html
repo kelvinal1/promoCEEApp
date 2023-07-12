@@ -11,7 +11,7 @@
             class="card-header">
             <div nz-row style="height: 35px; margin-top: -22px;">
                 <div nz-col nzSpan="12" *ngIf="login">
-                    <button nz-button nz-dropdown [nzDropdownMenu]="menu" style="border-color: #ffffff" >
+                    <button nz-button nz-dropdown [nzDropdownMenu]="menu" style="border-color: transparent; background-color: transparent" >
                         <i nz-icon nzType="menu" class="icono-log">
                         </i>
                     </button>
@@ -92,8 +92,8 @@
         </nz-card>
     </nz-content>
 </div>
-
-<nz-tabset nzCentered [nzLinkRouter] style="margin-top: 10px;" [(nzSelectedIndex)]="opSelected">
+<nz-divider></nz-divider>
+<nz-tabset nzCentered [nzLinkRouter]  [(nzSelectedIndex)]="opSelected">
     <nz-tab (nzClick)="goCluster(item)" *ngFor="let item of dataSegmentos" [nzTitle]="titleTemplate">
         <ng-template #titleTemplate [nzLinkExact]>
             <div class="container-clusters">

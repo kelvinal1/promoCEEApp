@@ -1,15 +1,14 @@
 <nz-spin [nzSpinning]="isLoading"></nz-spin>
+<div nz-row  *ngIf="!isLoading" style="justify-content: center;text-align: center;align-items: center;margin-left: 60px;margin-right: 60px;">
 
 
-
-<div *ngIf="!isLoading"
-    style="justify-content: center;max-width: max-content;text-align: center;display: flex;align-items: center;flex-wrap: wrap;margin-left: auto;margin-right: auto;padding-left: 60px;margin-right: 60px;">
-    <div style="padding-left: auto;padding-right: auto;text-align: center;">
-
-        <div class="container-gallery">
+    
+    <div nz-col nzSpan="24" style="display: flex;justify-content: center;">
+        <div class="container-gallery" >
             <p-galleria [value]="dataImagenes" [showItemNavigators]="false" [showIndicators]="true"
-                [showIndicatorsOnItem]="true" [showThumbnails]="false" indicatorsPosition="right"
-                [changeItemOnIndicatorHover]="true" >
+                [showIndicatorsOnItem]="true" [showThumbnails]="true" indicatorsPosition="right"
+                thumbnailsPosition="right"
+                [changeItemOnIndicatorHover]="true" class="container-gallery">
                 <ng-template pTemplate="item" let-item>
                     <div>
                         <p-image [src]="item.epi_url" [preview]="true" class="images"></p-image>
@@ -17,14 +16,14 @@
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
                     <div class="grid grid-nogutter justify-content-center">
-                        <img [src]="item.epi_url" class="images" />
+                        <img [src]="item.epi_url" class="images-thumbails" />
                     </div>
                 </ng-template>
             </p-galleria>
         </div>
     </div>
 
-    <div style="text-align: center; padding-top: 35px;">
+    <div nz-col nzSpan="24" style="display: flex;justify-content: center; padding-top: 35px;">
         <nz-card nzHoverable class="card-content" nzTitle="{{dataPromotion?.prm_title}}">
 
             <div style="text-align: left;">
@@ -72,7 +71,7 @@
                     <div style="text-align: left;">
                         <b><span nz-icon nzType="calendar"  style="color: #0a1c47;" nzTheme="outline"></span>  Vigencia:</b>
                     </div>
-                    <div>
+                    <div  style="justify-content: left;">
                         <nz-tag style="text-align: left;" [nzColor]="'green'" *ngIf="dataPromotion?.prm_always_current==null || dataPromotion?.prm_always_current==true" >
                             <b> VIGENTE AHORA </b>
                         </nz-tag>
