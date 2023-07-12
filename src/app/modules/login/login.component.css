@@ -180,3 +180,45 @@ nz-layout {
 
 
 }
+
+
+@media (max-width: 992px) {
+    .information {
+        background-color: #134a61;
+        width: 135px;
+        height: 35px;
+        margin-top: 10px;
+        margin-right: 3px;
+        position: relative;
+    }
+
+
+    .text-information {
+        color: white;
+        margin-top: 5px;
+        font-size: 9px;
+        margin-left: 10px;
+    }
+
+
+    .borders-container {
+
+        margin-top: 15px;
+        margin-left: 3%;
+        margin-right: 3%;
+        border-radius: 20px;
+    }
+
+
+    .title-text-phone {
+        font-size: 8px;
+    }
+
+    .button-table {
+        width: 14px;
+        text-indent: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+}
