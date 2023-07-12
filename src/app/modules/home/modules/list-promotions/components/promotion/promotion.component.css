@@ -14,6 +14,38 @@
 
 }
 
+.carousel {
+    width: 220px;
+    border-radius: 10px;
+    height: 140px;
+    border-radius: 15px;
+}
+
+
+
+.carousel2 {
+    width: 220px;
+    border-radius: 10px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+
+
+
+
+
+:host ::ng-deep .p-galleria .p-galleria-item-nav {
+    background: transparent;
+    color: #f8f9fa;
+    width: 1rem;
+    height: 1rem;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+    border-radius: 6px;
+    margin: 0 0.5rem;
+}
+
 
 .carousel-image {
     width: 650px;
@@ -47,6 +79,10 @@
     height: 439px;
 }
 
+.container-carousel{
+    width: 900px;
+    height: auto;
+}
 
 :host ::ng-deep .ant-card-head {
     min-height: 48px;
@@ -96,6 +132,11 @@
     border-radius: 20px 0px 0px 20px;
 }
 
+:host ::ng-deep .p-carousel-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+}
 
 
 
@@ -142,6 +183,31 @@
 
 
 @media (max-width: 576px) {
+
+    .container-carousel{
+        width: 276px;
+        height: auto;
+    }
+
+    .carousel {
+        width: 180px;
+        border-radius: 10px;
+        height: 120px;
+        border-radius: 15px;
+    }
+    
+    
+    
+    .carousel2 {
+        width: 180px;
+        border-radius: 10px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 15px;
+    }
+    
+
+
 
     .container-1 {
         display: flex;

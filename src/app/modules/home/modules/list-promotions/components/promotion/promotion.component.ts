@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { Component, ChangeDetectorRef, ViewChild, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzImageService } from 'ng-zorro-antd/image';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -7,6 +7,7 @@ import { Galleria } from 'primeng/galleria';
 import { MapaEmpresasService } from 'src/app/modules/home/services/mapaEmpresas.service';
 import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { Almacen } from 'src/app/models/Almacen';
+import { AlmacenHomeService } from 'src/app/modules/home/services/almacen-home.service';
 
 
 
@@ -26,7 +27,9 @@ export class PromotionComponent {
   dirCompany: any[] = [];
   positions: any[] = []
   almacen: any = {};
+  url!: string;
   almacenes!: Array<Almacen>;
+  dataPromotions: any[] = [];
 
   center!: google.maps.LatLngLiteral;
   height!: number;
@@ -45,6 +48,9 @@ export class PromotionComponent {
   cadena: any = "cadena";
 
   cod?: any;
+
+  skeleton:boolean= true;
+
 
 
 
@@ -71,6 +77,8 @@ export class PromotionComponent {
 
 
   constructor(private router: Router,
+    @Inject('BASE_URL') url: string,
+    private almacenSerive: AlmacenHomeService,
     private nzImageService: NzImageService,
     private msgService: NzMessageService,
     private promotionService: PromotionService,
@@ -84,6 +92,7 @@ export class PromotionComponent {
     this.cod = this.activadedRoute.snapshot.paramMap.get("cod")
 
     this.getInformationPromo();
+    this.getPromotions();
 
   }
 
@@ -101,11 +110,20 @@ export class PromotionComponent {
   }
 
 
+  getPromotions() {
+    this.promotionService.getPromotionsByFilter(0, 0, 0).subscribe(value => {
+      this.dataPromotions = value.data;
+      this.skeleton=false
+    })
+  }
+
+
 
   getUbiCompnay(cod_company: any) {
     this.mapService.getUbicaciones(0, 0, cod_company, 0).subscribe(direc => {
       this.dirCompany = direc;
       this.doMark()
+      this.getAlmacenes();
     })
   }
 
@@ -115,13 +133,13 @@ export class PromotionComponent {
 
     let latitud = '0.2816738524975948';
     let longitud = '-76.70256190717976';
-    let zoom =6;
+    let zoom = 6;
 
     this.zoom = zoom;
     this.center = {
       lat: parseFloat(latitud),
       lng: parseFloat(longitud)
-  };
+    };
 
     let positions = [];
 
@@ -193,11 +211,37 @@ export class PromotionComponent {
 
 
 
-  openInfoWindow(marker: MapMarker, info: any) {
-    
-    this.infoWindow.open();
+
+  getAlmacenes() {
+    this.almacenSerive.getAlmacenesByEmpresa(this.dataPromotion.prm_company_id).subscribe(value => {
+      this.almacenes = value
+    })
   }
 
+  openInfoWindow(marker: MapMarker, info: any) {
+
+    console.log(this.almacenes)
+    console.log(info)
+    this.almacen = this.almacenes.find(
+      (x) => x.id == info.alm_id && x.empresa == info.emp_codigo
+    );
+
+    this.almacen.emp_logo = info.emp_logo;
+    this.almacen.ciudad = info.div_descripcion;
+    this.almacen.emp_nombre = info.emp_nombre_comercial.toUpperCase();
+    this.infoWindow.open(marker);
+  }
+
+
+  goWpp(item: any) {
+    this.cadenaWpp = "https://wa.me/" + item.prm_phone + "?text=" + item.prm_message_whatsapp;
+    window.open(this.cadenaWpp)
+  }
+
+
+  goPromo(item: any) {
+    window.open('home/load/promotion/' + item.prm_id)
+  }
 
   // for changes in gallery
 

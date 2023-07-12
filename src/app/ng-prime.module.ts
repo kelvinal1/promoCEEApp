@@ -3,11 +3,20 @@ import { NgModule } from '@angular/core';
 
 import { GalleriaModule } from 'primeng/galleria';
 import { ImageModule } from 'primeng/image';
+import { CarouselModule } from 'primeng/carousel';
+import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'primeng/button';
+
+import { SkeletonModule } from 'primeng/skeleton';
 
 @NgModule({
   exports: [
     GalleriaModule,
-    ImageModule
+    ImageModule,
+    CarouselModule,
+    TagModule,
+    ButtonModule,
+    SkeletonModule
   ]
 })
 
