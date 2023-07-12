@@ -17,15 +17,15 @@
 }
 
 .filtro-cluster {
-    width: 50%;
+    width: 100%;
 }
 
 .filtro-empresa {
-    width: 50%;
+    width: 100%;
 }
 
 .filtro-pais {
-    width: 50%;
+    width: 100%;
 }
 
 .logo-item {
@@ -186,6 +186,18 @@
 
 @media (max-width: 576px) {
 
+    .filtro-cluster {
+        width: 100%;
+    }
+    
+    .filtro-empresa {
+        width: 100%;
+    }
+    
+    .filtro-pais {
+        width: 100%;
+    }
+
     .cont-card {
         margin-top: -60px;
         text-align: center;
@@ -234,23 +246,10 @@
     
 
     .filtros{
-        margin-top: -25px;
+        margin-top: -18px;
     }
 
-    .filtro-cluster {
-        max-width: auto;
-        min-width: auto;
-    }
-
-    .filtro-empresa {
-        max-width: auto;
-        min-width: auto;
-    }
-
-    .filtro-pais {
-        max-width: auto;
-        min-width: auto;
-    }
+    
 
     .text-title-header {
         font-size: 20px;
@@ -273,7 +272,7 @@
     .top-right2 {
         position: absolute;
         top: 80px;
-        right: 35px;
+        right: 20px;
         align-items: center;
     }
 
@@ -286,7 +285,7 @@
     }
 
     .card-content {
-        padding: 10px 0px;
+        right: 10px;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
