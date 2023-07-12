@@ -53,7 +53,7 @@
                         <div>
                             <b>Cluster: </b>
                             <nz-select class="filtro-cluster" [(ngModel)]="cluster" nzShowSearch
-                                nzPlaceHolder="Seleccione cluster" (ngModelChange)="onChangeCluster()">
+                                nzPlaceHolder="Seleccione cluster" (ngModelChange)="onChange()">
                                 <nz-option *ngFor="let item of dataSegmentos" [nzLabel]="item.nombre"
                                     [nzValue]="item.codigo"></nz-option>
                             </nz-select>
@@ -63,7 +63,7 @@
                         <div>
                             <b>Empresa: </b>
                             <nz-select class="filtro-empresa" [(ngModel)]="empresa" nzShowSearch nzAllowClear
-                                nzPlaceHolder="Seleccione empresa">
+                                nzPlaceHolder="Seleccione empresa" (ngModelChange)="onChange()">
                                 <nz-option *ngFor="let item of dataEmpresas" [nzLabel]="item.razonSocial"
                                     [nzValue]="item.codigo"></nz-option>
                             </nz-select>
@@ -73,7 +73,7 @@
                         <div>
                             <b>País: </b>
                             <nz-select class="filtro-pais" [(ngModel)]="pais" nzShowSearch nzAllowClear
-                                nzPlaceHolder="Seleccione país">
+                                nzPlaceHolder="Seleccione país" (ngModelChange)="onChange()">
                                 <nz-option *ngFor="let item of dataLugares" [nzLabel]="item.descripcion"
                                     [nzValue]="item.codigo"></nz-option>
                             </nz-select>

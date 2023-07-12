@@ -21,6 +21,9 @@ export class ListComponent implements OnInit {
   promClusterSelect: any = null;
   id: any;
   data: any = null;
+  cluster: any;
+  empresa: any;
+  pais: any;
 
 
   constructor(private activadedRoute: ActivatedRoute,
@@ -36,7 +39,9 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
 
     this.activadedRoute.params.subscribe(roueteParams => {
-      this.data = roueteParams['cod'];
+      this.cluster = roueteParams['cluster'];
+      this.empresa = roueteParams['company'];
+      this.pais = roueteParams['country'];
       this.getAllPromotionsCluster()
 
     
@@ -45,7 +50,7 @@ export class ListComponent implements OnInit {
 
   getAllPromotionsCluster() {
     this.isLoading = true
-    this.promotionService.getPromotionsByCluster(this.data).subscribe(res => {
+    this.promotionService.getPromotionsByFilter(this.cluster,this.empresa,this.pais).subscribe(res => {
       this.dataPromotions = res.data;
       this.isLoading = false
     })

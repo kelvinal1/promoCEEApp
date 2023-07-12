@@ -5,7 +5,7 @@ import { PromotionComponent } from './components/promotion/promotion.component';
 
 const routes: Routes = [
 
-  { path:'list/:cod',component:ListComponent },
+  { path:'list/:cluster/:company/:country',component:ListComponent },
   { path:'promotion/:cod',component:PromotionComponent },
 ];
 

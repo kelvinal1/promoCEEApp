@@ -34,8 +34,8 @@ export class HeaderComponent implements OnInit {
   dataEmpresas: any[] = [];
   dataLugares: any[] = [];
   cluster: any = null;
-  empresa: any = null;
-  pais: any = null;
+  empresa: any = 0;
+  pais: any = 0;
   nOptions: any = null;
   opSelected: any = null;
   buscador: any = {
@@ -136,9 +136,14 @@ export class HeaderComponent implements OnInit {
   getSegmentos() {
     this.segmentoService.getSegmentosByUsuario().subscribe((value) => {
       this.dataSegmentos = value
-      this.cluster = this.dataSegmentos[0].codigo
+      
+        this.cluster = this.dataSegmentos[0].codigo
+      
+      
       if (this.route.url == '/home') {
-        this.router.navigate(['home/load/list/', this.cluster])
+        this.router.navigate(['home/load/list/', this.cluster,this.empresa,this.pais])
+        this.setMark(this.cluster)
+      }else{
         this.setMark(this.cluster)
       }
     })
@@ -170,30 +175,46 @@ export class HeaderComponent implements OnInit {
 
     this.cluster = item.codigo
     this.setMark(item.codigo)
-    let filtro: any = {
-      cluster: this.cluster,
-      empresa: this.empresa,
-      pais: this.pais
-    }
-    this.route.navigate(['home/load/list', this.cluster])
+    
+    if(this.pais == 0 || this.pais == null ) {this.pais=0;}
+    if(this.empresa || this.empresa == null ) {this.empresa=0}
+    this.route.navigate(['home/load/list/', this.cluster,this.empresa,this.pais])
   }
 
 
 
-  onChangeCluster() {
-    let filtro: any = {
-      cluster: this.cluster,
-      empresa: this.empresa,
-      pais: this.pais,
-    }
+  onChange() {
     this.setMark(this.cluster);
-    this.route.navigate(['home/load/list', this.cluster]);
+
+    //when selection is null(country and company)
+    if( (this.pais == null ||this.pais == 0  ) && (this.empresa == null ||this.empresa == 0 ) && this.cluster !=0 ) {
+      this.empresa=0
+      this.pais=0;
+      this.route.navigate(['home/load/list/', this.cluster,this.empresa,this.pais])
+    }
+
+    if( this.pais == null ) {
+      this.pais=0;
+      this.route.navigate(['home/load/list/', this.cluster,this.empresa,this.pais])
+    }
+
+    if( this.empresa == null ) {
+      this.empresa=0;
+      this.route.navigate(['home/load/list/', this.cluster,this.empresa,this.pais])
+    }
+
+
+    if(this.cluster!=0 && this.pais!=0){
+      this.route.navigate(['home/load/list/', this.cluster,this.empresa,this.pais])
+    }
+
+    if(this.cluster!=0 && this.empresa!=0){
+      this.route.navigate(['home/load/list/', this.cluster,this.empresa,this.pais])
+    }
   }
 
 
-  onChangeCompany(){
 
-  }
 
 
 

@@ -24,6 +24,12 @@ export class PromotionService {
     }
 
 
+    getPromotionsByFilter(cluster_id: any,company_id: any,country_id: any):Observable<any>
+    {
+        return this.http.get(`${this.baseUrl}${this.api}/all/filter?cluster_id=${cluster_id}&company_id=${company_id}&country_id=${country_id}`);
+    }
+
+
     getImagesToPromotion(epi_promotion: any):Observable<any>
     {
         return this.http.get(`${this.baseUrl}${this.apiImagesPromotion}/getAll/promotionImages?epi_promocion=${epi_promotion}`);
