@@ -47,6 +47,7 @@ export class HeaderComponent implements OnInit {
   filtro: any = null;
 
 
+  clientHeight!: number;
 
 
 
@@ -61,7 +62,9 @@ export class HeaderComponent implements OnInit {
     private msjService: NzMessageService,
     private route: Router,
     private activvatedRoute: ActivatedRoute
-  ) { }
+  ) { 
+    this.clientHeight = window.innerHeight; 
+  }
 
   ngOnInit(): void {
 

@@ -1,116 +1,128 @@
-<nz-page-header class="header-page">
-    <nz-breadcrumb nz-page-header-breadcrumb>
-        <div class="top-left">
-            <div style="align-items: center;">
-                <button nz-button nzType="text" style="background-color: transparent;">
-                    <img class="icono-eljuri" src="assets/icons/corporacion-eljuri.png">
-                </button>
-            </div>
-        </div>
-        <nz-card class="card-header">
-            <div nz-row style="height: 35px; margin-top: -22px;">
-                <div nz-col nzSpan="12" *ngIf="login">
-                    <button nz-button nz-dropdown [nzDropdownMenu]="menu"
-                        style="border-color: transparent; background-color: transparent">
-                        <i nz-icon nzType="menu" class="icono-log">
-                        </i>
-                    </button>
-                    <nz-dropdown-menu #menu="nzDropdownMenu">
-                        <ul nz-menu>
-                            <li nz-menu-item (click)="goInformation()">
-                                <nz-space>
-                                    <span *nzSpaceItem nz-icon nzType="search"></span>
-                                    <span *nzSpaceItem>Consultar </span>
-                                </nz-space>
-                            </li>
-                        </ul>
-                    </nz-dropdown-menu>
-                </div>
-                <div nz-col nzSpan="12" *ngIf="login">
-                    <button nzTooltipTitle="Cerrar sesión" nz-tooltip (click)="logout()" nz-button nzType="text">
-                        <i nz-icon nzType="user" class="icono-log">
-                        </i>
+<div [ngStyle]="{'min-height': clientHeight + 'px', 'margin-bottom': '60px'}">
+    <nz-page-header class="header-page">
+        <nz-breadcrumb nz-page-header-breadcrumb>
+            <div class="top-left">
+                <div style="align-items: center;">
+                    <button nz-button nzType="text" style="background-color: transparent;">
+                        <img class="icono-eljuri" src="assets/icons/corporacion-eljuri.png">
                     </button>
                 </div>
-                <div nz-col nzSpan="12" *ngIf="!login">
-                    <button nzTooltipTitle="Iniciar sesión" nz-tooltip (click)="logIn()" nz-button nzType="text">
-                        <i nz-icon nzType="user" class="icono-log">
-                        </i>
-                    </button>
-                </div>
-
             </div>
-        </nz-card>
-    </nz-breadcrumb>
-</nz-page-header>
-
-<div class="cont-card">
-    <nz-content style="text-align: center;">
-        <nz-card nzHoverable class="card-filtros">
-            <div style="text-align: center;">
-                <div nz-row [nzGutter]="6" style="margin-left: auto; margin-right: auto; text-align: center;">
-                    <div nz-col [nzSpan]="6" class="gutter-row" class="filtros">
-                        <div>
-                            <b>Cluster: </b>
-                            <nz-select class="filtro-cluster" [(ngModel)]="cluster" nzShowSearch
-                                nzPlaceHolder="Seleccione cluster" (ngModelChange)="onChange()">
-                                <nz-option *ngFor="let item of dataSegmentos" [nzLabel]="item.nombre"
-                                    [nzValue]="item.codigo"></nz-option>
-                            </nz-select>
-                        </div>
+            <nz-card class="card-header">
+                <div nz-row style="height: 35px; margin-top: -22px;">
+                    <div nz-col nzSpan="12" *ngIf="login">
+                        <button nz-button nz-dropdown [nzDropdownMenu]="menu"
+                            style="border-color: transparent; background-color: transparent">
+                            <i nz-icon nzType="menu" class="icono-log">
+                            </i>
+                        </button>
+                        <nz-dropdown-menu #menu="nzDropdownMenu">
+                            <ul nz-menu>
+                                <li nz-menu-item (click)="goInformation()">
+                                    <nz-space>
+                                        <span *nzSpaceItem nz-icon nzType="search"></span>
+                                        <span *nzSpaceItem>Consultar </span>
+                                    </nz-space>
+                                </li>
+                            </ul>
+                        </nz-dropdown-menu>
                     </div>
-                    <div nz-col [nzSpan]="6" class="gutter-row" class="filtros">
-                        <div>
-                            <b>Empresa: </b>
-                            <nz-select class="filtro-empresa" [(ngModel)]="empresa" nzShowSearch nzAllowClear
-                                nzPlaceHolder="Seleccione empresa" (ngModelChange)="onChange()">
-                                <nz-option *ngFor="let item of dataEmpresas" [nzLabel]="item.razonSocial"
-                                    [nzValue]="item.codigo"></nz-option>
-                            </nz-select>
-                        </div>
+                    <div nz-col nzSpan="12" *ngIf="login">
+                        <button nzTooltipTitle="Cerrar sesión" nz-tooltip (click)="logout()" nz-button nzType="text">
+                            <i nz-icon nzType="user" class="icono-log">
+                            </i>
+                        </button>
                     </div>
-                    <div nz-col [nzSpan]="6" class="gutter-row" class="filtros">
-                        <div>
-                            <b>País: </b>
-                            <nz-select class="filtro-pais" [(ngModel)]="pais" nzShowSearch nzAllowClear
-                                nzPlaceHolder="Seleccione país" (ngModelChange)="onChange()">
-                                <nz-option *ngFor="let item of dataLugares" [nzLabel]="item.descripcion"
-                                    [nzValue]="item.codigo"></nz-option>
-                            </nz-select>
-                        </div>
-                    </div>
-
-                    <div nz-col [nzSpan]="6" class="gutter-row" class="filtros" >
-                        <div>
-                            <span nz-icon style=" color: #0a1c47;
-                            font: icon;
-                            text-align: center;
-                            border-radius: 50%;
-                            font-size: 34px; margin-left: 10px; " nzType="search" nzTheme="outline"></span>
-                        </div>
+                    <div nz-col nzSpan="12" *ngIf="!login">
+                        <button nzTooltipTitle="Iniciar sesión" nz-tooltip (click)="logIn()" nz-button nzType="text">
+                            <i nz-icon nzType="user" class="icono-log">
+                            </i>
+                        </button>
                     </div>
 
                 </div>
-            </div>
-        </nz-card>
-    </nz-content>
-</div>
-<nz-divider></nz-divider>
-<nz-tabset nzCentered [nzLinkRouter] [(nzSelectedIndex)]="opSelected">
-    <nz-tab (nzClick)="goCluster(item)" *ngFor="let item of dataSegmentos" [nzTitle]="titleTemplate">
-        <ng-template #titleTemplate [nzLinkExact]>
-            <div class="container-clusters">
+            </nz-card>
+        </nz-breadcrumb>
+    </nz-page-header>
+    <div class="cont-card">
+        <nz-content style="text-align: center;">
+            <nz-card nzHoverable class="card-filtros">
                 <div style="text-align: center;">
-                    <span>
-                        <img class="logo-cluster" src="assets/segmentos/{{item.icono}}" alt="ejemplo.jpg">
-                    </span>
+                    <div nz-row [nzGutter]="6" style="margin-left: auto; margin-right: auto; text-align: center;">
+                        <div nz-col [nzSpan]="6" class="gutter-row" class="filtros">
+                            <div>
+                                <b>Cluster: </b>
+                                <nz-select class="filtro-cluster" [(ngModel)]="cluster" nzShowSearch
+                                    nzPlaceHolder="Seleccione cluster" (ngModelChange)="onChange()">
+                                    <nz-option *ngFor="let item of dataSegmentos" [nzLabel]="item.nombre"
+                                        [nzValue]="item.codigo"></nz-option>
+                                </nz-select>
+                            </div>
+                        </div>
+                        <div nz-col [nzSpan]="6" class="gutter-row" class="filtros">
+                            <div>
+                                <b>Empresa: </b>
+                                <nz-select class="filtro-empresa" [(ngModel)]="empresa" nzShowSearch nzAllowClear
+                                    nzPlaceHolder="Seleccione empresa" (ngModelChange)="onChange()">
+                                    <nz-option *ngFor="let item of dataEmpresas" [nzLabel]="item.razonSocial"
+                                        [nzValue]="item.codigo"></nz-option>
+                                </nz-select>
+                            </div>
+                        </div>
+                        <div nz-col [nzSpan]="6" class="gutter-row" class="filtros">
+                            <div>
+                                <b>País: </b>
+                                <nz-select class="filtro-pais" [(ngModel)]="pais" nzShowSearch nzAllowClear
+                                    nzPlaceHolder="Seleccione país" (ngModelChange)="onChange()">
+                                    <nz-option *ngFor="let item of dataLugares" [nzLabel]="item.descripcion"
+                                        [nzValue]="item.codigo"></nz-option>
+                                </nz-select>
+                            </div>
+                        </div>
+
+                        <div nz-col [nzSpan]="6" class="gutter-row" class="filtros">
+                            <div>
+                                <span nz-icon style=" color: #0a1c47;
+                                font: icon;
+                                text-align: center;
+                                border-radius: 50%;
+                                font-size: 34px; margin-left: 10px; " nzType="search" nzTheme="outline"></span>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-                <div style="text-align: center; font-size: 12px;">{{ item.nombre }}</div>
-            </div>
-        </ng-template>
-    </nz-tab>
-</nz-tabset>
-<router-outlet></router-outlet>
+            </nz-card>
+        </nz-content>
+    </div>
+    <nz-divider></nz-divider>
+    <nz-tabset nzCentered [nzLinkRouter] [(nzSelectedIndex)]="opSelected">
+        <nz-tab (nzClick)="goCluster(item)" *ngFor="let item of dataSegmentos" [nzTitle]="titleTemplate">
+            <ng-template #titleTemplate [nzLinkExact]>
+                <div class="container-clusters">
+                    <div style="text-align: center;">
+                        <span>
+                            <img class="logo-cluster" src="assets/segmentos/{{item.icono}}" alt="ejemplo.jpg">
+                        </span>
+                    </div>
+                    <div style="text-align: center; font-size: 12px;">{{ item.nombre }}</div>
+                </div>
+            </ng-template>
+        </nz-tab>
+    </nz-tabset>
+    <router-outlet></router-outlet>
+
+
+
+</div>
+
+
+
+
+<app-footer></app-footer>
+
+
+
 
 <nz-modal [(nzVisible)]="isVisibleLogin" [nzClosable]="" [nzContent]="modalContentForm" nzTitle="Iniciar Sesión"
     [nzFooter]="null" nzWidth="400px" nzHeight="300px" (nzOnCancel)="isVisibleLogin = false">

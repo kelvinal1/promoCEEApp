@@ -49,12 +49,13 @@
 }
 
 
-:host ::ng-deep .ant-result-info .ant-result-icon > .anticon {
+:host ::ng-deep .ant-result-info .ant-result-icon>.anticon {
     color: #f34336;
 }
 
 
-:host ::ng-deep .ant-tabs > .ant-tabs-nav, .ant-tabs > div > .ant-tabs-nav {
+:host ::ng-deep .ant-tabs>.ant-tabs-nav,
+.ant-tabs>div>.ant-tabs-nav {
     position: relative;
     display: flex;
     flex: none;
@@ -63,7 +64,10 @@
     margin-bottom: 40px;
 }
 
-:host ::ng-deep .ant-tabs-top > .ant-tabs-nav::before, .ant-tabs-bottom > .ant-tabs-nav::before, .ant-tabs-top > div > .ant-tabs-nav::before, .ant-tabs-bottom > div > .ant-tabs-nav::before {
+:host ::ng-deep .ant-tabs-top>.ant-tabs-nav::before,
+.ant-tabs-bottom>.ant-tabs-nav::before,
+.ant-tabs-top>div>.ant-tabs-nav::before,
+.ant-tabs-bottom>div>.ant-tabs-nav::before {
     position: absolute;
     right: 0;
     left: 0;
@@ -184,16 +188,26 @@
     font-size: 20px;
 }
 
+footer-content {
+    height: 32px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    text-align: center;
+}
+
 @media (max-width: 576px) {
 
     .filtro-cluster {
         width: 100%;
     }
-    
+
     .filtro-empresa {
         width: 100%;
     }
-    
+
     .filtro-pais {
         width: 100%;
     }
@@ -225,7 +239,7 @@
         border-radius: 50px;
     }
 
-    
+
 
     .top-center {
         position: sticky;
@@ -243,13 +257,13 @@
         font-size: auto;
     }
 
-    
 
-    .filtros{
+
+    .filtros {
         margin-top: -18px;
     }
 
-    
+
 
     .text-title-header {
         font-size: 20px;
@@ -315,11 +329,11 @@
     .filtro-cluster {
         width: 100%;
     }
-    
+
     .filtro-empresa {
         width: 100%;
     }
-    
+
     .filtro-pais {
         width: 100%;
     }
@@ -351,7 +365,7 @@
         border-radius: 50px;
     }
 
-    
+
 
     .top-center {
         position: sticky;
@@ -369,13 +383,13 @@
         font-size: auto;
     }
 
-    
 
-    .filtros{
+
+    .filtros {
         margin-top: -18px;
     }
 
-    
+
 
     .text-title-header {
         font-size: 20px;
@@ -433,7 +447,4 @@
         -webkit-box-shadow: 0px 0px 30px 10px rgba(18, 18, 18, 0.1);
         box-shadow: 0px 0px 30px 10px rgba(18, 18, 18, 0.1);
     }
-
-
-
 }

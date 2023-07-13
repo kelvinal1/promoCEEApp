@@ -13,6 +13,7 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgZorroAntdModule } from 'src/app/ng-zorro.module';
 import { NgPrimeAntdModule } from 'src/app/ng-prime.module';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 
@@ -20,6 +21,7 @@ import { NgPrimeAntdModule } from 'src/app/ng-prime.module';
   declarations: [
     HomeComponent,
     HeaderComponent,
+    FooterComponent,
 
   ],
   imports: [
