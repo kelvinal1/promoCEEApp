@@ -74,13 +74,18 @@
 
 
 
+.title-prom-c{
+    height: 65px;
+
+}
+
 .container-gallery {
     width: 650px;
     height: 439px;
 }
 
 .container-carousel{
-    width: 900px;
+    width: 800px;
     height: auto;
 }
 
@@ -184,6 +189,11 @@
 
 @media (max-width: 576px) {
 
+
+    .title-prom-c{
+        height: 85px;
+    
+    }
     .container-carousel{
         width: 276px;
         height: auto;
@@ -318,6 +328,10 @@
 
 @media (max-width: 992px) {
 
+    .title-prom-c{
+        height: 85px;
+    
+    }
 
     .container-carousel{
         width: 276px;

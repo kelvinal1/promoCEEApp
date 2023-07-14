@@ -55,21 +55,38 @@
                     <div nz-row [nzGutter]="6" class="upText"
                         style="margin-left: auto; margin-right: auto; text-align: center;">
                         <div nz-col [nzSpan]="6" class="gutter-row" class="filtros">
-                            <button (click)="clusterG()" nz-button nzType="text"><b class="text-fil"> Cualquier
-                                    cluster</b></button>
+                            <button nz-tooltip nzTooltipTitle="Filtrar por cluster" (click)="clusterG()" nz-button
+                                nzType="text"><b class="text-fil"> {{textCluster}} </b></button>
+                        </div>
+                        <div nz-col [nzSpan]="6" class="gutter-row"
+                            style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" class="filtros">
+                            <button nz-tooltip nzTooltipTitle="Filtrar por empresa" (click)="companyG()" nz-button
+                                nzType="text"><b class="text-fil"> {{textCompany}} </b></button>
                         </div>
                         <div nz-col [nzSpan]="6" class="gutter-row" class="filtros">
-                            <button (click)="companyG()" nz-button nzType="text"><b class="text-fil"> Cualquier
-                                    empresa</b></button>
+                            <button nz-tooltip nzTooltipTitle="Filtrar por país" (click)="countryG()" nz-button
+                                nzType="text"><b class="text-fil"> {{textCountry}} </b></button>
                         </div>
                         <div nz-col [nzSpan]="6" class="gutter-row" class="filtros">
-                            <button (click)="countryG()" nz-button nzType="text"><b class="text-fil">¿Qué
-                                    país?</b></button>
-                        </div>
-                        <div nz-col [nzSpan]="6" class="gutter-row" class="filtros">
-                            <button (click)="clusterG()" nz-button nzType="primary"
-                                style="background-color: #0a1c47; border-color: #0a1c47;" nzShape="circle"><span nz-icon
-                                    style="color: white;" nzType="search"></span></button>
+                            <div nz-row >
+
+                                <div nz-col [nzSpan]="12">
+                                    <button nz-tooltip nzTooltipTitle="Filtrar promociones" (click)="visibleDraw=true" nz-button nzType="primary"
+                                    style="background-color: #0a1c47; border-color: #0a1c47;" nzShape="circle"><span nz-icon
+                                        style="color: white;" nzType="search"></span></button>
+
+                                </div>
+                                <div nz-col [nzSpan]="12">
+                                    <button nz-tooltip nzTooltipTitle="Limpiar todos los filtros" (click)="clearFilter()" nz-button nzType="primary"
+                                    style="background-color: #0a1c47; border-color: #0a1c47;" nzShape="circle"><span nz-icon
+                                        style="color: white;" nzType="clear"></span></button>
+                                    
+                                </div>
+
+                            </div>
+                           
+                                    
+                           
                         </div>
 
                     </div>
@@ -77,62 +94,6 @@
             </nz-card>
         </nz-content>
     </div>
-
-
-
-    <!--
-    <div class="cont-card">
-        <nz-content style="text-align: center;">
-            <nz-card nzHoverable class="card-filtros">
-                <div style="text-align: center;">
-                    <div nz-row [nzGutter]="6" style="margin-left: auto; margin-right: auto; text-align: center;">
-                        <div nz-col [nzSpan]="6" class="gutter-row" class="filtros">
-                            <div>
-                                <b>Cluster: </b>
-                                <nz-select class="filtro-cluster" [(ngModel)]="cluster" nzShowSearch
-                                    nzPlaceHolder="Seleccione cluster" (ngModelChange)="onChange()">
-                                    <nz-option *ngFor="let item of dataSegmentos" [nzLabel]="item.nombre"
-                                        [nzValue]="item.codigo"></nz-option>
-                                </nz-select>
-                            </div>
-                        </div>
-                        <div nz-col [nzSpan]="6" class="gutter-row" class="filtros">
-                            <div>
-                                <b>Empresa: </b>
-                                <nz-select class="filtro-empresa" [(ngModel)]="empresa" nzShowSearch nzAllowClear
-                                    nzPlaceHolder="Seleccione empresa" (ngModelChange)="onChange()">
-                                    <nz-option *ngFor="let item of dataEmpresas" [nzLabel]="item.razonSocial"
-                                        [nzValue]="item.codigo"></nz-option>
-                                </nz-select>
-                            </div>
-                        </div>
-                        <div nz-col [nzSpan]="6" class="gutter-row" class="filtros">
-                            <div>
-                                <b>País: </b>
-                                <nz-select class="filtro-pais" [(ngModel)]="pais" nzShowSearch nzAllowClear
-                                    nzPlaceHolder="Seleccione país" (ngModelChange)="onChange()">
-                                    <nz-option *ngFor="let item of dataLugares" [nzLabel]="item.descripcion"
-                                        [nzValue]="item.codigo"></nz-option>
-                                </nz-select>
-                            </div>
-                        </div>
-
-                        <div nz-col [nzSpan]="6" class="gutter-row" class="filtros">
-                            <div>
-                                <span nz-icon style=" color: #0a1c47;
-                                font: icon;
-                                text-align: center;
-                                border-radius: 50%;
-                                font-size: 34px; margin-left: 10px; " nzType="search" nzTheme="outline"></span>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </nz-card>
-        </nz-content>
-    </div>
--->
     <nz-divider class="down2"></nz-divider>
     <nz-tabset nzCentered [nzLinkRouter] [(nzSelectedIndex)]="opSelected">
         <nz-tab (nzClick)="goCluster(item)" *ngFor="let item of dataSegmentos" [nzTitle]="titleTemplate">
@@ -190,41 +151,43 @@
         </nz-card>
     </ng-template>
 </nz-modal>
-<nz-drawer ngstyle="{'height': '150px'}" [nzClosable]="false" [nzVisible]="visibleDraw" nzPlacement="top" nzTitle="FILTROS:" (nzOnClose)="close()">
-<ng-container *nzDrawerContent> 
-    <div>
-        <div nz-row [nzGutter]="8" style="margin-left: auto; margin-right: auto; text-align: center;">
-            <div nz-col [nzSpan]="8" class="gutter-row" class="filtros">
-                <div>
-                    <b>Cluster: </b>
-                    <nz-select class="filtro-cluster" [(ngModel)]="cluster" nzShowSearch
-                        nzPlaceHolder="Seleccione cluster" (ngModelChange)="onChange()">
-                        <nz-option *ngFor="let item of dataSegmentos" [nzLabel]="item.nombre"
-                            [nzValue]="item.codigo"></nz-option>
-                    </nz-select>
+<nz-drawer nzHeight="150px" [nzClosable]="false" [nzVisible]="visibleDraw" nzPlacement="top" nzTitle="FILTROS:"
+    (nzOnClose)="close()">
+    <ng-container *nzDrawerContent style="justify-content: center; display: flex; flex-wrap: wrap;">
+        <div>
+            <div nz-row [nzGutter]="8" style="margin-left: auto; margin-right: auto; ">
+                <div nz-col [nzSpan]="8" class="gutter-row">
+                    <div>
+                        <b>Cluster: </b>
+                        <nz-select [nzOpen]="openCluster" class="filtro-cluster" [(ngModel)]="cluster" nzShowSearch
+                            nzPlaceHolder="Seleccione cluster" (ngModelChange)="onChange()">
+                            <nz-option *ngFor="let item of dataSegmentos" [nzLabel]="item.nombre"
+                                [nzValue]="item.codigo"></nz-option>
+                        </nz-select>
+                    </div>
                 </div>
-            </div>
-            <div nz-col [nzSpan]="8" class="gutter-row" class="filtros">
-                <div>
-                    <b>Empresa: </b>
-                    <nz-select class="filtro-empresa" [(ngModel)]="empresa" nzShowSearch nzAllowClear
-                        nzPlaceHolder="Seleccione empresa" (ngModelChange)="onChange()">
-                        <nz-option *ngFor="let item of dataEmpresas" [nzLabel]="item.razonSocial"
-                            [nzValue]="item.codigo"></nz-option>
-                    </nz-select>
+                <div nz-col [nzSpan]="8" class="gutter-row">
+                    <div>
+                        <b>Empresa: </b>
+                        <nz-select [nzOpen]="openCompany" class="filtro-empresa" [(ngModel)]="empresa" nzShowSearch
+                            nzAllowClear nzPlaceHolder="Seleccione empresa" (ngModelChange)="onChange()">
+                            <nz-option *ngFor="let item of dataEmpresas" [nzLabel]="item.razonSocial"
+                                [nzValue]="item.codigo"></nz-option>
+                        </nz-select>
+                    </div>
                 </div>
-            </div>
-            <div nz-col [nzSpan]="8" class="gutter-row" class="filtros">
-                <div>
-                    <b>País: </b>
-                    <nz-select class="filtro-pais" [(ngModel)]="pais" nzShowSearch nzAllowClear
-                        nzPlaceHolder="Seleccione país" (ngModelChange)="onChange()">
-                        <nz-option *ngFor="let item of dataLugares" [nzLabel]="item.descripcion"
-                            [nzValue]="item.codigo"></nz-option>
-                    </nz-select>
+                <div nz-col [nzSpan]="8" class="gutter-row">
+                    <div>
+                        <b>País: </b>
+                        <br>
+                        <nz-select [nzOpen]="openCountry" class="filtro-pais" [(ngModel)]="pais" nzShowSearch
+                            nzAllowClear nzPlaceHolder="Seleccione país" (ngModelChange)="onChange()">
+                            <nz-option *ngFor="let item of dataLugares" [nzLabel]="item.descripcion"
+                                [nzValue]="item.codigo"></nz-option>
+                        </nz-select>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</ng-container>
+    </ng-container>
 </nz-drawer>

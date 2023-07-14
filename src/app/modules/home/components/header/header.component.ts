@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
   deviceDetector: any;
   login = false;
   isVisibleLogin: boolean = false;
-  visibleDraw:boolean= false;
+  visibleDraw: boolean = false;
 
   dataSegmentos: any[] = [];
   dataEmpresas: any[] = [];
@@ -48,7 +48,14 @@ export class HeaderComponent implements OnInit {
   filtro: any = null;
 
 
+  textCluster = 'Cluster';
+  textCompany = 'Empresa';
+  textCountry = 'País';
+
   clientHeight!: number;
+  openCluster = false;
+  openCompany = false;
+  openCountry = false;
 
 
 
@@ -63,8 +70,8 @@ export class HeaderComponent implements OnInit {
     private msjService: NzMessageService,
     private route: Router,
     private activvatedRoute: ActivatedRoute
-  ) { 
-    this.clientHeight = window.innerHeight; 
+  ) {
+    this.clientHeight = window.innerHeight;
   }
 
   ngOnInit(): void {
@@ -140,15 +147,15 @@ export class HeaderComponent implements OnInit {
   getSegmentos() {
     this.segmentoService.getSegmentosByUsuario().subscribe((value) => {
       this.dataSegmentos = value
-      
-        this.cluster = this.dataSegmentos[0].codigo
-      
-      
+
+      this.cluster = this.dataSegmentos[0].codigo
       if (this.route.url == '/home') {
-        this.router.navigate(['home/load/list/', this.cluster,this.empresa,this.pais])
+        this.router.navigate(['home/load/list/', this.cluster, this.empresa, this.pais])
         this.setMark(this.cluster)
-      }else{
-        this.setMark(this.cluster)
+        this.textCluster = this.dataSegmentos[0].nombre
+      } else {
+        let codigos: any[] = this.router.url.split('/');
+        this.changeText(this.cluster,this.empresa,this.pais)
       }
     })
   }
@@ -179,10 +186,11 @@ export class HeaderComponent implements OnInit {
 
     this.cluster = item.codigo
     this.setMark(item.codigo)
-    
-    if(this.pais == 0 || this.pais == null ) {this.pais=0;}
-    if(this.empresa || this.empresa == null ) {this.empresa=0}
-    this.route.navigate(['home/load/list/', this.cluster,this.empresa,this.pais])
+    this.textCluster = item.nombre
+
+    if (this.pais == 0 || this.pais == null) { this.pais = 0; }
+    if (this.empresa || this.empresa == null) { this.empresa = 0 }
+    this.route.navigate(['home/load/list/', this.cluster, this.empresa, this.pais])
   }
 
 
@@ -190,32 +198,44 @@ export class HeaderComponent implements OnInit {
   onChange() {
     this.close()
     this.setMark(this.cluster);
-
     //when selection is null(country and company)
-    if( (this.pais == null ||this.pais == 0  ) && (this.empresa == null ||this.empresa == 0 ) && this.cluster !=0 ) {
-      this.empresa=0
-      this.pais=0;
-      this.route.navigate(['home/load/list/', this.cluster,this.empresa,this.pais])
-    }
-
-    if( this.pais == null ) {
-      this.pais=0;
-      this.route.navigate(['home/load/list/', this.cluster,this.empresa,this.pais])
-    }
-
-    if( this.empresa == null ) {
-      this.empresa=0;
-      this.route.navigate(['home/load/list/', this.cluster,this.empresa,this.pais])
-    }
+    if ((this.pais == null || this.pais == 0) && (this.empresa == null || this.empresa == 0) && this.cluster != 0) {
+      this.empresa = 0
+      this.pais = 0;
+      this.route.navigate(['home/load/list/', this.cluster, this.empresa, this.pais])
+      this.changeText(this.cluster, this.empresa, this.pais)
 
 
-    if(this.cluster!=0 && this.pais!=0){
-      this.route.navigate(['home/load/list/', this.cluster,this.empresa,this.pais])
     }
 
-    if(this.cluster!=0 && this.empresa!=0){
-      this.route.navigate(['home/load/list/', this.cluster,this.empresa,this.pais])
+    if (this.pais == null) {
+      this.pais = 0;
+      this.route.navigate(['home/load/list/', this.cluster, this.empresa, this.pais])
+      this.changeText(this.cluster, this.empresa, this.pais)
+
+
     }
+
+    if (this.empresa == null) {
+      this.empresa = 0;
+      this.route.navigate(['home/load/list/', this.cluster, this.empresa, this.pais])
+      this.changeText(this.cluster, this.empresa, this.pais)
+    }
+
+
+    if (this.cluster != 0 && this.pais != 0) {
+      this.route.navigate(['home/load/list/', this.cluster, this.empresa, this.pais])
+      this.changeText(this.cluster, this.empresa, this.pais)
+
+
+    }
+
+    if (this.cluster != 0 && this.empresa != 0) {
+      this.route.navigate(['home/load/list/', this.cluster, this.empresa, this.pais])
+      this.changeText(this.cluster, this.empresa, this.pais)
+
+    }
+
   }
 
 
@@ -228,23 +248,73 @@ export class HeaderComponent implements OnInit {
   }
 
   close(): void {
+    this.openCluster = false;
+    this.openCompany = false;
+    this.openCountry = false;
     this.visibleDraw = false;
   }
 
 
 
-  clusterG(){
+  clusterG() {
     this.visibleDraw = true;
+    setTimeout(() => {
+      this.openCluster = true;
+    }, 200)
 
   }
 
-  companyG(){
+  companyG() {
     this.visibleDraw = true;
-    
+    setTimeout(() => {
+      this.openCompany = true;
+    }, 200)
   }
 
-  countryG(){
+
+
+  countryG() {
     this.visibleDraw = true;
-    
+    setTimeout(() => {
+      this.openCountry = true;
+    }, 200)
+  }
+
+
+
+  changeText(cluster: any, empresa: any, pais: any) {
+
+    this.textCompany = 'Empresa';
+    this.textCountry = 'País'
+
+    if (cluster != null || cluster != 0) {
+      this.dataSegmentos.forEach(val => {
+        if (val.codigo == cluster)
+          this.textCluster = val.nombre
+      })
+    }
+
+    if (empresa != null || empresa != 0) {
+      this.dataEmpresas.forEach(val => {
+        if (val.codigo == empresa)
+          this.textCompany = val.razonSocial
+      })
+    }
+
+    if (pais != null || pais != 0) {
+      this.dataLugares.forEach(val => {
+        if (val.codigo == pais)
+          this.textCountry = val.descripcion
+      })
+    }
+  }
+
+  clearFilter(){
+    this.empresa=0;
+    this.pais=0;
+    this.cluster=this.dataSegmentos[0].codigo
+    this.changeText(this.cluster,this.empresa,this.pais)
+    this.setMark(this.cluster)
+    this.router.navigate(['home/load/list/', this.cluster, this.empresa, this.pais])
   }
 }

@@ -144,36 +144,50 @@
             <div style="text-align: center;">
                 <h1 style="font-weight: bold;">Ven y disfruta de nuestras promociones</h1>
             </div>
-            <nz-spin [nzSpinning]="skeleton" ></nz-spin>
+            <nz-spin [nzSpinning]="skeleton"></nz-spin>
             <p-carousel class="container-carousel" [value]="dataPromotions" [numVisible]="3" [numScroll]="3"
                 [circular]="true" *ngIf="!skeleton">
                 <ng-template let-promotion pTemplate="item" style="margin-top: 20px;">
 
-                        <div class="border-1 surface-border border-round m-2 text-center py-5 px-3" >
-                            <div class="mb-3" style="justify-content: center;display: flex;">
-                                <div class="carousel">
-                                    <p-galleria [value]="promotion.prm_imagenes" [showItemNavigators]="true"
-                                        [showIndicators]="false" [showIndicatorsOnItem]="true" [autoPlay]="true"
-                                        [showThumbnails]="false" [showThumbnailNavigators]="false"
-                                        [changeItemOnIndicatorHover]="true" [circular]="true">
-                                        <ng-template pTemplate="item" let-item>
-                                            <img [src]="item.epi_url" class="carousel2" />
-                                        </ng-template>
-                                    </p-galleria>
-                                </div>
+                    <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
+                        <div class="mb-3" style="justify-content: center;display: flex;">
+                            <div class="carousel">
+                                <p-galleria [value]="promotion.prm_imagenes" [showItemNavigators]="true"
+                                    [showIndicators]="false" [showIndicatorsOnItem]="true" [autoPlay]="true"
+                                    [showThumbnails]="false" [showThumbnailNavigators]="false"
+                                    [changeItemOnIndicatorHover]="true" [circular]="true">
+                                    <ng-template pTemplate="item" let-item>
+                                        <img [src]="item.epi_url" class="carousel2" />
+                                    </ng-template>
+                                </p-galleria>
                             </div>
-                            <div>
-                                <h4 class="mb-1">{{ promotion.prm_title }}</h4>
-                                <h6 class="mt-0 mb-3"><span nz-icon nzType="bank" style="color: #002554;"
+                        </div>
+                        <div>
+                            <div class="title-prom-c">
+                                <h4 >{{ promotion.prm_title }}</h4>
+                            </div>
+                            <div style="height: 35px; text-overflow: ellipsis;
+                            white-space: nowrap;
+                            overflow: hidden;">
+                                <h6><span nz-icon nzType="bank" style="color: #002554;"
                                         nzTheme="outline"></span>{{promotion.prm_company_name }}</h6>
-                                <div class="car-buttons mt-5" style="margin-left: 4px;">
+                            </div>
+                            <div
+                                style=" height: 48px; justify-content: center; display: flex; justify-content: center; align-items: center;">
+                                <div style="align-items: center;
+                                display: inherit;">
                                     <p-button type="button" styleClass="p-button-success p-button-rounded mr-2"
                                         icon="pi pi-whatsapp" (onClick)="goWpp(promotion)"></p-button>
+                                    <div style="margin: 4px;"></div>
                                     <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-eye"
                                         (onClick)="goPromo(promotion)"></p-button>
                                 </div>
+
                             </div>
+
+
                         </div>
+                    </div>
                 </ng-template>
             </p-carousel>
         </div>

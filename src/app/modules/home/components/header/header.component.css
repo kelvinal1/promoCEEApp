@@ -19,10 +19,11 @@
 }
 
 
-.text-fil{
-    font-size:13px;
+.text-fil {
+    font-size: 13px;
 }
-:host ::ng-deep .ant-drawer-content-wrapper{
+
+:host ::ng-deep .ant-drawer-content-wrapper {
     max-height: 150px;
 }
 
@@ -111,7 +112,7 @@
     margin-right: 30%;
 }
 
-.upText{
+.upText {
     margin-top: -23px;
 }
 
@@ -220,12 +221,12 @@ footer-content {
 
 @media (max-width: 995px) {
 
-    .upText{
-        margin-top:2px;
+    .upText {
+        margin-top: 2px;
     }
 
 
-    .down2{
+    .down2 {
         margin-top: 65px;
     }
 
@@ -264,7 +265,7 @@ footer-content {
         text-align: center;
     }
 
-    
+
     .card-filtros {
         margin-top: 20px;
         width: auto;
@@ -275,9 +276,12 @@ footer-content {
     }
 
 
-    .text-fil{
-        font-size:10px;
+    .text-fil {
+        font-size: 10px;
         white-space: initial;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
 
     .top-center {
