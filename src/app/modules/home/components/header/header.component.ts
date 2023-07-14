@@ -29,6 +29,7 @@ export class HeaderComponent implements OnInit {
   deviceDetector: any;
   login = false;
   isVisibleLogin: boolean = false;
+  visibleDraw:boolean= false;
 
   dataSegmentos: any[] = [];
   dataEmpresas: any[] = [];
@@ -187,6 +188,7 @@ export class HeaderComponent implements OnInit {
 
 
   onChange() {
+    this.close()
     this.setMark(this.cluster);
 
     //when selection is null(country and company)
@@ -225,5 +227,24 @@ export class HeaderComponent implements OnInit {
     this.route.navigate(['home/policeman'])
   }
 
+  close(): void {
+    this.visibleDraw = false;
+  }
 
+
+
+  clusterG(){
+    this.visibleDraw = true;
+
+  }
+
+  companyG(){
+    this.visibleDraw = true;
+    
+  }
+
+  countryG(){
+    this.visibleDraw = true;
+    
+  }
 }

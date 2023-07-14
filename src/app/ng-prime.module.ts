@@ -8,6 +8,7 @@ import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
 
 import { SkeletonModule } from 'primeng/skeleton';
+import { SidebarModule } from 'primeng/sidebar';
 
 @NgModule({
   exports: [
@@ -16,7 +17,8 @@ import { SkeletonModule } from 'primeng/skeleton';
     CarouselModule,
     TagModule,
     ButtonModule,
-    SkeletonModule
+    SkeletonModule,
+    SidebarModule
   ]
 })
 

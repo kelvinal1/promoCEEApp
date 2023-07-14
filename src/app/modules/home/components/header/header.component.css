@@ -4,6 +4,8 @@
 }
 
 
+
+
 .card-header {
     height: 35px;
     width: auto;
@@ -14,6 +16,14 @@
     border-radius: 15px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 4px 8px 0 rgba(0, 0, 0, 0.08);
     text-align: center;
+}
+
+
+.text-fil{
+    font-size:13px;
+}
+:host ::ng-deep .ant-drawer-content-wrapper{
+    max-height: 150px;
 }
 
 .filtro-cluster {
@@ -94,14 +104,23 @@
     margin-top: -50px;
     text-align: center;
     align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     margin-left: 30%;
+    margin-right: 30%;
+}
+
+.upText{
+    margin-top: -23px;
 }
 
 .card-filtros {
-    width: 750px;
+    width: auto;
     border-radius: 50px;
     text-align: center;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 4px 8px 0 rgba(0, 0, 0, 0.08);
+    height: 40px;
 }
 
 .container-2 {
@@ -198,134 +217,18 @@ footer-content {
     text-align: center;
 }
 
-@media (max-width: 576px) {
-
-    .filtro-cluster {
-        width: 100%;
-    }
-
-    .filtro-empresa {
-        width: 100%;
-    }
-
-    .filtro-pais {
-        width: 100%;
-    }
-
-    .cont-card {
-        margin-top: -60px;
-        text-align: center;
-        align-items: center;
-    }
-
-    .card-header {
-        height: 34px;
-        width: auto;
-        position: absolute;
-        top: 80px;
-        right: 10px;
-        align-items: center;
-        border-radius: 10px;
-        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 4px 8px 0 rgba(0, 0, 0, 0.08);
-        text-align: center;
-    }
-
-    .card-filtros {
-        margin-left: -43%;
-        margin-top: -30px;
-        width: auto;
-        height: 60px;
-        margin-bottom: 60px;
-        border-radius: 50px;
-    }
-
-
-
-    .top-center {
-        position: sticky;
-        text-align: center;
-        font-size: 10px;
-    }
-
-    .icono-eljuri {
-        width: 70px;
-    }
-
-    .icono-log {
-        color: #0a1c47;
-        font: icon;
-        font-size: auto;
-    }
-
-
-
-    .filtros {
-        margin-top: -18px;
-    }
-
-
-
-    .text-title-header {
-        font-size: 20px;
-    }
-
-    .top-left {
-        position: absolute;
-        top: 80px;
-        left: 10px;
-        align-items: center;
-    }
-
-    .top-right {
-        position: absolute;
-        top: 80px;
-        right: 10px;
-        align-items: center;
-    }
-
-    .top-right2 {
-        position: absolute;
-        top: 80px;
-        right: 20px;
-        align-items: center;
-    }
-
-    .menu-container {
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: center;
-        position: relative;
-        margin-top: -40px;
-    }
-
-    .card-content {
-        right: 10px;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
-
-    .content-page {
-        width: 100%;
-        padding: 15px 25px 0px 25px;
-    }
-
-    .card {
-        padding: 25px;
-        height: 226px;
-        background-color: white;
-        width: 286px;
-        border-radius: 0 0 10px 10px;
-        border-top: 3px solid #002554;
-        margin: 10px;
-        -webkit-box-shadow: 0px 0px 30px 10px rgba(18, 18, 18, 0.1);
-        box-shadow: 0px 0px 30px 10px rgba(18, 18, 18, 0.1);
-    }
-
-}
 
 @media (max-width: 995px) {
 
+    .upText{
+        margin-top:2px;
+    }
+
+
+    .down2{
+        margin-top: 65px;
+    }
+
     .filtro-cluster {
         width: 100%;
     }
@@ -339,9 +242,14 @@ footer-content {
     }
 
     .cont-card {
-        margin-top: -60px;
+        margin-top: -70px;
         text-align: center;
         align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-left: 0%;
+        margin-right: 0%;
     }
 
     .card-header {
@@ -356,16 +264,21 @@ footer-content {
         text-align: center;
     }
 
+    
     .card-filtros {
-        margin-left: -43%;
-        margin-top: -30px;
+        margin-top: 20px;
         width: auto;
-        height: 60px;
-        margin-bottom: 60px;
         border-radius: 50px;
+        text-align: center;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 4px 8px 0 rgba(0, 0, 0, 0.08);
+        height: 55px;
     }
 
 
+    .text-fil{
+        font-size:10px;
+        white-space: initial;
+    }
 
     .top-center {
         position: sticky;
@@ -387,13 +300,10 @@ footer-content {
 
     .filtros {
         margin-top: -18px;
+        display: flex;
+        flex-wrap: wrap;
     }
 
-
-
-    .text-title-header {
-        font-size: 20px;
-    }
 
     .top-left {
         position: absolute;
@@ -421,7 +331,7 @@ footer-content {
         flex-wrap: nowrap;
         justify-content: center;
         position: relative;
-        margin-top: -40px;
+        margin-top: -80px;
     }
 
     .card-content {
