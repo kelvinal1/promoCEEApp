@@ -1,4 +1,5 @@
 <div [ngStyle]="{'min-height': clientHeight + 'px', 'margin-bottom': '60px'}">
+
     <nz-page-header class="header-page">
         <nz-breadcrumb nz-page-header-breadcrumb>
             <div class="top-left">
@@ -68,25 +69,27 @@
                                 nzType="text"><b class="text-fil"> {{textCountry}} </b></button>
                         </div>
                         <div nz-col [nzSpan]="6" class="gutter-row" class="filtros">
-                            <div nz-row >
+                            <div nz-row>
 
                                 <div nz-col [nzSpan]="12">
-                                    <button nz-tooltip nzTooltipTitle="Filtrar promociones" (click)="visibleDraw=true" nz-button nzType="primary"
-                                    style="background-color: #0a1c47; border-color: #0a1c47;" nzShape="circle"><span nz-icon
-                                        style="color: white;" nzType="search"></span></button>
+                                    <button nz-tooltip nzTooltipTitle="Filtrar promociones" (click)="visibleDraw=true"
+                                        nz-button nzType="primary"
+                                        style="background-color: #0a1c47; border-color: #0a1c47;" nzShape="circle"><span
+                                            nz-icon style="color: white;" nzType="search"></span></button>
 
                                 </div>
                                 <div nz-col [nzSpan]="12">
-                                    <button nz-tooltip nzTooltipTitle="Limpiar todos los filtros" (click)="clearFilter()" nz-button nzType="primary"
-                                    style="background-color: #0a1c47; border-color: #0a1c47;" nzShape="circle"><span nz-icon
-                                        style="color: white;" nzType="clear"></span></button>
-                                    
+                                    <button nz-tooltip nzTooltipTitle="Limpiar todos los filtros"
+                                        (click)="clearFilter()" nz-button nzType="primary"
+                                        style="background-color: #0a1c47; border-color: #0a1c47;" nzShape="circle"><span
+                                            nz-icon style="color: white;" nzType="clear"></span></button>
+
                                 </div>
 
                             </div>
-                           
-                                    
-                           
+
+
+
                         </div>
 
                     </div>

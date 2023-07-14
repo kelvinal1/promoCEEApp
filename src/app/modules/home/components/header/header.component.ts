@@ -11,6 +11,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { filter } from 'd3';
 import { delay, finalize } from 'rxjs';
 import { state } from '@angular/animations';
+import { MessageService } from 'primeng/api';
 
 
 @Component({
@@ -64,12 +65,13 @@ export class HeaderComponent implements OnInit {
     private fb: UntypedFormBuilder,
     private auth: AuthService,
     private msgService: NzModalService,
+    private msService: NzMessageService,
     private segmentoService: SegmentoService,
     private empresasService: EmpresaService,
     private divisionPolService: DivisionPoliticaService,
     private msjService: NzMessageService,
     private route: Router,
-    private activvatedRoute: ActivatedRoute
+    private activvatedRoute: ActivatedRoute,
   ) {
     this.clientHeight = window.innerHeight;
   }
@@ -316,5 +318,6 @@ export class HeaderComponent implements OnInit {
     this.changeText(this.cluster,this.empresa,this.pais)
     this.setMark(this.cluster)
     this.router.navigate(['home/load/list/', this.cluster, this.empresa, this.pais])
+    this.msService.success("Filtros limpios")
   }
 }

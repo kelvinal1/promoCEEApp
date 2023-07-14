@@ -9,6 +9,7 @@ import { ButtonModule } from 'primeng/button';
 
 import { SkeletonModule } from 'primeng/skeleton';
 import { SidebarModule } from 'primeng/sidebar';
+import {ToastModule} from 'primeng/toast'
 
 @NgModule({
   exports: [
@@ -18,7 +19,8 @@ import { SidebarModule } from 'primeng/sidebar';
     TagModule,
     ButtonModule,
     SkeletonModule,
-    SidebarModule
+    SidebarModule,
+    ToastModule
   ]
 })
 
