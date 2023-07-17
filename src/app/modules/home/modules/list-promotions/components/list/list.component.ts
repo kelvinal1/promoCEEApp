@@ -24,6 +24,7 @@ export class ListComponent implements OnInit {
   cluster: any;
   empresa: any;
   pais: any;
+  domain: any;
 
 
   constructor(private activadedRoute: ActivatedRoute,
@@ -37,20 +38,18 @@ export class ListComponent implements OnInit {
 
 
   ngOnInit(): void {
-
     this.activadedRoute.params.subscribe(roueteParams => {
+      this.domain = roueteParams['domain']
       this.cluster = roueteParams['cluster'];
       this.empresa = roueteParams['company'];
       this.pais = roueteParams['country'];
       this.getAllPromotionsCluster()
-
-    
-  })
+    })
   }
 
   getAllPromotionsCluster() {
     this.isLoading = true
-    this.promotionService.getPromotionsByFilter(this.cluster,this.empresa,this.pais).subscribe(res => {
+    this.promotionService.getPromotionsByFilter(this.domain, this.cluster, this.empresa, this.pais).subscribe(res => {
       this.dataPromotions = res.data;
       this.isLoading = false
     })
@@ -58,8 +57,13 @@ export class ListComponent implements OnInit {
 
 
   goPromo(item: any) {
-    window.open('home/load/promotion/' + item.prm_id)
+    this.setDomain()
+    window.open('home/load/' + this.domain + '/promotion/' + item.prm_id)
     //(this.router.navigate(['home/load/promotion/',item.prm_id])
+  }
+
+  setDomain(){
+    this.domain = this.activadedRoute.snapshot.paramMap.get('domain')
   }
 
 }

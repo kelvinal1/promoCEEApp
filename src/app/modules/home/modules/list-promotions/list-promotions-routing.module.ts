@@ -5,8 +5,8 @@ import { PromotionComponent } from './components/promotion/promotion.component';
 
 const routes: Routes = [
 
-  { path:'list/:cluster/:company/:country',component:ListComponent },
-  { path:'promotion/:cod',component:PromotionComponent },
+  { path:'list/:domain/:cluster/:company/:country',component:ListComponent },
+  { path:':domain/promotion/:cod',component:PromotionComponent },
 ];
 
 @NgModule({

@@ -21,6 +21,9 @@ import { MessageService } from 'primeng/api';
 })
 export class HeaderComponent implements OnInit {
 
+
+
+
   validateForm!: UntypedFormGroup;
   isLoadingOne?: boolean;
   passwordVisible = false;
@@ -46,8 +49,8 @@ export class HeaderComponent implements OnInit {
     pais: this.pais
   };
 
+  domain: any = null;
   filtro: any = null;
-
 
   textCluster = 'Cluster';
   textCompany = 'Empresa';
@@ -104,14 +107,14 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-
     this.msgService.confirm({
       nzTitle: `<i>¿Está seguro/a de cerrar sesión?</i>`,
       nzOnOk: () => {
         this.login = false;
         this.notificacionService.success("Sesión cerrada", "")
         this.auth.logout();
-        this.route.navigate(['home/load/list', this.dataSegmentos[0].codigo])
+
+        this.route.navigate(['home/load/list', this.domain, this.dataSegmentos[0].codigo])
       }
     })
   }
@@ -129,15 +132,20 @@ export class HeaderComponent implements OnInit {
 
     this.auth.login(username, password, this.deviceInfo).subscribe(
       (res) => {
-        this.notificacionService.success('Bienvenido a Beneficios CEE', '');
-        this.auth.setCredentials(res);
-        this.isLoadingOne = false;
-        this.isVisibleLogin = false
-        this.validateForm.reset()
-        this.login = true
-        this.route.navigate(['home/policeman'])
 
-        //this.router.navigate(['home/policeman'])
+        if (res) {
+          this.notificacionService.success('Bienvenido a Beneficios CEE', '');
+          this.auth.setCredentials(res);
+          this.isLoadingOne = false;
+          this.isVisibleLogin = false
+          this.validateForm.reset()
+          this.login = true
+          this.route.navigate(['home/search/', this.domain])
+        } else {
+          this.isLoadingOne = false;
+          this.notificacionService.success('Credeciales incorrectos, por favor verificar', '');
+        }
+
       }, (error) => {
         this.isLoadingOne = false;
         console.log(error);
@@ -149,175 +157,186 @@ export class HeaderComponent implements OnInit {
   getSegmentos() {
     this.segmentoService.getSegmentosByUsuario().subscribe((value) => {
       this.dataSegmentos = value
-
       this.cluster = this.dataSegmentos[0].codigo
+      let codigos: any[] = this.router.url.split('/');
       if (this.route.url == '/home') {
-        this.router.navigate(['home/load/list/', this.cluster, this.empresa, this.pais])
+        this.domain = 1;
+        this.router.navigate(['home/load/list/', this.domain, this.cluster, this.empresa, this.pais])
         this.setMark(this.cluster)
         this.textCluster = this.dataSegmentos[0].nombre
-      } else {
-        let codigos: any[] = this.router.url.split('/');
-        this.changeText(this.cluster,this.empresa,this.pais)
+      }else if (codigos.length == 8) {
+        this.domain = codigos[4];
+        this.cluster = codigos[5];
+        this.setMark(this.cluster)
+        this.changeText(this.cluster, this.empresa, this.pais)
+      }else if(codigos.length==6){
+        this.domain = codigos[3];
+        this.setMark(this.cluster)
+        this.changeText(this.cluster, this.empresa, this.pais)
+
       }
+    
+    })
+}
+
+getEmpresas() {
+  this.empresasService.getEmpresas().subscribe(value => {
+    this.dataEmpresas = value;
+  })
+}
+
+getDivisionPolitica() {
+  this.divisionPolService.getPaises().subscribe(value => {
+    this.dataLugares = value;
+  })
+}
+
+
+
+setMark(codigo: any) {
+  for (let index = 0; index < this.dataSegmentos.length; index++) {
+    if (this.dataSegmentos[index].codigo == codigo) {
+      this.opSelected = index
+    }
+  }
+}
+
+goCluster(item: any) {
+  this.cluster = item.codigo
+  this.setMark(item.codigo)
+  this.textCluster = item.nombre
+  if (this.pais == 0 || this.pais == null) { this.pais = 0; }
+  if (this.empresa || this.empresa == null) { this.empresa = 0 }
+  this.route.navigate(['home/load/list/', this.domain, this.cluster, this.empresa, this.pais])
+}
+
+
+
+
+
+onChange() {
+  this.close()
+  this.setMark(this.cluster);
+  //when selection is null(country and company)
+  if ((this.pais == null || this.pais == 0) && (this.empresa == null || this.empresa == 0) && this.cluster != 0) {
+    this.empresa = 0
+    this.pais = 0;
+    this.route.navigate(['home/load/list/', this.domain, this.cluster, this.empresa, this.pais])
+    this.changeText(this.cluster, this.empresa, this.pais)
+
+
+  }
+
+  if (this.pais == null) {
+    this.pais = 0;
+    this.route.navigate(['home/load/list/', this.domain, this.cluster, this.empresa, this.pais])
+    this.changeText(this.cluster, this.empresa, this.pais)
+
+
+  }
+
+  if (this.empresa == null) {
+    this.empresa = 0;
+    this.route.navigate(['home/load/list/', this.domain, this.cluster, this.empresa, this.pais])
+    this.changeText(this.cluster, this.empresa, this.pais)
+  }
+
+
+  if (this.cluster != 0 && this.pais != 0) {
+    this.route.navigate(['home/load/list/', this.domain, this.cluster, this.empresa, this.pais])
+    this.changeText(this.cluster, this.empresa, this.pais)
+
+
+  }
+
+  if (this.cluster != 0 && this.empresa != 0) {
+    this.route.navigate(['home/load/list/', this.domain, this.cluster, this.empresa, this.pais])
+    this.changeText(this.cluster, this.empresa, this.pais)
+
+  }
+
+}
+
+
+
+
+
+
+goInformation() {
+  this.route.navigate(['home/search/', this.domain])
+}
+
+close(): void {
+  this.openCluster = false;
+  this.openCompany = false;
+  this.openCountry = false;
+  this.visibleDraw = false;
+}
+
+
+
+clusterG() {
+  this.visibleDraw = true;
+  setTimeout(() => {
+    this.openCluster = true;
+  }, 200)
+
+}
+
+companyG() {
+  this.visibleDraw = true;
+  setTimeout(() => {
+    this.openCompany = true;
+  }, 200)
+}
+
+
+
+countryG() {
+  this.visibleDraw = true;
+  setTimeout(() => {
+    this.openCountry = true;
+  }, 200)
+}
+
+
+
+changeText(cluster: any, empresa: any, pais: any) {
+
+  this.textCompany = 'Empresa';
+  this.textCountry = 'País'
+
+  if (cluster != null || cluster != 0) {
+    this.dataSegmentos.forEach(val => {
+      if (val.codigo == cluster)
+        this.textCluster = val.nombre
     })
   }
 
-  getEmpresas() {
-    this.empresasService.getEmpresas().subscribe(value => {
-      this.dataEmpresas = value;
+  if (empresa != null || empresa != 0) {
+    this.dataEmpresas.forEach(val => {
+      if (val.codigo == empresa)
+        this.textCompany = val.razonSocial
     })
   }
 
-  getDivisionPolitica() {
-    this.divisionPolService.getPaises().subscribe(value => {
-      this.dataLugares = value;
+  if (pais != null || pais != 0) {
+    this.dataLugares.forEach(val => {
+      if (val.codigo == pais)
+        this.textCountry = val.descripcion
     })
   }
+}
+
+clearFilter() {
+  this.empresa = 0;
+  this.pais = 0;
+  this.cluster = this.dataSegmentos[0].codigo
+  this.changeText(this.cluster, this.empresa, this.pais)
+  this.setMark(this.cluster)
+  this.router.navigate(['home/load/list/', this.domain, this.cluster, this.empresa, this.pais])
+  this.msService.success("Filtros limpios")
+}
 
 
-
-  setMark(codigo: any) {
-    for (let index = 0; index < this.dataSegmentos.length; index++) {
-      if (this.dataSegmentos[index].codigo == codigo) {
-        this.opSelected = index
-      }
-    }
-  }
-
-  goCluster(item: any) {
-
-    this.cluster = item.codigo
-    this.setMark(item.codigo)
-    this.textCluster = item.nombre
-
-    if (this.pais == 0 || this.pais == null) { this.pais = 0; }
-    if (this.empresa || this.empresa == null) { this.empresa = 0 }
-    this.route.navigate(['home/load/list/', this.cluster, this.empresa, this.pais])
-  }
-
-
-
-  onChange() {
-    this.close()
-    this.setMark(this.cluster);
-    //when selection is null(country and company)
-    if ((this.pais == null || this.pais == 0) && (this.empresa == null || this.empresa == 0) && this.cluster != 0) {
-      this.empresa = 0
-      this.pais = 0;
-      this.route.navigate(['home/load/list/', this.cluster, this.empresa, this.pais])
-      this.changeText(this.cluster, this.empresa, this.pais)
-
-
-    }
-
-    if (this.pais == null) {
-      this.pais = 0;
-      this.route.navigate(['home/load/list/', this.cluster, this.empresa, this.pais])
-      this.changeText(this.cluster, this.empresa, this.pais)
-
-
-    }
-
-    if (this.empresa == null) {
-      this.empresa = 0;
-      this.route.navigate(['home/load/list/', this.cluster, this.empresa, this.pais])
-      this.changeText(this.cluster, this.empresa, this.pais)
-    }
-
-
-    if (this.cluster != 0 && this.pais != 0) {
-      this.route.navigate(['home/load/list/', this.cluster, this.empresa, this.pais])
-      this.changeText(this.cluster, this.empresa, this.pais)
-
-
-    }
-
-    if (this.cluster != 0 && this.empresa != 0) {
-      this.route.navigate(['home/load/list/', this.cluster, this.empresa, this.pais])
-      this.changeText(this.cluster, this.empresa, this.pais)
-
-    }
-
-  }
-
-
-
-
-
-
-  goInformation() {
-    this.route.navigate(['home/policeman'])
-  }
-
-  close(): void {
-    this.openCluster = false;
-    this.openCompany = false;
-    this.openCountry = false;
-    this.visibleDraw = false;
-  }
-
-
-
-  clusterG() {
-    this.visibleDraw = true;
-    setTimeout(() => {
-      this.openCluster = true;
-    }, 200)
-
-  }
-
-  companyG() {
-    this.visibleDraw = true;
-    setTimeout(() => {
-      this.openCompany = true;
-    }, 200)
-  }
-
-
-
-  countryG() {
-    this.visibleDraw = true;
-    setTimeout(() => {
-      this.openCountry = true;
-    }, 200)
-  }
-
-
-
-  changeText(cluster: any, empresa: any, pais: any) {
-
-    this.textCompany = 'Empresa';
-    this.textCountry = 'País'
-
-    if (cluster != null || cluster != 0) {
-      this.dataSegmentos.forEach(val => {
-        if (val.codigo == cluster)
-          this.textCluster = val.nombre
-      })
-    }
-
-    if (empresa != null || empresa != 0) {
-      this.dataEmpresas.forEach(val => {
-        if (val.codigo == empresa)
-          this.textCompany = val.razonSocial
-      })
-    }
-
-    if (pais != null || pais != 0) {
-      this.dataLugares.forEach(val => {
-        if (val.codigo == pais)
-          this.textCountry = val.descripcion
-      })
-    }
-  }
-
-  clearFilter(){
-    this.empresa=0;
-    this.pais=0;
-    this.cluster=this.dataSegmentos[0].codigo
-    this.changeText(this.cluster,this.empresa,this.pais)
-    this.setMark(this.cluster)
-    this.router.navigate(['home/load/list/', this.cluster, this.empresa, this.pais])
-    this.msService.success("Filtros limpios")
-  }
 }

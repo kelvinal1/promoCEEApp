@@ -7,6 +7,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { LoadingScreenService } from './loading-screen.service';
+import { AuthService } from './auth.service';
 
 
 @Injectable({
@@ -22,15 +23,19 @@ export class InterceptorService implements HttpInterceptor {
     skippUrls = ['/authrefresh'];
 
 
-    constructor(private router: Router, private msg: NzMessageService, private loadingScreenService: LoadingScreenService) { }
+    constructor(private router: Router, 
+        private msg: NzMessageService, 
+        private loadingScreenService: LoadingScreenService, 
+        private authService: AuthService) { }
 
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-
+        const jwtToken: string | null = this.getToken();
+    
         const req: HttpRequest<any> = request;
         // Set authorization token in headers for the users.
-        const jwtToken: string | null = this.getToken();
+        
         const headers: any = {
             "Authorization": jwtToken ?? '',
             //'Content-Type': request.headers.get('Content-Type') ?? 'application/json',
@@ -80,6 +85,11 @@ export class InterceptorService implements HttpInterceptor {
 
     private getToken(): string | null {
         return environment.token;
+    }
+
+
+    private getTokenLogUser(): string | null  {
+        return '';
     }
 
 }

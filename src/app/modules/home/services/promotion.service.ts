@@ -24,9 +24,27 @@ export class PromotionService {
     }
 
 
-    getPromotionsByFilter(cluster_id: any,company_id: any,country_id: any):Observable<any>
+    getPromotionsByFilter(domain: any, cluster_id: any,company_id: any,country_id: any):Observable<any>
     {
-        return this.http.get(`${this.baseUrl}${this.api}/all/filter?cluster_id=${cluster_id}&company_id=${company_id}&country_id=${country_id}`);
+
+
+        let filterDomain: any = null;
+
+        if(domain ==1){
+            filterDomain = `${this.baseUrl}${this.api}/all/filter?domain=${domain}&cluster_id=${cluster_id}&company_id=${company_id}&country_id=${country_id}`
+        }
+
+        if(domain==2){
+            filterDomain = `${this.baseUrl}${this.api}/all/filter?domain=${domain}&cluster_id=${cluster_id}&company_id=${company_id}&country_id=${country_id}`;
+        }
+
+        if(domain==null || domain>=3  || domain==0){
+            domain=1
+            // por defecto si mandamos nullo o no existe toma el valor de demominio de empleado 
+            filterDomain = `${this.baseUrl}${this.api}/all/filter?domain=${domain}&cluster_id=${cluster_id}&company_id=${company_id}&country_id=${country_id}`;
+        }
+
+        return this.http.get(filterDomain);
     }
 
 

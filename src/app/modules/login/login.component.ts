@@ -3,7 +3,7 @@ import { PolicemanService } from '../home/services/policeman.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { InvoicePolicemanService } from '../home/services/invoicePoliceman.service';
 import { AuthService } from 'src/app/core/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -23,6 +23,8 @@ export class LoginComponent {
   isLoading = false;
   view = false
   cargarInfo= false;
+  domain?: any ; 
+  titleForm?: any;
 
   table: any = {
     columns: [
@@ -59,11 +61,21 @@ export class LoginComponent {
     private invoiceService: InvoicePolicemanService,
     private auth: AuthService,
     private router: Router,
-    private fb: UntypedFormBuilder) {
+    private fb: UntypedFormBuilder,
+    private activatedRoute: ActivatedRoute) {
 
   }
 
   ngOnInit(): void {
+
+    this.domain = this.activatedRoute.snapshot.paramMap.get('domain');
+
+    if(this.domain==1){
+      this.titleForm= 'DE EMPLEADOS'
+    }else if(this.domain==2){
+      this.titleForm= 'DE OFICIALES DE POLICIA'
+    }
+
     this.validateForm = this.fb.group({
       pip_num_invoice: [null, [Validators.required]],
       pip_amount: [null, [Validators.required]],
