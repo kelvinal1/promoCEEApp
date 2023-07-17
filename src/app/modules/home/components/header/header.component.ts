@@ -173,9 +173,11 @@ export class HeaderComponent implements OnInit {
         this.domain = codigos[3];
         this.setMark(this.cluster)
         this.changeText(this.cluster, this.empresa, this.pais)
-
+      }else if(codigos.length==4){
+        this.domain = codigos[3];
+        this.setMark(this.cluster)
+        this.changeText(this.cluster, this.empresa, this.pais)
       }
-    
     })
 }
 

@@ -83,6 +83,12 @@ export class AuthService {
     }    
   }
 
+ 
+
+  getUserLog(){
+    return this.user;
+  }
+
   isLogin():boolean{
     return this.user && this.token?true:false;
   }
