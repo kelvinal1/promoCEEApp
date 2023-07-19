@@ -1,12 +1,22 @@
-<nz-content>
+<nz-content *ngIf="visible">
     <nz-card class="borders-container" nzHoverable>
         <nz-row [nzGutter]="[8,8]" nzAlign="middle" nzJustify="center">
+            <nz-col>
+                <div style="width: auto; height: auto;">
+                    <img class="image-policeman"
+                        [src]="'https://apicorporativo.curbe.com.ec/empresas/'+companys[0].logo" alt="" />
+                </div>
+            </nz-col>
             <nz-col style="text-align: center;">
-                <b style="font-size: 23px; text-align: center; color: #134a61;">FORMULARIO DE BÚSQUEDA {{titleForm}} </b>
+                <b style="font-size: 18px; text-align: center; color: #134a61;">FORMULARIO DE BÚSQUEDA {{titleForm}}
+                </b>
             </nz-col>
             <nz-col>
-                <div style="width: auto; height: auto; background-color: #134a61;">
+                <div *ngIf="domain==2" style="width: auto; height: auto; background-color: #134a61;">
                     <img class="image-policeman" src="assets/icons/policia.png" alt="" />
+                </div>
+                <div *ngIf="domain==1" style="width: auto; height: auto; background-color: #134a61;">
+                    <img class="image-policeman" src="assets/icons/employee.png" alt="" />
                 </div>
             </nz-col>
             <nz-col nzMd="24" nzXs="24">
@@ -14,8 +24,8 @@
                     <div nz-col nzFlex="0 1 85%">
 
                         <nz-input-group [nzSuffix]="suffixIconSearch">
-                            <input type="text" (keyup.enter)="searchPoliceman()" nz-input placeholder="Escribir identificación"
-                                [(ngModel)]="searchText" />
+                            <input type="text" (keyup.enter)="searchPoliceman()" nz-input
+                                placeholder="Escribir identificación" [(ngModel)]="searchText" />
                         </nz-input-group>
                         <nz-spin [nzSpinning]="isLoading" style="margin-left: auto; margin-right: auto;"></nz-spin>
                         <ng-template #suffixIconSearch>
@@ -23,11 +33,12 @@
                         </ng-template>
                     </div>
 
-                    <div nz-col nzFlex="1 1 10%"><button nz-button nzType="primary" (click)="searchPoliceman()" style="background-color: #134a61;">
-                        <span nz-icon nzType="search"></span>
-                        Buscar
-                    </button></div>
-                </div>   
+                    <div nz-col nzFlex="1 1 10%"><button nz-button nzType="primary" (click)="searchPoliceman()"
+                            style="background-color: #134a61;">
+                            <span nz-icon nzType="search"></span>
+                            Buscar
+                        </button></div>
+                </div>
             </nz-col>
             <nz-col nzMd="24" nzXs="24" *ngIf="cargarInfo">
                 <ng-container>
@@ -37,8 +48,11 @@
                         </nz-col>
                         <ng-template #messageAlert>
                             <span style="color:green" nz-icon nzType="check-circle" nzTheme="outline"></span><strong> La
-                                cédula consultada es beneficiaria de las promociones vigentes de la CEE</strong>
+                                cédula consultada es beneficiaria de las promociones vigentes de la CEE <b
+                                    *ngIf="domain==1">Empresas:</b></strong>
                         </ng-template>
+
+
                         <div class="information">
                             <b class="text-information">INFORMACIÓN PERSONAL</b>
                         </div>
@@ -49,7 +63,54 @@
                         margin-top: -20px;
                         overflow: hidden;">
 
-                        <nz-col nzMd="24" nzXs="24">
+                        <nz-col nzMd="24" nzXs="24" *ngIf="domain==1">
+                            <nz-descriptions nzSize="small" nzLayout="vertical">
+                                <nz-descriptions-item style="background-color: white;" nzTitle="Identificación">
+                                    <div style="background-color: #f1f2f4; width: 95%;">
+                                        <div style="margin-left: 15px;">
+                                            {{dateEmpleado[0].emp_cedula}}
+                                        </div>
+                                    </div>
+                                </nz-descriptions-item>
+                                <nz-descriptions-item style="background-color: white;" nzTitle="Nombres">
+                                    <div style="background-color: #f1f2f4; width: 95%; text-align: 10px;">
+                                        <div style="margin-left: 15px;">
+                                            {{dateEmpleado[0].emp_nombre}}
+                                        </div>
+                                    </div>
+                                </nz-descriptions-item>
+                                <nz-descriptions-item style="background-color: white;" nzTitle="Apellidos">
+                                    <div style="background-color: #f1f2f4; width: 95%;">
+                                        <div style="margin-left: 15px;">
+                                            {{dateEmpleado[0].emp_apellido}}
+                                        </div>
+                                    </div>
+                                </nz-descriptions-item>
+                                <nz-descriptions-item style="background-color: white;" nzTitle="Celular">
+                                    <div style="background-color: #f1f2f4; width: 95%;">
+                                        <div style="margin-left: 15px;">
+                                            {{dateEmpleado[0].emp_celular}}
+                                        </div>
+                                    </div>
+                                </nz-descriptions-item>
+                                <nz-descriptions-item style="background-color: white;" nzTitle="Correo">
+                                    <div style="background-color: #f1f2f4; width: 98%;">
+                                        <div style="margin-left: 15px;">
+                                            {{dateEmpleado[0].emp_mail}}
+                                        </div>
+                                    </div>
+                                </nz-descriptions-item>
+                                <nz-descriptions-item style="background-color: white;" nzTitle="Empresa">
+                                    <div style="background-color: #f1f2f4; width: 98%;">
+                                        <div style="margin-left: 15px;">
+                                            {{dateEmpleado[0].emp_razon_social}}
+                                        </div>
+                                    </div>
+                                </nz-descriptions-item>
+                            </nz-descriptions>
+                        </nz-col>
+
+                        <nz-col nzMd="24" nzXs="24" *ngIf="domain==2">
                             <nz-descriptions nzSize="small" nzLayout="vertical">
                                 <nz-descriptions-item style="background-color: white;" nzTitle="Identificación">
                                     <div style="background-color: #f1f2f4; width: 95%;">
@@ -89,7 +150,7 @@
                                 <nz-descriptions-item style="background-color: white;" nzTitle="Empresa">
                                     <div style="background-color: #f1f2f4; width: 98%;">
                                         <div style="margin-left: 15px;">
-                                            {{dataSearch.pol_email}}
+                                            POLICIA NACIONAL
                                         </div>
                                     </div>
                                 </nz-descriptions-item>
@@ -100,7 +161,8 @@
                         <div class="information">
                             <b class="text-information">REGISTRAR COMPRAS</b>
                         </div>
-                        <hr style=" box-sizing: content-box;height: 6px;width: 1000px;background-color: #ca6c72;margin-top: -20px;overflow: hidden;">
+                        <hr
+                            style=" box-sizing: content-box;height: 6px;width: 1000px;background-color: #ca6c72;margin-top: -20px;overflow: hidden;">
                         <nz-col nzMd="24" nzXs="24">
                             <form nz-form [formGroup]="validateForm" (submit)="saveInvoice()">
                                 <nz-row [nzGutter]="[6,6]">
@@ -115,7 +177,8 @@
                                         <nz-form-label class="nz-text-box-label label-align" nzMd="24" nzRequired>
                                             <b style="color: #134a61;">Fecha de factura</b>
                                         </nz-form-label>
-                                        <nz-date-picker style="width: 100%;" formControlName="pip_date_invoice" nzPlaceHolder="yyyy-mm-dd" ></nz-date-picker>
+                                        <nz-date-picker style="width: 100%;" formControlName="pip_date_invoice"
+                                            nzPlaceHolder="yyyy-mm-dd"></nz-date-picker>
                                     </nz-col>
                                     <nz-col class="gutter-row" nzMd="6" nzXs="24">
                                         <nz-form-label class="nz-text-box-label label-align" nzMd="24" nzRequired>
@@ -141,17 +204,20 @@
                             </form>
                             <nz-col nzMd="24" nzXs="24">
                                 <nz-collapse nzAccordion style=" background-color: #134a61;">
-                                    <nz-collapse-panel  nzHeader="Facturas registradas" style=" color: white;"> 
+                                    <nz-collapse-panel nzHeader="Facturas registradas" style=" color: white;">
                                         <nz-table #sortTable [nzData]="dataInvoice" nzTableLayout="fixed">
                                             <thead>
                                                 <tr style="background-color: #134a61;">
                                                     <th *ngFor="let column of table.columns" [nzSortFn]="column.compare"
-                                                        [nzSortPriority]="column.priority" style="background-color: #134a61;">
-                                                        <div class="title-text-phone" style="color: white;">{{ column.title |
+                                                        [nzSortPriority]="column.priority"
+                                                        style="background-color: #134a61;">
+                                                        <div class="title-text-phone" style="color: white;">{{
+                                                            column.title |
                                                             uppercase}}</div>
                                                     </th>
                                                     <th style="background-color: #134a61;">
-                                                        <div class="title-text-phone" style="color: white;">ACCIONES</div>
+                                                        <div class="title-text-phone" style="color: white;">ACCIONES
+                                                        </div>
                                                     </th>
                                                 </tr>
                                             </thead>
@@ -161,7 +227,8 @@
                                                         <div style="width: 95%;">{{ data.pip_num_invoice }}</div>
                                                     </td>
                                                     <td style="background-color: #f1f2f4;">
-                                                        <div style="width: 95%;">{{ data.pip_date_invoice | date: 'shortDate' }}</div>
+                                                        <div style="width: 95%;">{{ data.pip_date_invoice | date:
+                                                            'shortDate' }}</div>
                                                     </td>
                                                     <td style="background-color: #f1f2f4;">
                                                         <div style="width: 95%;">{{ data.pip_amount }}</div>
@@ -170,8 +237,8 @@
                                                         <div style="width: 95%;">{{ data.pip_discount }}</div>
                                                     </td>
                                                     <td style="text-align: center; background-color: #f1f2f4;">
-                                                        <button class="button-table" nz-button nzType="primary" nz-dropdown
-                                                            [nzDropdownMenu]="menu"
+                                                        <button class="button-table" nz-button nzType="primary"
+                                                            nz-dropdown [nzDropdownMenu]="menu"
                                                             style="border-radius: 8px; background-color: #134a61;">
                                                             <nz-space>
                                                                 <span *nzSpaceItem nz-icon nzType="down"></span>
@@ -182,7 +249,8 @@
                                                             <ul nz-menu>
                                                                 <li nz-menu-item (click)="deteleInvoice(data)">
                                                                     <nz-space>
-                                                                        <span *nzSpaceItem nz-icon nzType="delete"></span>
+                                                                        <span *nzSpaceItem nz-icon
+                                                                            nzType="delete"></span>
                                                                         <span *nzSpaceItem>Eliminar</span>
                                                                     </nz-space>
                                                                 </li>
@@ -201,7 +269,7 @@
                                             </tbody>
                                         </nz-table>
                                     </nz-collapse-panel>
-                                  </nz-collapse>
+                                </nz-collapse>
                             </nz-col>
                         </nz-col>
                     </nz-row>

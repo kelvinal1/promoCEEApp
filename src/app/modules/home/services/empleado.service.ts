@@ -6,22 +6,19 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class PolicemanService {
+export class EmpleadoService {
 
   private baseUrl :string;
-  private api ="api/PolicemanPublic";
+  private api ="api/Empleado";
   constructor(private router: Router,
     @Inject('BASE_URL') baseUrl: string,
     private http: HttpClient) {
       this.baseUrl = baseUrl;
     }
 
-    getPoliceman(item: string ): Observable<any> {
-        return this.http.get(`${this.baseUrl}${this.api}/idenfifier?identifier=${item}`);
+    findEmpleadoCedula(cedula: any, item: any ): Observable<any> {
+        return this.http.post(`${this.baseUrl}${this.api}/find/cedula/${cedula}`,item);
     }
-
-    getPoliceman2(cedula: any , item: any): Observable<any> {
-      return this.http.post(`${this.baseUrl}${this.api}/getPoliceman/idenfifier/${cedula}`,item);
-  }
     
+
   }

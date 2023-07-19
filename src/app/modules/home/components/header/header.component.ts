@@ -106,6 +106,8 @@ export class HeaderComponent implements OnInit {
     this.isVisibleLogin = true;
   }
 
+
+
   logout() {
     this.msgService.confirm({
       nzTitle: `<i>¿Está seguro/a de cerrar sesión?</i>`,
@@ -113,9 +115,7 @@ export class HeaderComponent implements OnInit {
         this.login = false;
         this.notificacionService.success("Sesión cerrada", "")
         this.auth.logout();
-
-        this.route.navigate(['home/load/list', this.domain, this.dataSegmentos[0].codigo])
-      }
+        this.router.navigate(['home/load/list/', this.domain, this.cluster, this.empresa, this.pais])}
     })
   }
 
@@ -146,9 +146,6 @@ export class HeaderComponent implements OnInit {
           this.notificacionService.success('Credeciales incorrectos, por favor verificar', '');
         }
 
-      }, (error) => {
-        this.isLoadingOne = false;
-        console.log(error);
       }
     )
   }
@@ -210,6 +207,8 @@ goCluster(item: any) {
   if (this.pais == 0 || this.pais == null) { this.pais = 0; }
   if (this.empresa || this.empresa == null) { this.empresa = 0 }
   this.route.navigate(['home/load/list/', this.domain, this.cluster, this.empresa, this.pais])
+  this.changeText( this.cluster, this.empresa, this.pais);
+
 }
 
 

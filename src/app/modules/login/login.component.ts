@@ -5,6 +5,7 @@ import { InvoicePolicemanService } from '../home/services/invoicePoliceman.servi
 import { AuthService } from 'src/app/core/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { EmpleadoService } from '../home/services/empleado.service';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,8 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 })
 export class LoginComponent {
 
+
+  visible = false;
   dataSearch: any;
   searchText: string = "";
   isSearched: boolean = false;
@@ -25,7 +28,10 @@ export class LoginComponent {
   cargarInfo = false;
   domain?: any;
   titleForm?: any;
+  companys: any[] = [];
+  dateEmpleado: any[] = [];
 
+  companySentence: any = '';
   table: any = {
     columns: [
       {
@@ -69,37 +75,44 @@ export class LoginComponent {
     private auth: AuthService,
     private router: Router,
     private fb: UntypedFormBuilder,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private empleadoService: EmpleadoService) {
 
   }
 
   ngOnInit(): void {
-
     this.domain = this.activatedRoute.snapshot.paramMap.get('domain');
 
-    if (this.domain == 1) {
-      this.titleForm = 'DE EMPLEADOS'
-    } else if (this.domain == 2) {
-      this.titleForm = 'DE OFICIALES DE POLICIA'
+    this.companys = this.auth.empresas;
+
+
+    if (this.auth.isLogin()) {
+      if (this.domain == 1) {
+        this.titleForm = 'DE EMPLEADOS'
+      } else if (this.domain == 2) {
+        this.titleForm = 'DE OFICIALES DE POLICIA'
+      }
+      this.validateForm = this.fb.group({
+        pip_num_invoice: [null, [Validators.required]],
+        pip_amount: [null, [Validators.required]],
+        pip_date_invoice: [null, [Validators.required]],
+        pip_discount: [null, [Validators.required]],
+        pip_policeman: [null],
+        pip_identifier_emp: [null],
+        pip_comp_emp: [null],
+      });
+      this.visible = true;
+
+    } else {
+      this.visible = false
+      this.msgService.error("Usted no ha iniciado sesiòn, VERIFICAR POR FAVOR !")
     }
 
-    this.validateForm = this.fb.group({
-      pip_num_invoice: [null, [Validators.required]],
-      pip_amount: [null, [Validators.required]],
-      pip_date_invoice: [null, [Validators.required]],
-      pip_discount: [null, [Validators.required]],
-      pip_policeman: [null],
-    });
 
-    if (!this.auth.isLogin()) {
-      this.router.navigate(['']);
-    }
   }
 
 
   searchPoliceman() {
-
-
     if (!this.searchText) {
       this.msgService.error("No ha ingresado una identificación, Verificar por favor!")
       this.cargarInfo = false
@@ -109,21 +122,44 @@ export class LoginComponent {
     } else {
 
       if (this.domain == 1) {
-
-        console.log('NO BUSCAR CEDULAS DE POLICIA ES PARA SOLO EMPLEADOS')
-        
+        this.isLoading = true
+        this.view = false
+        let model = {
+          pis_type: 'empleado',
+          pis_domain: this.domain
+        }
+        this.empleadoService.findEmpleadoCedula(this.searchText, model).subscribe(value => {
+          if (value.length >= 1) {
+            this.dateEmpleado = value;
+            this.cargarInfo = true;
+            this.isSearched = true
+            this.msgService.success("¡Busqueda exitosa!")
+            this.findAllInvoicePoliceman(this.dateEmpleado[0].emp_cedula);
+            this.dateEmpleado[0].emp_celular = this.hidePhone(this.dateEmpleado[0].emp_celular)
+          } else {
+            this.cargarInfo = false;
+            this.isSearched = false
+            this.isLoading = false
+            this.msgService.error('El número de identificación no fue encontrado, Verificar por favor!')
+          }
+        }, err => {
+          this.msgService.warning("El número de identificación no fue encontrado, Verificar por favor!")
+        })
       }
-
       if (this.domain == 2) {
         this.isLoading = true
         this.view = false
-        this.policemanService.getPoliceman(this.searchText).subscribe(value => {
+        let model = {
+          pis_type: 'policia',
+          pis_domain: this.domain
+        }
+        this.policemanService.getPoliceman2(this.searchText, model).subscribe(value => {
           if (value.data != null) {
             this.cargarInfo = true;
             this.msgService.success("¡Busqueda exitosa!")
             this.isSearched = true
             this.dataSearch = value.data;
-            this.dataSearch.pol_phone= this.hidePhone(this.dataSearch.pol_phone)
+            this.dataSearch.pol_phone = this.hidePhone(this.dataSearch.pol_phone)
             this.findAllInvoicePoliceman(this.dataSearch.pol_id);
             console.log(this.auth.getUserLog())
           } else {
@@ -137,23 +173,36 @@ export class LoginComponent {
         })
       }
 
-      
+
 
     }
   }
 
 
-  findAllInvoicePoliceman(pol_id: any) {
-    this.invoiceService.getAllPoliceman(pol_id).subscribe(value => {
-      if (value.data != null) {
-        this.isLoading = false
-        this.view = true
-        this.dataInvoice = value.data
-      } else {
-        this.isLoading = false
-        this.isSearched = true
-      }
-    })
+  findAllInvoicePoliceman(code: any) {
+    if (this.domain == 1) {
+      this.invoiceService.getAllEmployee(code).subscribe(value => {
+        if (value.data != null) {
+          this.isLoading = false
+          this.view = true
+          this.dataInvoice = value.data
+        } else {
+          this.isLoading = false
+          this.isSearched = true
+        }
+      })
+    } else if (this.domain == 2) {
+      this.invoiceService.getAllPoliceman(code).subscribe(value => {
+        if (value.data != null) {
+          this.isLoading = false
+          this.view = true
+          this.dataInvoice = value.data
+        } else {
+          this.isLoading = false
+          this.isSearched = true
+        }
+      })
+    }
   }
 
 
@@ -164,31 +213,99 @@ export class LoginComponent {
     }
 
     let dataForm = this.validateForm.value;
-    dataForm.pip_policeman = this.dataSearch.pol_id;
 
-    if (this.mode == 1) {
-      this.invoiceService.addInvoice(dataForm).subscribe(value => {
-        this.validateForm.reset();
-        this.findAllInvoicePoliceman(this.dataSearch.pol_id);
-        this.msgService.success("Factura ingresada correctamente");
-      })
+    if (this.domain == 1) {
+
+      dataForm.pip_identifier_emp = this.dateEmpleado[0].emp_cedula;
+      dataForm.pip_comp_emp = this.dateEmpleado[0].emp_empresa;
+
+      console.log(dataForm)
+
+      dataForm = {
+        pip_num_invoice: dataForm.pip_num_invoice,
+        pip_amount: dataForm.pip_amount,
+        pip_date_invoice: dataForm.pip_date_invoice,
+        pip_discount: dataForm.pip_discount,
+        pip_identifier_emp: dataForm.pip_identifier_emp,
+        pip_comp_emp: dataForm.pip_comp_emp
+      }
+
+      if (this.mode == 1) {
+        this.invoiceService.addInvoiceEmployee(dataForm).subscribe(value => {
+          this.validateForm.reset();
+          this.findAllInvoicePoliceman(this.dateEmpleado[0].emp_cedula);
+          this.msgService.success("Factura ingresada correctamente");
+        })
+      }
+
+      if (this.mode == 2) {
+        this.invoiceService.editInvoiceEmployee(this.itemSelected.pip_cod, dataForm).subscribe(value => {
+          this.msgService.success("Factura editada correctamente");
+          this.findAllInvoicePoliceman(this.dateEmpleado[0].emp_cedula);
+          this.validateForm.reset()
+          this.itemSelected = null;
+        })
+        this.mode = 1;
+      }
+
+      
+
     }
 
-    if (this.mode == 2) {
-      this.invoiceService.editInvoice(this.itemSelected.pip_cod, dataForm).subscribe(value => {
-        this.msgService.success("Factura editada correctamente");
-        this.findAllInvoicePoliceman(this.dataSearch.pol_id);
-        this.validateForm.reset()
-        this.itemSelected = null;
-      })
+    if (this.domain == 2) {
+
+      //dataForm.pip_policeman = this.dataSearch.pol_id;
+      dataForm = {
+        pip_policeman : this.dataSearch.pol_id,
+        pip_num_invoice: dataForm.pip_num_invoice,
+        pip_amount: dataForm.pip_amount,
+        pip_date_invoice: dataForm.pip_date_invoice,
+        pip_discount: dataForm.pip_discount,
+      }
+
+
+      console.log(dataForm)
+
+      if (this.mode == 1) {
+        this.invoiceService.addInvoice(dataForm).subscribe(value => {
+          this.validateForm.reset();
+          this.findAllInvoicePoliceman(this.dataSearch.pol_id);
+          this.msgService.success("Factura ingresada correctamente");
+        })
+      }
+      if (this.mode == 2) {
+        this.invoiceService.editInvoice(this.itemSelected.pip_cod, dataForm).subscribe(value => {
+          this.msgService.success("Factura editada correctamente");
+          this.findAllInvoicePoliceman(this.dataSearch.pol_id);
+          this.validateForm.reset()
+          this.itemSelected = null;
+
+        })
+        this.mode = 1;
+      }
+
+      
+
     }
   }
 
   deteleInvoice(item: any) {
-    this.invoiceService.changueStatus(item.pip_cod, false).subscribe(value => {
-      this.msgService.success("Factura retirada exitosamente")
-      this.findAllInvoicePoliceman(this.dataSearch.pol_id);
-    })
+
+    if (this.domain == 1) {
+      this.invoiceService.changueStatus(item.pip_cod, false).subscribe(value => {
+        this.msgService.success("Factura retirada exitosamente")
+        this.findAllInvoicePoliceman(this.dateEmpleado[0].emp_cedula);
+      })
+    }
+
+    if (this.domain == 2) {
+      this.invoiceService.changueStatus(item.pip_cod, false).subscribe(value => {
+        this.msgService.success("Factura retirada exitosamente")
+        this.findAllInvoicePoliceman(this.dataSearch.pol_id);
+      })
+
+    }
+
   }
 
   editInvoice(item: any) {
@@ -199,18 +316,26 @@ export class LoginComponent {
 
 
 
-  hidePhone(phone: any){
+  hidePhone(phone: any) {
 
-    let phoneN ='';
-    let digists:any[] = phone.split('');
-    let numAsteristic = digists.length-5;
+    let phoneN = '';
+    let digists: any[] = phone.split('');
+    let numAsteristic = digists.length - 5;
     let asteristic = '';
     for (let index = 0; index < numAsteristic; index++) {
-      asteristic+='*';
-      
+      asteristic += '*';
+
     }
-    phoneN = digists[0]+''+digists[1]+''+digists[2]+''+asteristic+''+digists[digists.length-2]+''+digists[digists.length-1]
+    phoneN = digists[0] + '' + digists[1] + '' + digists[2] + '' + asteristic + '' + digists[digists.length - 2] + '' + digists[digists.length - 1]
     return phoneN;
+  }
+
+
+
+  getCompanys() {
+    this.dateEmpleado.forEach((value) => {
+      this.companySentence += ' ' + value.emp_razon_social
+    })
   }
 
 
