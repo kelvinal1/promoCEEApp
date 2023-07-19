@@ -31,6 +31,9 @@ export class LoginComponent {
   companys: any[] = [];
   dateEmpleado: any[] = [];
 
+  isPhoto?: boolean = false;
+  photoEmployee = null;
+
   companySentence: any = '';
   table: any = {
     columns: [
@@ -93,7 +96,7 @@ export class LoginComponent {
         this.titleForm = 'DE OFICIALES DE POLICIA'
       }
       this.validateForm = this.fb.group({
-        pip_num_invoice: [null, [Validators.required]],
+        pip_num_invoice: [null, [Validators.required, Validators.pattern('^[0-9]{3}[0-9]{3}[0-9]{3,9}$')]],
         pip_amount: [null, [Validators.required]],
         pip_date_invoice: [null, [Validators.required]],
         pip_discount: [null, [Validators.required]],
@@ -118,9 +121,13 @@ export class LoginComponent {
       this.cargarInfo = false
       this.isSearched = false
       this.isLoading = false
+      this.isPhoto = false
+      this.photoEmployee = null
+
       return;
     } else {
-
+      this.photoEmployee = null
+      this.isPhoto = false
       if (this.domain == 1) {
         this.isLoading = true
         this.view = false
@@ -131,10 +138,19 @@ export class LoginComponent {
         this.empleadoService.findEmpleadoCedula(this.searchText, model).subscribe(value => {
           if (value.length >= 1) {
             this.dateEmpleado = value;
+            this.companySentence='';
+            this.getCompanys()
             this.cargarInfo = true;
             this.isSearched = true
+            this.isPhoto = true
             this.msgService.success("¡Busqueda exitosa!")
             this.findAllInvoicePoliceman(this.dateEmpleado[0].emp_cedula);
+            if (this.dateEmpleado[0].emp_foto != null) {
+              this.photoEmployee = this.dateEmpleado[0].emp_foto;
+            }else{
+              this.isPhoto=false
+
+            }
             this.dateEmpleado[0].emp_celular = this.hidePhone(this.dateEmpleado[0].emp_celular)
           } else {
             this.cargarInfo = false;
@@ -208,7 +224,9 @@ export class LoginComponent {
 
   saveInvoice() {
     if (!this.validateForm.valid) {
-      this.msgService.error("Existen campos que no estan ingresados, verificar por favor!")
+      this.msgService.error("Existen campos que no estan ingresados o campos que se ingresaron de manera incorrecta, verificar por favor!")
+      console.log(this.validateForm.getError)
+      console.log(this.validateForm.value)
       return;
     }
 
@@ -248,7 +266,7 @@ export class LoginComponent {
         this.mode = 1;
       }
 
-      
+
 
     }
 
@@ -256,7 +274,7 @@ export class LoginComponent {
 
       //dataForm.pip_policeman = this.dataSearch.pol_id;
       dataForm = {
-        pip_policeman : this.dataSearch.pol_id,
+        pip_policeman: this.dataSearch.pol_id,
         pip_num_invoice: dataForm.pip_num_invoice,
         pip_amount: dataForm.pip_amount,
         pip_date_invoice: dataForm.pip_date_invoice,
@@ -284,7 +302,7 @@ export class LoginComponent {
         this.mode = 1;
       }
 
-      
+
 
     }
   }
@@ -333,9 +351,18 @@ export class LoginComponent {
 
 
   getCompanys() {
-    this.dateEmpleado.forEach((value) => {
-      this.companySentence += ' ' + value.emp_razon_social
-    })
+
+    for (let index = 0; index < this.dateEmpleado.length; index++) {
+
+      if(index==this.dateEmpleado.length-1){
+        this.companySentence += this.dateEmpleado[index].emp_razon_social;
+        break;
+      }
+
+      if(index<=this.dateEmpleado.length){
+        this.companySentence += this.dateEmpleado[index].emp_razon_social+' - ';
+      }
+    }
   }
 
 

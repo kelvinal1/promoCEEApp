@@ -13,12 +13,18 @@ import { NgZorroAntdModule } from './ng-zorro.module';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { InterceptorService } from './core/interceptor.service';
 import { NgPrimeAntdModule } from './ng-prime.module';
+import { NgxMaskModule, IConfig } from 'ngx-mask'
+
 
 registerLocaleData(es);
 const ngZorroConfig: NzConfig = {
   message: { nzTop: 120 },
   notification: { nzTop: 240 }
 };
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
+
 
 @NgModule({
   declarations: [
@@ -31,14 +37,14 @@ const ngZorroConfig: NzConfig = {
     BrowserAnimationsModule,
     NgZorroAntdModule,
     NgPrimeAntdModule,
-
-
+    NgxMaskModule.forRoot(maskConfig)
   ],
   providers: [
     { provide: NZ_I18N, useValue: es_ES },
     { provide: LOCALE_ID, useValue: 'es' },
     { provide: NZ_CONFIG, useValue: ngZorroConfig },
-    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+    
   ],
   bootstrap: [AppComponent]
 })

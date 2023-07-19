@@ -24,6 +24,13 @@ nz-layout {
     width: 150px;
 }
 
+
+.image-user {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .ant-alert-success {
     border: 1px solid #62c01a;
 }
@@ -80,6 +87,12 @@ nz-layout {
     border: 1px solid #d9d9d9;
     border-radius: 2px;
     transition: border 0.3s, box-shadow 0.3s;
+}
+
+.img-object{
+    width: 170px;
+    height: 175px;
+    background-color: #134a61;
 }
 
 
