@@ -14,7 +14,6 @@ export class FooterComponent {
   constructor(private auth: AuthService){
     this.auth.getInfoLogin().subscribe(data=>{
       this.infoLogin=data
-      console.log(this.infoLogin)
       this.networks=this.infoLogin.networks;
     })
   }

@@ -1,33 +1,44 @@
 <nz-content *ngIf="visible">
     <nz-card class="borders-container" nzHoverable>
-        <nz-row [nzGutter]="[8,8]" nzAlign="middle" nzJustify="center">
-            <nz-col nzMd="24" nzXs="24" style="margin-bottom: 20px;">
-                <div nz-row style="align-items: center;">
-                    <div nz-col nzSpan="8" style="text-align: center;">
-                        <div style="width: auto; height: auto;">
-                            <img class="image-policeman"
-                                [src]="'https://apicorporativo.curbe.com.ec/empresas/'+companys[0].logo" alt="" />
-                        </div>
+        <nz-row nzAlign="middle" nzJustify="center" style="margin-bottom: 20px;">
+            <nz-col nzSpan="8" style="display: contents;">
+                <div style="width: auto; height: auto;">
+                    <img class="image-policeman"
+                        [src]="'https://apicorporativo.curbe.com.ec/empresas/'+companys[0].logo" alt="" />
+                </div>
+            </nz-col>
+
+            
+                <div class="header-phone" style="text-align: center;">
+                    <b style="font-size: 18px; text-align: center; color: #134a61;">FORMULARIO DE BÚSQUEDA {{titleForm}}
+                    </b>
+                </div>
+           
+            <nz-col nzSpan="8" style="display: contents;">
+                <div *ngIf="domain==2">
+                    <div
+                        style="height: 155px;
+                        width: 155px; background-color: #134a61; border-radius: 12px;">
+                        <img class="image-policeman" style="border-radius: 12px;" src="assets/icons/policia.png"
+                            alt="" />
                     </div>
-                    <div nz-col nzSpan="8" style="text-align: center;">
-                        <b style="font-size: 18px; text-align: center; color: #134a61;">FORMULARIO DE BÚSQUEDA {{titleForm}}
-                        </b>
-                    </div>
-                    <div nz-col nzSpan="8" style="text-align: -webkit-center; ">
-                        <div *ngIf="domain==2" class="img-object" style="">
-                            <img class="image-policeman" style="border-radius: 12px;" src="assets/icons/policia.png" alt="" />
-                        </div>
-                        <div *ngIf="domain==1" class="img-object">
-                            <img *ngIf="!isPhoto && photoEmployee==null" style="border-radius: 12px;"  class="image-policeman" src="assets/icons/employee.png" alt="" />
-                            <img *ngIf="isPhoto && photoEmployee!=null" style="border-radius: 12px;" class="image-user" src="https://apicorporativo.curbe.com.ec/empleados/{{photoEmployee}}" alt="" />
-                        </div>
+                </div>
+                <div *ngIf="domain==1">
+                    <div
+                        style="height: 155px;
+                        width: 155px; background-color: #134a61; border-radius: 12px;">
+                        <img *ngIf="!isPhoto && photoEmployee==null" style="border-radius: 12px;"
+                            class="image-policeman" src="assets/icons/employee.png" alt="" />
+                        <img *ngIf="isPhoto && photoEmployee!=null" style="border-radius: 12px;" class="image-user"
+                            src="https://apicorporativo.curbe.com.ec/empleados/{{photoEmployee}}" alt="" />
                     </div>
                 </div>
             </nz-col>
-            <nz-col nzMd="24" nzXs="24">
+        </nz-row>
+        <nz-row [nzGutter]="[8,8]" nzAlign="middle" nzJustify="center">
+            <nz-col nzMd="24" nzXs="24" style="margin-bottom: 20px;">
                 <div nz-row>
                     <div nz-col nzFlex="0 1 85%">
-
                         <nz-input-group [nzSuffix]="suffixIconSearch">
                             <input type="text" (keyup.enter)="searchPoliceman()" nz-input
                                 placeholder="Escribir identificación" [(ngModel)]="searchText" />
@@ -108,7 +119,7 @@
                                 <nz-descriptions-item style="background-color: white;" nzTitle="Empresa">
                                     <div style="background-color: #f1f2f4; width: 98%;">
                                         <div style="margin-left: 15px;">
-                                           {{companySentence}}
+                                            {{companySentence}}
                                         </div>
                                     </div>
                                 </nz-descriptions-item>
@@ -173,10 +184,13 @@
                                 <nz-row [nzGutter]="[6,6]">
                                     <nz-col class="gutter-row" nzMd="6" nzXs="24">
                                         <nz-form-label class="nz-text-box-label label-align" nzMd="24" nzRequired>
-                                            <b style="color: #134a61;">Número de factura</b> <span nzTooltipTitle="Formato: XXX-XXX-XXXXXXXXX" nzTooltipPlacement="top" style="margin-left: 3px;" nz-icon nzType="info-circle" nzTheme="outline" nz-tooltip ></span>
+                                            <b style="color: #134a61;">Número de factura</b> <span
+                                                nzTooltipTitle="Formato: 000-000-000000000" nzTooltipPlacement="top"
+                                                style="margin-left: 3px;" nz-icon nzType="info-circle" nzTheme="outline"
+                                                nz-tooltip></span>
                                         </nz-form-label>
-                                        <input nz-input placeholder="xxx-xxx-xxxxxxxxx"
-                                            formControlName="pip_num_invoice" type="text" mask="000-000-0000000000"/>
+                                        <input nz-input placeholder="000-000-000000000"
+                                            formControlName="pip_num_invoice" type="text" mask="000-000-0000000000" />
                                     </nz-col>
                                     <nz-col class="gutter-row" nzMd="6" nzXs="24">
                                         <nz-form-label class="nz-text-box-label label-align" nzMd="24" nzRequired>

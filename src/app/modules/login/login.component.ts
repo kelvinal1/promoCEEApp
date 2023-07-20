@@ -177,7 +177,6 @@ export class LoginComponent {
             this.dataSearch = value.data;
             this.dataSearch.pol_phone = this.hidePhone(this.dataSearch.pol_phone)
             this.findAllInvoicePoliceman(this.dataSearch.pol_id);
-            console.log(this.auth.getUserLog())
           } else {
             this.cargarInfo = false;
             this.isSearched = false
@@ -225,8 +224,6 @@ export class LoginComponent {
   saveInvoice() {
     if (!this.validateForm.valid) {
       this.msgService.error("Existen campos que no estan ingresados o campos que se ingresaron de manera incorrecta, verificar por favor!")
-      console.log(this.validateForm.getError)
-      console.log(this.validateForm.value)
       return;
     }
 
@@ -236,9 +233,6 @@ export class LoginComponent {
 
       dataForm.pip_identifier_emp = this.dateEmpleado[0].emp_cedula;
       dataForm.pip_comp_emp = this.dateEmpleado[0].emp_empresa;
-
-      console.log(dataForm)
-
       dataForm = {
         pip_num_invoice: dataForm.pip_num_invoice,
         pip_amount: dataForm.pip_amount,
@@ -280,9 +274,6 @@ export class LoginComponent {
         pip_date_invoice: dataForm.pip_date_invoice,
         pip_discount: dataForm.pip_discount,
       }
-
-
-      console.log(dataForm)
 
       if (this.mode == 1) {
         this.invoiceService.addInvoice(dataForm).subscribe(value => {
