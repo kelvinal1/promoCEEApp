@@ -44,7 +44,7 @@ const maskConfig: Partial<IConfig> = {
     { provide: LOCALE_ID, useValue: 'es' },
     { provide: NZ_CONFIG, useValue: ngZorroConfig },
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
-    
+
   ],
   bootstrap: [AppComponent]
 })
