@@ -19,4 +19,8 @@ export class NotificacionService {
   warning(title: string, message: string) {
     this.notification.warning(title, message, { nzPlacement: 'bottomLeft' });
   }
+
+  info(title: string, message: string) {
+    this.notification.info(title, message, { nzPlacement: 'bottomLeft' });
+  }
 }

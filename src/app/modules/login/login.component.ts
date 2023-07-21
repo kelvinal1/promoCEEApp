@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/core/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { EmpleadoService } from '../home/services/empleado.service';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { NotificacionService } from 'src/app/core/notificacion.service';
 
 @Component({
   selector: 'app-login',
@@ -79,37 +81,45 @@ export class LoginComponent {
     private router: Router,
     private fb: UntypedFormBuilder,
     private activatedRoute: ActivatedRoute,
-    private empleadoService: EmpleadoService) {
+    private empleadoService: EmpleadoService,
+    private notificacionService: NotificacionService) {
 
   }
 
   ngOnInit(): void {
-    this.domain = this.activatedRoute.snapshot.paramMap.get('domain');
-
-    this.companys = this.auth.empresas;
 
 
-    if (this.auth.isLogin()) {
-      if (this.domain == 1) {
-        this.titleForm = 'DE EMPLEADOS'
-      } else if (this.domain == 2) {
-        this.titleForm = 'DE OFICIALES DE POLICIA'
+    this.activatedRoute.params.subscribe(roueteParams => {
+      this.domain = roueteParams['domain']
+      this.companys = this.auth.empresas;
+
+
+      if (this.auth.isLogin()) {
+        if (this.domain == 1) {
+          this.notificacionService.info('CAMBIO DE PROMOCIONES','Usted esta trabajando con sección empleados')
+          this.titleForm = 'DE EMPLEADOS'
+        } else if (this.domain == 2) {
+          this.notificacionService.info('CAMBIO DE PROMOCIONES','Usted esta trabajando con sección de policias')
+          this.titleForm = 'DE OFICIALES DE POLICIA'
+        }
+        this.validateForm = this.fb.group({
+          pip_num_invoice: [null, [Validators.required, Validators.pattern('^[0-9]{3}[0-9]{3}[0-9]{3,9}$')]],
+          pip_amount: [null, [Validators.required]],
+          pip_date_invoice: [null, [Validators.required]],
+          pip_discount: [null, [Validators.required]],
+          pip_policeman: [null],
+          pip_identifier_emp: [null],
+          pip_comp_emp: [null],
+        });
+        this.visible = true;
+
+      } else {
+        this.visible = false
+        this.msgService.error("Usted no ha iniciado sesiòn, VERIFICAR POR FAVOR !")
       }
-      this.validateForm = this.fb.group({
-        pip_num_invoice: [null, [Validators.required, Validators.pattern('^[0-9]{3}[0-9]{3}[0-9]{3,9}$')]],
-        pip_amount: [null, [Validators.required]],
-        pip_date_invoice: [null, [Validators.required]],
-        pip_discount: [null, [Validators.required]],
-        pip_policeman: [null],
-        pip_identifier_emp: [null],
-        pip_comp_emp: [null],
-      });
-      this.visible = true;
 
-    } else {
-      this.visible = false
-      this.msgService.error("Usted no ha iniciado sesiòn, VERIFICAR POR FAVOR !")
-    }
+    })
+
 
 
   }
@@ -138,7 +148,7 @@ export class LoginComponent {
         this.empleadoService.findEmpleadoCedula(this.searchText, model).subscribe(value => {
           if (value.length >= 1) {
             this.dateEmpleado = value;
-            this.companySentence='';
+            this.companySentence = '';
             this.getCompanys()
             this.cargarInfo = true;
             this.isSearched = true
@@ -147,8 +157,8 @@ export class LoginComponent {
             this.findAllInvoicePoliceman(this.dateEmpleado[0].emp_cedula);
             if (this.dateEmpleado[0].emp_foto != null) {
               this.photoEmployee = this.dateEmpleado[0].emp_foto;
-            }else{
-              this.isPhoto=false
+            } else {
+              this.isPhoto = false
             }
             this.dateEmpleado[0].emp_celular = this.hidePhone(this.dateEmpleado[0].emp_celular)
           } else {
@@ -344,13 +354,13 @@ export class LoginComponent {
 
     for (let index = 0; index < this.dateEmpleado.length; index++) {
 
-      if(index==this.dateEmpleado.length-1){
+      if (index == this.dateEmpleado.length - 1) {
         this.companySentence += this.dateEmpleado[index].emp_razon_social;
         break;
       }
 
-      if(index<=this.dateEmpleado.length){
-        this.companySentence += this.dateEmpleado[index].emp_razon_social+' - ';
+      if (index <= this.dateEmpleado.length) {
+        this.companySentence += this.dateEmpleado[index].emp_razon_social + ' - ';
       }
     }
   }

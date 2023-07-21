@@ -208,6 +208,18 @@ footer-content {
 }
 
 
+::ng-deep  .ant-descriptions-item-label {
+    color: white;
+    font-weight: bolder;
+    font-size: 14px;
+    line-height: 1.5715;
+    text-align: start;
+}
+
+::ng-deep .ant-descriptions-bordered .ant-descriptions-item-label {
+    background-color: #134a61;
+}
+
 ::ng-deep .ant-select-show-search.ant-select:not(.ant-select-customize-input) .ant-select-selector {
     cursor: text;
     border-radius: 25px;
