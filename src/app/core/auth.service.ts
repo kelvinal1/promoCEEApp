@@ -90,7 +90,12 @@ export class AuthService {
   }
 
   isLogin():boolean{
-    return this.user && this.token?true:false;
+
+    if(this.token!=''){
+      this.token= String(localStorage.getItem("tk"));
+    }
+
+    return this.user && this.token? true:false;
   }
 
   ValidatePermisos(){

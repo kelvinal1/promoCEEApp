@@ -23,19 +23,19 @@ export class InterceptorService implements HttpInterceptor {
     skippUrls = ['/authrefresh'];
 
 
-    constructor(private router: Router, 
-        private msg: NzMessageService, 
-        private loadingScreenService: LoadingScreenService, 
+    constructor(private router: Router,
+        private msg: NzMessageService,
+        private loadingScreenService: LoadingScreenService,
         private authService: AuthService) { }
 
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
         const jwtToken: string | null = this.getToken();
-    
+
         const req: HttpRequest<any> = request;
         // Set authorization token in headers for the users.
-        
+
         const headers: any = {
             "Authorization": jwtToken ?? '',
             //'Content-Type': request.headers.get('Content-Type') ?? 'application/json',
@@ -44,7 +44,7 @@ export class InterceptorService implements HttpInterceptor {
         if (request.headers.has('Content-Type')) {
             headers['Content-Type'] = request.headers.get('Content-Type');
         }
-        
+
         //Verify if token is not null set headers.
         if (jwtToken != null) {
             request = req.clone({

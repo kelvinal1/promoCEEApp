@@ -6,10 +6,10 @@ import { enableProdMode } from '@angular/core';
 
 
 export const getBaseUrl = () => environment.apiUrl;
-export const getDefaultToken = () => environment.token;
+export const getDefaultToken = () => environment.apiUrl;
 const providers = [
   { provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] },
-  { provide: 'DEFAULT_TOKEN', useFactory: getBaseUrl, deps: [] },
+  { provide: 'DEFAULT_TOKEN', useFactory: getDefaultToken, deps: [] },
 ];
 
 if (environment.production) {

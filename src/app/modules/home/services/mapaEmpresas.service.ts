@@ -1,22 +1,26 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/core/auth.service';
 import { Almacen } from 'src/app/models/Almacen';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MapaEmpresasService {
+export class MapaEmpresasService  {
+  
   private baseUrl: string;
   private api = "api/DivisionPolitica";
   private api2 ="api/segmento";
   private api3= "api/UbicacionesView"
   constructor(private router: Router,
     @Inject('BASE_URL') baseUrl: string,
-    private http: HttpClient) {
-      this.baseUrl = baseUrl;
-  }
+    private http: HttpClient, private auth: AuthService) {
+    this.baseUrl = baseUrl;
+}
+
 
   getPais():any{
     return this.http.get(`${this.baseUrl}${this.api}/get_paises`);

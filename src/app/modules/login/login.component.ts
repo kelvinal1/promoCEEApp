@@ -149,14 +149,13 @@ export class LoginComponent {
               this.photoEmployee = this.dateEmpleado[0].emp_foto;
             }else{
               this.isPhoto=false
-
             }
             this.dateEmpleado[0].emp_celular = this.hidePhone(this.dateEmpleado[0].emp_celular)
           } else {
             this.cargarInfo = false;
             this.isSearched = false
             this.isLoading = false
-            this.msgService.error('El número de identificación no fue encontrado, Verificar por favor!')
+            this.msgService.warning('El número de identificación no fue encontrado, Verificar por favor!')
           }
         }, err => {
           this.msgService.warning("El número de identificación no fue encontrado, Verificar por favor!")

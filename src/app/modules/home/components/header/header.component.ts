@@ -132,19 +132,18 @@ export class HeaderComponent implements OnInit {
 
     this.auth.login(username, password, this.deviceInfo).subscribe(
       (res) => {
-
-        if (res) {
-          this.notificacionService.success('Bienvenido a Beneficios CEE', '');
+          this.notificacionService.success('Bienvenido a Beneficios CEE', 'Es un placer trabajar con usted');
           this.auth.setCredentials(res);
           this.isLoadingOne = false;
           this.isVisibleLogin = false
           this.validateForm.reset()
           this.login = true
           this.route.navigate(['home/search/', this.domain])
-        } else {
-          this.isLoadingOne = false;
-          this.notificacionService.success('Credeciales incorrectos, por favor verificar', '');
-        }
+        
+      },eror=>{
+        console.log(eror)
+        this.isLoadingOne = false;
+        this.notificacionService.error('Credenciales incorrectos','Intentelo nuevament por favor');
 
       }
     )
