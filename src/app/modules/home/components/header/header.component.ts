@@ -50,6 +50,8 @@ export class HeaderComponent implements OnInit {
     pais: this.pais
   };
 
+  loadingSkelet= true;
+
   domain: any = null;
   filtro: any = null;
 
@@ -158,20 +160,24 @@ export class HeaderComponent implements OnInit {
       this.cluster = this.dataSegmentos[0].codigo
       let codigos: any[] = this.router.url.split('/');
       if (this.route.url == '/home') {
+        this.loadingSkelet=false;
         this.domain = 1;
         this.router.navigate(['home/load/list/', this.domain, this.cluster, this.empresa, this.pais])
         this.setMark(this.cluster)
         this.textCluster = this.dataSegmentos[0].nombre
       } else if (codigos.length == 8) {
+        this.loadingSkelet=false;
         this.domain = codigos[4];
         this.cluster = codigos[5];
         this.setMark(this.cluster)
         this.changeText(this.cluster, this.empresa, this.pais)
       } else if (codigos.length == 6) {
+        this.loadingSkelet=false;
         this.domain = codigos[3];
         this.setMark(this.cluster)
         this.changeText(this.cluster, this.empresa, this.pais)
       } else if (codigos.length == 4) {
+        this.loadingSkelet=false;
         this.domain = codigos[3];
         this.setMark(this.cluster)
         this.changeText(this.cluster, this.empresa, this.pais)

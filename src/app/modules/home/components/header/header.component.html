@@ -34,18 +34,18 @@
                                             </nz-space>
                                         </ng-template>
                                         <ng-container>
-                                            <li nz-menu-item (click)="goInformationP()">
-                                                <nz-space>
-                                                    <span *nzSpaceItem nz-icon nzType="team"></span>
-                                                    <span *nzSpaceItem>Policias</span>
-                                                </nz-space>
-                                            </li>
-                                        </ng-container>
-                                        <ng-container>
                                             <li nz-menu-item (click)="goInformationE()">
                                                 <nz-space>
                                                     <span *nzSpaceItem nz-icon nzType="user"></span>
                                                     <span *nzSpaceItem>Empleados</span>
+                                                </nz-space>
+                                            </li>
+                                        </ng-container>
+                                        <ng-container>
+                                            <li nz-menu-item (click)="goInformationP()">
+                                                <nz-space>
+                                                    <span *nzSpaceItem nz-icon nzType="alert"></span>
+                                                    <span *nzSpaceItem>Policias</span>
                                                 </nz-space>
                                             </li>
                                         </ng-container>
@@ -60,18 +60,18 @@
                                             </nz-space>
                                         </ng-template>
                                         <ng-container>
-                                            <li nz-menu-item (click)="promosP()">
-                                                <nz-space>
-                                                    <span *nzSpaceItem nz-icon nzType="team"></span>
-                                                    <span *nzSpaceItem>Policias</span>
-                                                </nz-space>
-                                            </li>
-                                        </ng-container>
-                                        <ng-container>
                                             <li nz-menu-item (click)="promosE()">
                                                 <nz-space>
                                                     <span *nzSpaceItem nz-icon nzType="user"></span>
                                                     <span *nzSpaceItem>Empleados</span>
+                                                </nz-space>
+                                            </li>
+                                        </ng-container>
+                                        <ng-container>
+                                            <li nz-menu-item (click)="promosP()">
+                                                <nz-space>
+                                                    <span *nzSpaceItem nz-icon nzType="alert"></span>
+                                                    <span *nzSpaceItem>Policias</span>
                                                 </nz-space>
                                             </li>
                                         </ng-container>
@@ -105,14 +105,17 @@
                 <div style="text-align: center;">
                     <div nz-row [nzGutter]="6" class="upText"
                         style="margin-left: auto; margin-right: auto; text-align: center;">
-                        <div nz-col [nzSpan]="6" class="gutter-row" class="filtros">
+                        <div nz-col [nzSpan]="6" class="gutter-row"
+                            style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" class="filtros">
                             <button nz-tooltip nzTooltipTitle="Filtrar por cluster" (click)="clusterG()" nz-button
-                                nzType="text"><b class="text-fil"> {{textCluster}} </b></button>
+                                nzType="text" style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;"><b
+                                    class="text-fil" style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;"> {{textCluster}} </b></button>
                         </div>
                         <div nz-col [nzSpan]="6" class="gutter-row"
                             style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" class="filtros">
                             <button nz-tooltip nzTooltipTitle="Filtrar por empresa" (click)="companyG()" nz-button
-                                nzType="text"><b class="text-fil"> {{textCompany}} </b></button>
+                                nzType="text" style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;"><b
+                                    class="text-fil" style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;"> {{textCompany}} </b></button>
                         </div>
                         <div nz-col [nzSpan]="6" class="gutter-row" class="filtros">
                             <button nz-tooltip nzTooltipTitle="Filtrar por país" (click)="countryG()" nz-button
@@ -151,14 +154,16 @@
     <nz-tabset nzCentered [nzLinkRouter] [(nzSelectedIndex)]="opSelected">
         <nz-tab (nzClick)="goCluster(item)" *ngFor="let item of dataSegmentos" [nzTitle]="titleTemplate">
             <ng-template #titleTemplate [nzLinkExact]>
-                <div class="container-clusters">
-                    <div style="text-align: center;">
-                        <span>
-                            <img class="logo-cluster" src="assets/segmentos/{{item.icono}}" alt="ejemplo.jpg">
-                        </span>
+                <nz-skeleton [nzLoading]="loadingSkelet" [nzActive]="true" [nzAvatar]="true">
+                    <div class="container-clusters">
+                        <div style="text-align: center;">
+                            <span>
+                                <img class="logo-cluster" src="assets/segmentos/{{item.icono}}" alt="ejemplo.jpg">
+                            </span>
+                        </div>
+                        <div style="text-align: center; font-size: 12px;">{{ item.nombre }}</div>
                     </div>
-                    <div style="text-align: center; font-size: 12px;">{{ item.nombre }}</div>
-                </div>
+                </nz-skeleton>
             </ng-template>
         </nz-tab>
     </nz-tabset>

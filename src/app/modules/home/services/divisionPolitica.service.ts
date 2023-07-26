@@ -1,4 +1,4 @@
-import { HttpClient, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -8,20 +8,33 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class DivisionPoliticaService  {
+export class DivisionPoliticaService{
 
   private baseUrl: string;
   private api = "api/DivisionPolitica";
+  private headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    Authorization: `${environment.token}`,
+  });
+
   constructor(private router: Router,
     @Inject('BASE_URL') baseUrl: string,
     private http: HttpClient, private auth: AuthService) {
     this.baseUrl = baseUrl;
-}
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `${environment.token}`,
+    });
+  }
 
 
 
   getPaises(): Observable<any> {
-    return this.http.get(`${this.baseUrl}${this.api}/get_paises`);
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `${environment.token}`,
+    });
+    return this.http.get(`${this.baseUrl}${this.api}/get_paises`, { headers: this.headers });
   }
 
 }

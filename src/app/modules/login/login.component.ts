@@ -4,7 +4,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { InvoicePolicemanService } from '../home/services/invoicePoliceman.service';
 import { AuthService } from 'src/app/core/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { EmpleadoService } from '../home/services/empleado.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NotificacionService } from 'src/app/core/notificacion.service';
@@ -95,11 +95,18 @@ export class LoginComponent {
 
 
       if (this.auth.isLogin()) {
+        this.cargarInfo = false
+      this.isSearched = false
+      this.isLoading = false
+      this.isPhoto = false
+  
+      this.searchText="";
+      this.photoEmployee = null
         if (this.domain == 1) {
-          this.notificacionService.info('CAMBIO DE PROMOCIONES','Usted esta trabajando con sección empleados')
+          this.notificacionService.info('CAMBIO DE PROMOCIONES', 'Usted esta trabajando con sección empleados')
           this.titleForm = 'DE EMPLEADOS'
         } else if (this.domain == 2) {
-          this.notificacionService.info('CAMBIO DE PROMOCIONES','Usted esta trabajando con sección de policias')
+          this.notificacionService.info('CAMBIO DE PROMOCIONES', 'Usted esta trabajando con sección de policias')
           this.titleForm = 'DE OFICIALES DE POLICIA'
         }
         this.validateForm = this.fb.group({
@@ -133,6 +140,8 @@ export class LoginComponent {
       this.isLoading = false
       this.isPhoto = false
       this.photoEmployee = null
+
+
 
       return;
     } else {
@@ -232,8 +241,25 @@ export class LoginComponent {
 
   saveInvoice() {
     if (!this.validateForm.valid) {
-      this.msgService.error("Existen campos que no estan ingresados o campos que se ingresaron de manera incorrecta, verificar por favor!")
+
+      if(this.validateForm.get('pip_num_invoice')?.invalid){
+        this.msgService.error("Número de factura ingresado es incorrecto, verificar por favor!")
+        this.validateForm.get('pip_num_invoice')?.markAsPending
+      }
+
+      if(this.validateForm.get('pip_date_invoice')?.invalid){
+        this.msgService.error("Fecha ingresada esta incorrecta, verificar por favor!")
+      }
+
+      if(this.validateForm.get('pip_amount')?.invalid){
+        this.msgService.error("Monto ingresado es incorrecto, verificar por favor!")
+      }
+
+      if(this.validateForm.get('pip_discount')?.invalid){
+        this.msgService.error("Descuento ingresado es incorrecto, verificar por favor!")
+      }
       return;
+
     }
 
     let dataForm = this.validateForm.value;
