@@ -1,5 +1,5 @@
 <nz-spin [nzSpinning]="isLoading"></nz-spin>
-<div nz-row *ngIf="!isLoading"
+<div nz-row *ngIf="!isLoading && viewCom"
     style="justify-content: center;text-align: center;align-items: center;margin-left: 60px;margin-right: 60px;">
 
 
@@ -193,4 +193,13 @@
         </div>
 
     </div>
+</div>
+<div *ngIf="!isLoading && !viewCom">
+    <nz-content *ngIf="dataPromotions.length == 0">
+        <nz-result [nzIcon]="'frown'" style="font-weight: bold;"
+            [nzTitle]="'LA PROMOCION A LA QUE DESEA INGRESAR YA NO ESTA VIEGENTE, SENTIMOS LA MOLESTIA'">
+            <div nz-result-extra>
+            </div>
+        </nz-result>
+    </nz-content>
 </div>

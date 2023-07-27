@@ -191,6 +191,11 @@
     flex-wrap: wrap;
 }
 
+.filtros {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .icono-log {
     color: #0a1c47;
     font: icon;

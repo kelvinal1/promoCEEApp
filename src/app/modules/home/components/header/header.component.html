@@ -109,13 +109,17 @@
                             style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" class="filtros">
                             <button nz-tooltip nzTooltipTitle="Filtrar por cluster" (click)="clusterG()" nz-button
                                 nzType="text" style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;"><b
-                                    class="text-fil" style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;"> {{textCluster}} </b></button>
+                                    class="text-fil"
+                                    style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
+                                    {{textCluster}} </b></button>
                         </div>
                         <div nz-col [nzSpan]="6" class="gutter-row"
                             style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" class="filtros">
                             <button nz-tooltip nzTooltipTitle="Filtrar por empresa" (click)="companyG()" nz-button
                                 nzType="text" style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;"><b
-                                    class="text-fil" style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;"> {{textCompany}} </b></button>
+                                    class="text-fil"
+                                    style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
+                                    {{textCompany}} </b></button>
                         </div>
                         <div nz-col [nzSpan]="6" class="gutter-row" class="filtros">
                             <button nz-tooltip nzTooltipTitle="Filtrar por país" (click)="countryG()" nz-button
@@ -136,25 +140,20 @@
                                         (click)="clearFilter()" nz-button nzType="primary"
                                         style="background-color: #0a1c47; border-color: #0a1c47;" nzShape="circle"><span
                                             nz-icon style="color: white;" nzType="clear"></span></button>
-
                                 </div>
-
                             </div>
-
-
-
                         </div>
-
                     </div>
                 </div>
             </nz-card>
         </nz-content>
     </div>
     <nz-divider class="down2"></nz-divider>
-    <nz-tabset nzCentered [nzLinkRouter] [(nzSelectedIndex)]="opSelected">
-        <nz-tab (nzClick)="goCluster(item)" *ngFor="let item of dataSegmentos" [nzTitle]="titleTemplate">
-            <ng-template #titleTemplate [nzLinkExact]>
-                <nz-skeleton [nzLoading]="loadingSkelet" [nzActive]="true" [nzAvatar]="true">
+    <nz-spin [nzSpinning]="loadingSkelet" >
+        <nz-tabset nzCentered [nzLinkRouter] [(nzSelectedIndex)]="opSelected">
+            <nz-tab (nzClick)="goCluster(item)" *ngFor="let item of dataSegmentos" [nzTitle]="titleTemplate">
+                <ng-template #titleTemplate [nzLinkExact]>
+
                     <div class="container-clusters">
                         <div style="text-align: center;">
                             <span>
@@ -163,10 +162,10 @@
                         </div>
                         <div style="text-align: center; font-size: 12px;">{{ item.nombre }}</div>
                     </div>
-                </nz-skeleton>
-            </ng-template>
-        </nz-tab>
-    </nz-tabset>
+                </ng-template>
+            </nz-tab>
+        </nz-tabset>
+    </nz-spin>
     <router-outlet></router-outlet>
 </div>
 <app-footer></app-footer>

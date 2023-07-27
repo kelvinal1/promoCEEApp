@@ -165,6 +165,7 @@ export class HeaderComponent implements OnInit {
         this.router.navigate(['home/load/list/', this.domain, this.cluster, this.empresa, this.pais])
         this.setMark(this.cluster)
         this.textCluster = this.dataSegmentos[0].nombre
+       
       } else if (codigos.length == 8) {
         this.loadingSkelet=false;
         this.domain = codigos[4];
@@ -199,12 +200,13 @@ export class HeaderComponent implements OnInit {
 
 
 
-  setMark(codigo: any) {
+  setMark(codigoCluster: any) {
     for (let index = 0; index < this.dataSegmentos.length; index++) {
-      if (this.dataSegmentos[index].codigo == codigo) {
+      if (this.dataSegmentos[index].codigo == codigoCluster) {
         this.opSelected = index
       }
     }
+   
   }
 
   goCluster(item: any) {

@@ -31,8 +31,8 @@ export class PromotionComponent {
   almacenes!: Array<Almacen>;
   dataPromotions: any[] = [];
 
-  tituloForm!: any ; 
-
+  tituloForm!: any;
+  viewCom= false;
   center!: google.maps.LatLngLiteral;
   height!: number;
   width!: number;
@@ -51,7 +51,7 @@ export class PromotionComponent {
 
   cod?: any;
 
-  skeleton:boolean= true;
+  skeleton: boolean = true;
   domain?: any;
 
 
@@ -94,7 +94,7 @@ export class PromotionComponent {
   ngOnInit(): void {
     this.cod = this.activadedRoute.snapshot.paramMap.get("cod")
     this.domain = this.activadedRoute.snapshot.paramMap.get("domain")
-
+    this.viewCom=false;
     this.getInformationPromo();
     this.getPromotions();
 
@@ -102,21 +102,30 @@ export class PromotionComponent {
 
   getInformationPromo() {
     this.promotionService.getOnlyProtionAndImages(this.cod).subscribe(value => {
-      this.dataPromotion = value.data
-      this.dataImagenes = this.dataPromotion.prm_imagenes;
-      this.getUbiCompnay(this.dataPromotion.prm_company_id);
-      this.cadenaWpp = "https://wa.me/" + this.dataPromotion.prm_phone + "?text=" + this.dataPromotion.prm_message_whatsapp +" \nEnlace promoción: http://promotions.curbe.com.ec"+this.router.url ;
-      document.getElementById("cadenaWpp")?.setAttribute('href', this.cadenaWpp);
-      this.isLoading = false;
+
+      if (value.data!=null) {
+        this.dataPromotion = value.data
+        this.dataImagenes = this.dataPromotion.prm_imagenes;
+        this.getUbiCompnay(this.dataPromotion.prm_company_id);
+        this.cadenaWpp = "https://wa.me/" + this.dataPromotion.prm_phone + "?text=" + this.dataPromotion.prm_message_whatsapp + " \nEnlace promoción: http://promotions.curbe.com.ec" + this.router.url;
+        document.getElementById("cadenaWpp")?.setAttribute('href', this.cadenaWpp);
+        this.isLoading = false;
+        this.viewCom=true;
+
+      } else {
+        this.isLoading = false;
+        this.viewCom=false;
+      }
+
 
     })
   }
 
 
   getPromotions() {
-    this.promotionService.getPromotionsByFilter(this.domain,0, 0, 0).subscribe(value => {
+    this.promotionService.getPromotionsByFilter(this.domain, 0, 0, 0).subscribe(value => {
       this.dataPromotions = value.data;
-      this.skeleton=false
+      this.skeleton = false
     })
   }
 
@@ -235,17 +244,17 @@ export class PromotionComponent {
 
   goWpp(item: any) {
     this.setDomain();
-    this.cadenaWpp = "https://wa.me/" + item.prm_phone + "?text=" + item.prm_message_whatsapp +" \nEnlace promoción: http://promotions.curbe.com.ec/home/load/"+this.domain+"/promotion/"+item.prm_id;
+    this.cadenaWpp = "https://wa.me/" + item.prm_phone + "?text=" + item.prm_message_whatsapp + " \nEnlace promoción: http://promotions.curbe.com.ec/home/load/" + this.domain + "/promotion/" + item.prm_id;
     window.open(this.cadenaWpp)
   }
 
 
   goPromo(item: any) {
     this.setDomain()
-    window.open('home/load/'+this.domain+'/promotion/' + item.prm_id)
+    window.open('home/load/' + this.domain + '/promotion/' + item.prm_id)
   }
 
-  setDomain(){
+  setDomain() {
 
     this.domain = this.activadedRoute.snapshot.paramMap.get('domain');
   }
