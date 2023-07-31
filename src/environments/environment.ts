@@ -7,7 +7,7 @@ export const environment = {
   apiUrl: 'https://localhost:44323/',
   apiMail: 'https://localhost:7179/',
   apiCompany: 'https://localhost:44359/',
-  token:'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBRE1JTklTVFJBRE9SIiwiaWRVc3VhcmlvIjoiMSIsImV4cCI6MTY5MDU1MTgyMCwiaXNzIjoiZG9taW5pby1mcm9udC5jb20iLCJhdWQiOiJkb21pbmlvLWJhY2suY29tIn0.IBn9xzF051ITJ1dMEoIsa9ax5s987cB7MR9jUmIJXlM',};
+  token:'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBRE1JTklTVFJBRE9SIiwiaWRVc3VhcmlvIjoiMSIsImV4cCI6MTY5NTczODE0MSwiaXNzIjoiZG9taW5pby1mcm9udC5jb20iLCJhdWQiOiJkb21pbmlvLWJhY2suY29tIn0.IMC8lk7iP20Y8zBF2F00tYT__vGMBBRcyhPhQ0t_jCI',};
 
 /*
  * For easier debugging in development mode, you can import the following file
