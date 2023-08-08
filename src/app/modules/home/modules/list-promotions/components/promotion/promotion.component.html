@@ -142,7 +142,7 @@
     <div nz-col nzSpan="24" style="display: flex;justify-content: center;">
         <div class="container-carousel" style="margin-top: 25px;">
             <div style="text-align: center;">
-                <h1 style="font-weight: bold;">Ven y disfruta de nuestras promociones</h1>
+                <h1 style="font-weight: bold;">VEN Y APROVECHA DE NUESTROS BENEFICIOS</h1>
             </div>
             <nz-spin [nzSpinning]="skeleton"></nz-spin>
             <p-carousel class="container-carousel" [value]="dataPromotions" [numVisible]="3" [numScroll]="3"
@@ -176,10 +176,10 @@
                                 style=" height: 48px; justify-content: center; display: flex; justify-content: center; align-items: center;">
                                 <div style="align-items: center;
                                 display: inherit;">
-                                    <p-button type="button" styleClass="p-button-success p-button-rounded mr-2"
+                                    <p-button pTooltip="Contactar por whatsapp" tooltipPosition="bottom" type="button" styleClass="p-button-success p-button-rounded mr-2"
                                         icon="pi pi-whatsapp" (onClick)="goWpp(promotion)"></p-button>
                                     <div style="margin: 4px;"></div>
-                                    <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-eye"
+                                    <p-button pTooltip="Ver beneficio" tooltipPosition="bottom" type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-eye"
                                         (onClick)="goPromo(promotion)"></p-button>
                                 </div>
 
@@ -197,7 +197,7 @@
 <div *ngIf="!isLoading && !viewCom">
     <nz-content *ngIf="dataPromotions.length == 0">
         <nz-result [nzIcon]="'frown'" style="font-weight: bold;"
-            [nzTitle]="'LA PROMOCION A LA QUE DESEA INGRESAR YA NO ESTA VIEGENTE, SENTIMOS LA MOLESTIA'">
+            [nzTitle]="'EL BENEFICIO AL QUE DESEA INGRESAR YA NO ESTA VIGENTE, SENTIMOS LA MOLESTIA'">
             <div nz-result-extra>
             </div>
         </nz-result>

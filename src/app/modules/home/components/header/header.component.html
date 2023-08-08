@@ -4,7 +4,7 @@
         <nz-breadcrumb nz-page-header-breadcrumb>
             <div class="top-left">
                 <div style="align-items: center;">
-                    <button nz-button nzType="text" style="background-color: transparent;">
+                    <button nz-tooltip nzTooltipTitle="Inicio"  nzTooltipPlacement="bottom" (click)="goHome()" nz-button nzType="text" style="background-color: transparent;">
                         <img class="icono-eljuri" src="assets/icons/corporacion-eljuri.png">
                     </button>
                 </div>
@@ -30,7 +30,7 @@
                                         <ng-template #sendtempl>
                                             <nz-space>
                                                 <span *nzSpaceItem nz-icon nzType="search"></span>
-                                                <span *nzSpaceItem>Consultar </span>
+                                                <span *nzSpaceItem>Consultar información </span>
                                             </nz-space>
                                         </ng-template>
                                         <ng-container>
@@ -56,7 +56,7 @@
                                         <ng-template #sendtempl2>
                                             <nz-space>
                                                 <span *nzSpaceItem nz-icon nzType="gift"></span>
-                                                <span *nzSpaceItem>Promociones </span>
+                                                <span *nzSpaceItem>Ver beneficios</span>
                                             </nz-space>
                                         </ng-template>
                                         <ng-container>
@@ -127,9 +127,8 @@
                         </div>
                         <div nz-col [nzSpan]="6" class="gutter-row" class="filtros">
                             <div nz-row>
-
                                 <div nz-col [nzSpan]="12">
-                                    <button nz-tooltip nzTooltipTitle="Filtrar promociones" (click)="visibleDraw=true"
+                                    <button nz-tooltip nzTooltipTitle="Filtrar beneficios" (click)="visibleDraw=true"
                                         nz-button nzType="primary"
                                         style="background-color: #0a1c47; border-color: #0a1c47;" nzShape="circle"><span
                                             nz-icon style="color: white;" nzType="search"></span></button>

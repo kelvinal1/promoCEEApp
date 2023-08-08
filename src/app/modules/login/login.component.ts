@@ -103,10 +103,10 @@ export class LoginComponent {
       this.searchText="";
       this.photoEmployee = null
         if (this.domain == 1) {
-          this.notificacionService.info('CAMBIO DE PROMOCIONES', 'Usted esta trabajando con sección empleados')
+          this.notificacionService.info('CAMBIO DE BENEFICIOS', 'Usted esta trabajando con sección empleados')
           this.titleForm = 'DE EMPLEADOS'
         } else if (this.domain == 2) {
-          this.notificacionService.info('CAMBIO DE PROMOCIONES', 'Usted esta trabajando con sección de policias')
+          this.notificacionService.info('CAMBIO DE BENEFICIOS', 'Usted esta trabajando con sección de policias')
           this.titleForm = 'DE OFICIALES DE POLICIA'
         }
         this.validateForm = this.fb.group({

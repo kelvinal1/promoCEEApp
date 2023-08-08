@@ -58,8 +58,7 @@
                             <div style="text-align: right;">
                                 <div style="font: icon; font-size: 11px; margin-left: 43px;">
                                     <span nz-icon nzType="whats-app" style="color: #0FC044;"></span>
-                                    <a target="_blank"
-                                        [href]="'https://wa.me/'+promo.prm_phone+'?text='+promo.prm_message_whatsapp">
+                                    <a target="_blank">
                                         <b style="font-size: 12px;"> {{promo.prm_phone}} </b>
                                     </a>
                                 </div>
@@ -77,7 +76,7 @@
 <div *ngIf="!isLoading">
     <nz-content *ngIf="dataPromotions.length == 0">
         <nz-result [nzIcon]="'frown'" style="font-weight: bold;"
-            [nzTitle]="'NO HAY PROMOCIONES DISPONIBLES EN ESTE MOMENTO'">
+            [nzTitle]="'NO HAY BENEFICIOS DISPONIBLES EN ESTE MOMENTO'">
             <div nz-result-extra>
             </div>
         </nz-result>

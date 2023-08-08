@@ -123,6 +123,10 @@ export class HeaderComponent implements OnInit {
     })
   }
 
+  goHome(){
+    this.router.navigate(['home/load/list/', this.domain, this.cluster, this.empresa, this.pais])
+  }
+
   submitForm() {
     if (!this.validateForm.valid) {
       this.notificacionService.error('Credenciales', 'Ingrese datos validos');
@@ -147,7 +151,7 @@ export class HeaderComponent implements OnInit {
       }, eror => {
         console.log(eror)
         this.isLoadingOne = false;
-        this.notificacionService.error('Credenciales incorrectos', 'Intentelo nuevament por favor');
+        this.notificacionService.error('Credenciales incorrectos', 'Intentelo nuevamente por favor');
 
       }
     )
@@ -359,13 +363,13 @@ export class HeaderComponent implements OnInit {
   promosP() {
     this.domain = 2
     this.router.navigate(['home/load/list/', this.domain, this.cluster, this.empresa, this.pais])
-    this.notificacionService.info('CAMBIO DE PROMOCIONES', 'Usted esta trabajando con sección de policias')
+    this.notificacionService.info('CAMBIO DE BENEFICIOS', 'Usted esta trabajando con sección de policias')
   }
 
   promosE() {
     this.domain = 1
     this.router.navigate(['home/load/list/', this.domain, this.cluster, this.empresa, this.pais])
-    this.notificacionService.info('CAMBIO DE PROMOCIONES', 'Usted esta trabajando con sección empleados')
+    this.notificacionService.info('CAMBIO DE BENEFICIOS', 'Usted esta trabajando con sección empleados')
   }
 
 }
