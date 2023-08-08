@@ -103,8 +103,8 @@ export class LoginComponent {
       this.searchText="";
       this.photoEmployee = null
         if (this.domain == 1) {
-          this.notificacionService.info('CAMBIO DE BENEFICIOS', 'Usted esta trabajando con sección empleados')
-          this.titleForm = 'DE EMPLEADOS'
+          this.notificacionService.info('CAMBIO DE BENEFICIOS', 'Usted esta trabajando con sección de colaboradores')
+          this.titleForm = 'DE COLABORADORES'
         } else if (this.domain == 2) {
           this.notificacionService.info('CAMBIO DE BENEFICIOS', 'Usted esta trabajando con sección de policias')
           this.titleForm = 'DE OFICIALES DE POLICIA'
@@ -122,7 +122,7 @@ export class LoginComponent {
 
       } else {
         this.visible = false
-        this.msgService.error("Usted no ha iniciado sesiòn, VERIFICAR POR FAVOR !")
+        this.msgService.error("Usted no ha iniciado sesión, VERIFICAR POR FAVOR!")
       }
 
     })
