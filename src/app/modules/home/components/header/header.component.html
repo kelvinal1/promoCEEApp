@@ -4,7 +4,8 @@
         <nz-breadcrumb nz-page-header-breadcrumb>
             <div class="top-left">
                 <div style="align-items: center;">
-                    <button nz-tooltip nzTooltipTitle="Inicio"  nzTooltipPlacement="bottom" (click)="goHome()" nz-button nzType="text" style="background-color: transparent;">
+                    <button nz-tooltip nzTooltipTitle="Inicio" nzTooltipPlacement="bottom" (click)="goHome()" nz-button
+                        nzType="text" style="background-color: transparent;">
                         <img class="icono-eljuri" src="assets/icons/corporacion-eljuri.png">
                     </button>
                 </div>
@@ -125,7 +126,26 @@
                             <button nz-tooltip nzTooltipTitle="Filtrar por país" (click)="countryG()" nz-button
                                 nzType="text"><b class="text-fil"> {{textCountry}} </b></button>
                         </div>
-                        <div nz-col [nzSpan]="6" class="gutter-row" class="filtros">
+                        <div nz-col [nzSpan]="6" class="gutter-row" class="filtros" style="display: flex;
+                        align-items: center;">
+                            <div nz-col nzSpan="12">
+
+                                <button nz-tooltip nzTooltipTitle="Filtrar beneficios" (click)="visibleDraw=true"
+                                    nz-button nzType="primary" style="background-color: #0a1c47; border-color: #0a1c47;"
+                                    nzShape="circle"><span nz-icon style="color: white;"
+                                        nzType="search"></span></button>
+
+                            </div>
+                            <div nz-col nzSpan="12">
+                                <button nz-tooltip nzTooltipTitle="Limpiar todos los filtros" (click)="clearFilter()"
+                                    nz-button nzType="primary" style="background-color: #0a1c47; border-color: #0a1c47;"
+                                    nzShape="circle"><span nz-icon style="color: white;" nzType="clear"></span></button>
+
+                            </div>
+
+
+
+                            <!--
                             <div nz-row>
                                 <div nz-col [nzSpan]="12">
                                     <button nz-tooltip nzTooltipTitle="Filtrar beneficios" (click)="visibleDraw=true"
@@ -141,6 +161,8 @@
                                             nz-icon style="color: white;" nzType="clear"></span></button>
                                 </div>
                             </div>
+
+                            -->
                         </div>
                     </div>
                 </div>
@@ -148,7 +170,7 @@
         </nz-content>
     </div>
     <nz-divider class="down2"></nz-divider>
-    <nz-spin [nzSpinning]="loadingSkelet" >
+    <nz-spin [nzSpinning]="loadingSkelet">
         <nz-tabset nzCentered [nzLinkRouter] [(nzSelectedIndex)]="opSelected">
             <nz-tab (nzClick)="goCluster(item)" *ngFor="let item of dataSegmentos" [nzTitle]="titleTemplate">
                 <ng-template #titleTemplate [nzLinkExact]>
