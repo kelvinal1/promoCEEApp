@@ -13,7 +13,7 @@ declare const gtag: Function; // <------------Important: the declartion for gtag
 })
 export class AppComponent implements OnInit {
 
-  title = 'promoCEEApp';
+  title = 'Beneficios CEE';
   loadingDataImg: boolean = false;
 
 
