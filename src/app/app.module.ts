@@ -1,5 +1,6 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { GoogleTagManagerModule } from 'angular-google-tag-manager';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -37,7 +38,7 @@ const maskConfig: Partial<IConfig> = {
     BrowserAnimationsModule,
     NgZorroAntdModule,
     NgPrimeAntdModule,
-    NgxMaskModule.forRoot(maskConfig)
+    NgxMaskModule.forRoot(maskConfig),
   ],
   providers: [
     { provide: NZ_I18N, useValue: es_ES },

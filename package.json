@@ -21,6 +21,7 @@
     "@angular/router": "^16.1.0",
     "@types/d3": "^7.4.0",
     "@types/d3-selection": "^3.0.5",
+    "angular-google-tag-manager": "^1.8.0",
     "d3-geo-zoom": "^1.5.1",
     "d3-selection": "^3.0.0",
     "d3-shape": "^3.2.0",

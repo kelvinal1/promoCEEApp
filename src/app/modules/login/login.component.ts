@@ -99,7 +99,7 @@ export class LoginComponent {
       this.isSearched = false
       this.isLoading = false
       this.isPhoto = false
-  
+
       this.searchText="";
       this.photoEmployee = null
         if (this.domain == 1) {
