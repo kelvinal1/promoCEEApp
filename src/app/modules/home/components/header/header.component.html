@@ -108,26 +108,38 @@
                         style="margin-left: auto; margin-right: auto; text-align: center;">
                         <div nz-col [nzSpan]="6" class="gutter-row"
                             style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" class="filtros">
-                            <button nz-tooltip nzTooltipTitle="Filtrar por cluster" (click)="clusterG()" nz-button
-                                nzType="text" style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;"><b
-                                    class="text-fil"
-                                    style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
-                                    {{textCluster}} </b></button>
+                            <div nz-col nzSpan="24" style="display: grid;">
+                                <button nz-tooltip nzTooltipTitle="Filtrar por cluster" (click)="clusterG()" nz-button
+                                    nzType="text"
+                                    style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;"><b
+                                        class="text-fil"
+                                        style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
+                                        {{textCluster}} </b></button>
+
+                            </div>
                         </div>
                         <div nz-col [nzSpan]="6" class="gutter-row"
                             style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" class="filtros">
-                            <button nz-tooltip nzTooltipTitle="Filtrar por empresa" (click)="companyG()" nz-button
-                                nzType="text" style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;"><b
-                                    class="text-fil"
-                                    style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
-                                    {{textCompany}} </b></button>
+
+                            <div nz-col nzSpan="24" style="display: grid;">
+                                <button nz-tooltip nzTooltipTitle="Filtrar por empresa" (click)="companyG()" nz-button
+                                    nzType="text"
+                                    style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;"><b
+                                        class="text-fil"
+                                        style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
+                                        {{textCompany}} </b></button>
+                            </div>
+
+
                         </div>
                         <div nz-col [nzSpan]="6" class="gutter-row" class="filtros">
-                            <button nz-tooltip nzTooltipTitle="Filtrar por país" (click)="countryG()" nz-button
-                                nzType="text"><b class="text-fil"> {{textCountry}} </b></button>
+                            <div nz-col nzSpan="24" style="display: grid;">
+                                <button nz-tooltip nzTooltipTitle="Filtrar por país" (click)="countryG()" nz-button
+                                    nzType="text"><b class="text-fil"> {{textCountry}} </b></button>
+                            </div>
                         </div>
                         <div nz-col [nzSpan]="6" class="gutter-row" class="filtros" style="display: flex;
-                        align-items: center;">
+                        align-items: center; padding-top: 2px;">
                             <div nz-col nzSpan="12">
 
                                 <button nz-tooltip nzTooltipTitle="Filtrar beneficios" (click)="visibleDraw=true"

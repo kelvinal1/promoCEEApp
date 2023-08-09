@@ -15,6 +15,8 @@ import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { InterceptorService } from './core/interceptor.service';
 import { NgPrimeAntdModule } from './ng-prime.module';
 import { NgxMaskModule, IConfig } from 'ngx-mask'
+import { NgxGoogleAnalyticsModule,NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
+
 
 
 registerLocaleData(es);
@@ -39,6 +41,8 @@ const maskConfig: Partial<IConfig> = {
     NgZorroAntdModule,
     NgPrimeAntdModule,
     NgxMaskModule.forRoot(maskConfig),
+    NgxGoogleAnalyticsModule.forRoot('G-VTP4850942'),
+    NgxGoogleAnalyticsRouterModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: es_ES },

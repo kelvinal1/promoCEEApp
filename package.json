@@ -28,6 +28,7 @@
     "d3-zoom": "^3.0.0",
     "dagre-compound": "^0.0.13",
     "ng-zorro-antd": "^16.0.0",
+    "ngx-google-analytics": "^14.0.1",
     "ngx-mask": "^13.1.13",
     "primeicons": "^6.0.1",
     "primeng": "^16.0.2",
