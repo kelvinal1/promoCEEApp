@@ -194,8 +194,8 @@
 
     </div>
 </div>
-<div *ngIf="!isLoading && !viewCom">
-    <nz-content *ngIf="dataPromotions.length == 0">
+<div *ngIf="isLoading==false && viewCom==false">
+    <nz-content>
         <nz-result [nzIcon]="'frown'" style="font-weight: bold;"
             [nzTitle]="'EL BENEFICIO AL QUE DESEA INGRESAR YA NO ESTA VIGENTE, SENTIMOS LA MOLESTIA'">
             <div nz-result-extra>
