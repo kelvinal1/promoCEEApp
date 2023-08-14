@@ -41,7 +41,7 @@ const maskConfig: Partial<IConfig> = {
     NgZorroAntdModule,
     NgPrimeAntdModule,
     NgxMaskModule.forRoot(maskConfig),
-    NgxGoogleAnalyticsModule.forRoot('G-4XCGEYX6ZH'),
+    NgxGoogleAnalyticsModule.forRoot('G-QX7F9Z2GM4'),
     NgxGoogleAnalyticsRouterModule
   ],
   providers: [
