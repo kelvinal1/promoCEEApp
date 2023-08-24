@@ -107,7 +107,7 @@ export class PromotionComponent {
         this.dataPromotion = value.data
         this.dataImagenes = this.dataPromotion.prm_imagenes;
         this.getUbiCompnay(this.dataPromotion.prm_company_id);
-        this.cadenaWpp = "https://wa.me/" + this.dataPromotion.prm_phone + "?text=" + this.dataPromotion.prm_message_whatsapp + " \n  Enlace beneficio: https://promotions.curbe.com.ec" + this.router.url;
+        this.cadenaWpp = "https://wa.me/" + this.dataPromotion.prm_phone + "?text=" + this.dataPromotion.prm_message_whatsapp + " \n  Enlace beneficio: https://beneficios.corp.ec" + this.router.url;
         document.getElementById("cadenaWpp")?.setAttribute('href', this.cadenaWpp);
         this.isLoading = false;
         this.viewCom=true;
@@ -244,7 +244,7 @@ export class PromotionComponent {
 
   goWpp(item: any) {
     this.setDomain();
-    this.cadenaWpp = "https://wa.me/" + item.prm_phone + "?text=" + item.prm_message_whatsapp + " \nEnlace beneficio: https://promotions.curbe.com.ec/home/load/" + this.domain + "/promotion/" + item.prm_id;
+    this.cadenaWpp = "https://wa.me/" + item.prm_phone + "?text=" + item.prm_message_whatsapp + " \nEnlace beneficio: https://beneficios.corp.ec/home/load/" + this.domain + "/promotion/" + item.prm_id;
     window.open(this.cadenaWpp)
   }
 
